@@ -1,0 +1,43 @@
+{
+  "name": "pomelo-admin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "serve": "vite",
+    "build": "vue-tsc && vite build",
+    "build:prod": "vue-tsc && vite build --mode production",
+    "build:staging": "vue-tsc && vite build --mode staging",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "@vueuse/core": "^13.1.0",
+    "autoprefixer": "10",
+    "axios": "^1.9.0",
+    "element-plus": "2",
+    "lodash": "^4.17.21",
+    "nprogress": "^0.2.0",
+    "pinia": "2",
+    "postcss": "8",
+    "sass": "1.60",
+    "tailwindcss": "3",
+    "unplugin-auto-import": "^19.1.2",
+    "unplugin-vue-components": "^28.5.0",
+    "vue": "^3.5.13",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/nprogress": "^0.2.3",
+    "@types/path-browserify": "^1.0.3",
+    "@vitejs/plugin-vue": "^5.2.2",
+    "@vue/tsconfig": "^0.7.0",
+    "path-browserify": "^1.0.1",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1",
+    "vue-tsc": "^2.2.8"
+  }
+}
