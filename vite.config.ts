@@ -22,6 +22,7 @@ export default defineConfig({
       dts: 'src/components.d.ts',
     }),
   ],
+  base: '/vue-pomelo-admin/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
