@@ -22,6 +22,7 @@ const isDark = inject('isDark', false);
 // 获取路由
 const routes = computed(() => {
   // 过滤掉 hidden: true 的路由
+  // console.log(router.options.routes.filter(route => !route.meta?.hidden));
   return router.options.routes.filter(route => !route.meta?.hidden);
 });
 

@@ -1,52 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import type { RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { getToken } from '@/utils/auth';
 import { useUserStore } from '@/store/modules/user';
-
-// 路由配置
-const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    redirect: '/dashboard',
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/index.vue'),
-    meta: { title: '登录', hidden: true },
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('@/layout/index.vue'),
-    redirect: '/dashboard/index',
-    meta: { title: '控制台', icon: 'dashboard' },
-    children: [
-      {
-        path: 'index',
-        name: 'DashboardIndex',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: { title: '控制台', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/error/404.vue'),
-    meta: { title: '404', hidden: true },
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/404',
-    meta: { hidden: true },
-  },
-];
+import i18n from '@/locales';
+// 导入路由配置，所有路由模块已在routes.ts中聚合
+import routes from './routes';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior: () => ({ top: 0 }),
 });
@@ -55,17 +17,50 @@ const router = createRouter({
 NProgress.configure({ showSpinner: false });
 
 // 白名单
-const whiteList = ['/login', '/404'];
+const whiteList = ['/login', '/404', '/403', '/500', '/error/404', '/error/403', '/error/500', '/dashboard', '/dashboard/index'];
 
 // 全局前置守卫
 router.beforeEach(async (to, from, next) => {
   // 启动进度条
   NProgress.start();
 
+  // 更详细的调试输出
+  // console.log('----路由导航详情----');
+  // console.log('从:', from.path, '导航到:', to.path);
+  // console.log('完整路径:', to.fullPath);
+  // console.log('路由配置:', router.options.routes.map(route => route.path));
+  // console.log('匹配的路由组件:', to.matched.map(record => ({
+  //   path: record.path,
+  //   redirect: record.redirect,
+  //   component: record.components?.default?.name || '未命名组件'
+  // })));
+  // console.log('查询参数:', to.query);
+  // console.log('-------------------');
+
   // 设置页面标题
-  document.title = `${to.meta.title || ''} - ${import.meta.env.VITE_APP_TITLE}`;
+  const title = to.meta.title 
+    ? i18n.global.t(`menu.${to.meta.title as string}`) 
+    : '';
+  const appTitle = i18n.global.t('common.appTitle');
+  document.title = title ? `${title} - ${appTitle}` : appTitle;
 
   const hasToken = getToken();
+
+  // 检查是否是错误页面模块路由或控制台页面
+  const isErrorModulePage = to.path.startsWith('/error/');
+  const isDashboardPage = to.path === '/dashboard' || to.path === '/dashboard/index';
+  
+  if (isErrorModulePage || isDashboardPage) {
+    // console.log('检测到特殊模块页面:', to.path);
+    // 特殊处理控制台首页
+    if (to.path === '/dashboard') {
+      // console.log('重定向到控制台首页');
+      next('/dashboard/index');
+      return;
+    }
+    next();
+    return;
+  }
 
   if (hasToken) {
     if (to.path === '/login') {

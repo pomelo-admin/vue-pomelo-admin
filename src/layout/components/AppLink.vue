@@ -22,6 +22,7 @@ const linkType = computed(() => {
 
 // 链接属性
 const linkProps = computed(() => {
+  // console.log('AppLink to:', props.to);
   return isExternal(props.to)
     ? {
       href: props.to,
