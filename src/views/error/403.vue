@@ -1,9 +1,9 @@
 <template>
   <div class="error-container">
     <div class="error-content">
-      <h1 class="error-code">404</h1>
-      <div class="error-message">{{ $t('error.notFound') }}</div>
-      <div class="error-desc">{{ $t('error.notFoundDesc') }}</div>
+      <h1 class="error-code">403</h1>
+      <div class="error-message">{{ $t('error.forbidden') }}</div>
+      <div class="error-desc">{{ $t('error.forbiddenDesc') }}</div>
       <div class="error-actions">
         <el-button type="primary" @click="goHome">{{ $t('error.backHome') }}</el-button>
         <el-button @click="goBack">{{ $t('error.backPrevious') }}</el-button>
@@ -34,7 +34,7 @@ const goBack = () => {
     @apply text-center p-10;
 
     .error-code {
-      @apply text-9xl font-bold text-primary mb-4;
+      @apply text-9xl font-bold text-yellow-500 mb-4;
     }
 
     .error-message {

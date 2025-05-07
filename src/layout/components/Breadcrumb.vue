@@ -2,9 +2,9 @@
   <el-breadcrumb class="app-breadcrumb">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item, index) in breadcrumbs" :key="item.path">
-        <span v-if="index === breadcrumbs.length - 1 || !item.meta?.title" class="no-redirect">{{ item.meta?.title
-          }}</span>
-        <a v-else @click.prevent="handleLink(item)">{{ item.meta?.title }}</a>
+        <span v-if="index === breadcrumbs.length - 1 || !item.meta?.title" class="no-redirect">{{
+          getMenuTitle(item.meta?.title) }}</span>
+        <a v-else @click.prevent="handleLink(item)">{{ getMenuTitle(item.meta?.title) }}</a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -13,11 +13,26 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import type { RouteLocationMatched } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
+const { t } = useI18n();
 const breadcrumbs = ref<RouteLocationMatched[]>([]);
+
+/**
+ * 获取菜单标题的国际化文本
+ */
+const getMenuTitle = (title?: string) => {
+  if (!title) return '';
+  // 尝试从菜单国际化配置中获取，如果没有则使用原始标题
+  const hasKey = t(`menu.${title}`);
+  if (hasKey !== `menu.${title}`) {
+    return t(`menu.${title}`);
+  }
+  return title;
+};
 
 const getBreadcrumbs = () => {
   // 过滤掉没有 meta.title 的路由

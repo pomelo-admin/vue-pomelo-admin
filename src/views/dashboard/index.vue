@@ -11,7 +11,7 @@
                 </el-icon>
               </div>
               <div class="card-content">
-                <div class="card-title">用户总数</div>
+                <div class="card-title">{{ $t('dashboard.totalUsers') }}</div>
                 <div class="card-value">1,856</div>
                 <div class="card-footer">
                   <span class="text-green-500">
@@ -35,7 +35,7 @@
                 </el-icon>
               </div>
               <div class="card-content">
-                <div class="card-title">订单总数</div>
+                <div class="card-title">{{ $t('dashboard.totalOrders') }}</div>
                 <div class="card-value">438</div>
                 <div class="card-footer">
                   <span class="text-green-500">
@@ -59,7 +59,7 @@
                 </el-icon>
               </div>
               <div class="card-content">
-                <div class="card-title">收入总额</div>
+                <div class="card-title">{{ $t('dashboard.totalIncome') }}</div>
                 <div class="card-value">¥ 25,680</div>
                 <div class="card-footer">
                   <span class="text-red-500">
@@ -83,7 +83,7 @@
                 </el-icon>
               </div>
               <div class="card-content">
-                <div class="card-title">访问量</div>
+                <div class="card-title">{{ $t('dashboard.totalViews') }}</div>
                 <div class="card-value">42,359</div>
                 <div class="card-footer">
                   <span class="text-green-500">
@@ -106,11 +106,11 @@
           <el-card shadow="hover" class="h-[400px]">
             <template #header>
               <div class="flex justify-between items-center">
-                <span class="font-bold">销售趋势分析</span>
+                <span class="font-bold">{{ $t('dashboard.salesTrend') }}</span>
                 <el-radio-group v-model="chartTimeRange" size="small">
-                  <el-radio-button value="week">周</el-radio-button>
-                  <el-radio-button value="month">月</el-radio-button>
-                  <el-radio-button value="year">年</el-radio-button>
+                  <el-radio-button value="week">{{ $t('dashboard.week') }}</el-radio-button>
+                  <el-radio-button value="month">{{ $t('dashboard.month') }}</el-radio-button>
+                  <el-radio-button value="year">{{ $t('dashboard.year') }}</el-radio-button>
                 </el-radio-group>
               </div>
             </template>
@@ -125,8 +125,8 @@
           <el-card shadow="hover" class="h-[400px]">
             <template #header>
               <div class="flex justify-between items-center">
-                <span class="font-bold">销售类别占比</span>
-                <el-button link>更多</el-button>
+                <span class="font-bold">{{ $t('dashboard.salesCategory') }}</span>
+                <el-button link>{{ $t('dashboard.more') }}</el-button>
               </div>
             </template>
             <div class="h-[300px] flex items-center justify-center">
@@ -142,15 +142,15 @@
       <el-card shadow="hover">
         <template #header>
           <div class="flex justify-between items-center">
-            <span class="font-bold">最近活动</span>
-            <el-button link>查看全部</el-button>
+            <span class="font-bold">{{ $t('dashboard.recentActivity') }}</span>
+            <el-button link>{{ $t('dashboard.viewAll') }}</el-button>
           </div>
         </template>
         <el-table :data="activities" style="width: 100%">
-          <el-table-column prop="time" label="时间" width="180" />
-          <el-table-column prop="user" label="用户" width="180" />
-          <el-table-column prop="activity" label="活动内容" />
-          <el-table-column prop="status" label="状态">
+          <el-table-column prop="time" :label="$t('dashboard.time')" width="180" />
+          <el-table-column prop="user" :label="$t('dashboard.user')" width="180" />
+          <el-table-column prop="activity" :label="$t('dashboard.activity')" />
+          <el-table-column prop="status" :label="$t('dashboard.status')">
             <template #default="scope">
               <el-tag :type="scope.row.status === '成功' ? 'success' : scope.row.status === '失败' ? 'danger' : 'info'">
                 {{ scope.row.status }}
@@ -165,10 +165,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import {
   User, ShoppingCart, Wallet, View, ArrowUp, ArrowDown
 } from '@element-plus/icons-vue';
 
+const { t } = useI18n();
 const chartTimeRange = ref('month');
 
 // 假数据

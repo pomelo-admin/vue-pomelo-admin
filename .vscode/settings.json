@@ -1,3 +1,6 @@
 {
   "scss.lint.unknownAtRules": "ignore",
+  "i18n-ally.localesPaths": [
+    "src/locales"
+  ],
 }
