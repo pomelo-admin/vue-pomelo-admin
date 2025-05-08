@@ -15,6 +15,9 @@ export default {
     darkMode: 'Dark Mode',
     userCenter: 'User Center',
     appTitle: 'Pomelo Admin',
+    collapse: 'Collapse Menu',
+    expand: 'Expand Menu',
+    copyright: '© 2025 Pomelo Admin. All Rights Reserved.',
   },
   menu: {
     dashboard: 'Dashboard',
@@ -27,6 +30,7 @@ export default {
     errorPage: 'Error Pages',
     forbidden: 'Forbidden',
     serverError: 'Server Error',
+    login: 'Login',
   },
   error: {
     pageTitle: 'Error Pages',

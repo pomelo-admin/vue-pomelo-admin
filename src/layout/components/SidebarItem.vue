@@ -2,10 +2,10 @@
   <div v-if="!item.meta || !item.meta.hidden" class="menu-wrapper">
     <!-- 如果设置了alwaysShow或者有多个子菜单，显示submenu -->
     <el-sub-menu v-if="item.meta?.alwaysShow || (item.children && item.children.length > 1)"
-      :index="resolvePath(item.path)">
+      :index="resolvePath(item.path)" :popper-append-to-body="true">
       <template #title>
         <menu-icon :icon="item.meta?.icon" />
-        <span>{{ getMenuTitle(item.meta?.title) }}</span>
+        <span v-if="!isCollapse">{{ getMenuTitle(item.meta?.title) }}</span>
       </template>
       <!-- 渲染子菜单项 -->
       <template v-for="child in item.children" :key="child.path">
@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import path from 'path-browserify';
 import { useI18n } from 'vue-i18n';
 import { isExternal } from '@/utils/validate';
@@ -52,6 +52,8 @@ import AppLink from './AppLink.vue';
 import MenuIcon from './MenuIcon.vue';
 
 const { t } = useI18n();
+const isCollapse = inject('isCollapse', false);
+
 const props = defineProps({
   item: {
     type: Object,
@@ -149,3 +151,23 @@ const handleMenuClick = (path: string) => {
   // console.log('菜单点击事件 - 目标路径:', path);
 };
 </script>
+
+<style lang="scss" scoped>
+.menu-wrapper {
+
+  .el-menu-item,
+  .el-sub-menu__title {
+    display: flex;
+    align-items: center;
+  }
+
+  // 确保折叠状态下弹出的子菜单中显示文本
+  :deep(.el-menu--popup) {
+    .el-menu-item {
+      span {
+        display: inline-block !important;
+      }
+    }
+  }
+}
+</style>

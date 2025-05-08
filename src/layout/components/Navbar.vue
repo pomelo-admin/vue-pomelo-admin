@@ -1,7 +1,17 @@
 <template>
   <div class="navbar-container">
+    <!-- 菜单折叠按钮 -->
+    <div class="menu-collapse-btn" @click="toggleSidebar">
+      <el-tooltip effect="dark" :content="isCollapse ? $t('common.expand') : $t('common.collapse')" placement="bottom">
+        <el-icon :size="20">
+          <Fold v-if="!isCollapse" />
+          <Expand v-else />
+        </el-icon>
+      </el-tooltip>
+    </div>
+
     <!-- 面包屑 -->
-    <breadcrumb class="block" />
+    <breadcrumb class="block ml-2" />
 
     <div class="flex-1"></div>
 
@@ -68,17 +78,25 @@ import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store/modules/user';
 import Breadcrumb from './Breadcrumb.vue';
 import LangSwitcher from '@/components/LangSwitcher.vue';
-import defaultAvatar from '@/assets/images/default-avatar.svg';
+import defaultAvatar from '@/assets/images/default-avatar.png';
 import {
-  FullScreen, Moon, Sunny, ArrowDown, User, SwitchButton
+  FullScreen, Moon, Sunny, ArrowDown, User, SwitchButton, Fold, Expand
 } from '@element-plus/icons-vue';
 
 defineEmits(['toggleTheme']);
 const { t } = useI18n();
 
 const isDark = inject('isDark', false);
+const isCollapse = inject('isCollapse', false) as any;
 const router = useRouter();
 const userStore = useUserStore();
+
+// 切换侧边栏折叠状态
+const toggleSidebar = () => {
+  isCollapse.value = !isCollapse.value;
+  // 保存折叠状态到本地存储
+  localStorage.setItem('sidebarStatus', isCollapse.value ? '1' : '0');
+};
 
 // 全屏切换
 const toggleFullScreen = () => {
@@ -101,6 +119,10 @@ const handleLogout = async () => {
 <style lang="scss" scoped>
 .navbar-container {
   @apply h-16 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center px-4;
+
+  .menu-collapse-btn {
+    @apply cursor-pointer p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mr-2;
+  }
 
   .right-menu {
     @apply flex items-center;

@@ -2,14 +2,14 @@
   <div class="sidebar">
     <el-menu :default-active="activeMenu" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false"
       class="sidebar-menu" :text-color="isDark ? '#fff' : '#333'" active-text-color="#409eff"
-      :background-color="isDark ? '#304156' : '#f0f2f5'">
+      :background-color="isDark ? '#304156' : '#f0f2f5'" popper-effect="light">
       <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
     </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed, inject, provide } from 'vue';
 import { useRoute } from 'vue-router';
 import SidebarItem from './SidebarItem.vue';
 import { useRouter } from 'vue-router';
@@ -18,6 +18,9 @@ const route = useRoute();
 const router = useRouter();
 const isCollapse = inject('isCollapse', false);
 const isDark = inject('isDark', false);
+
+// 再次向下级组件提供折叠状态
+provide('isCollapse', isCollapse);
 
 // 获取路由
 const routes = computed(() => {

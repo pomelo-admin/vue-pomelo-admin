@@ -7,11 +7,15 @@
         </keep-alive>
       </transition>
     </router-view>
+
+    <!-- 页脚 -->
+    <Footer class="app-footer" />
   </section>
 </template>
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
+import Footer from '@/components/Footer.vue';
 
 // AppMain组件，用于显示路由内容
 const route = useRoute();
@@ -22,6 +26,10 @@ const route = useRoute();
 <style lang="scss" scoped>
 .app-main {
   @apply flex-1 p-5 pb-0 overflow-auto relative bg-gray-50 dark:bg-gray-900;
+
+  .app-footer {
+    @apply mt-auto py-4;
+  }
 }
 
 /* 路由过渡动画 */

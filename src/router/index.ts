@@ -24,25 +24,12 @@ router.beforeEach(async (to, from, next) => {
   // 启动进度条
   NProgress.start();
 
-  // 更详细的调试输出
-  // console.log('----路由导航详情----');
-  // console.log('从:', from.path, '导航到:', to.path);
-  // console.log('完整路径:', to.fullPath);
-  // console.log('路由配置:', router.options.routes.map(route => route.path));
-  // console.log('匹配的路由组件:', to.matched.map(record => ({
-  //   path: record.path,
-  //   redirect: record.redirect,
-  //   component: record.components?.default?.name || '未命名组件'
-  // })));
-  // console.log('查询参数:', to.query);
-  // console.log('-------------------');
-
   // 设置页面标题
   const title = to.meta.title 
     ? i18n.global.t(`menu.${to.meta.title as string}`) 
     : '';
   const appTitle = i18n.global.t('common.appTitle');
-  document.title = title ? `${title} - ${appTitle}` : appTitle;
+  document.title = title ? `${title} | ${appTitle}` : appTitle;
 
   const hasToken = getToken();
 

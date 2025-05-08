@@ -15,6 +15,9 @@ export default {
     darkMode: '深色模式',
     userCenter: '个人中心',
     appTitle: 'Pomelo Admin',
+    collapse: '收起菜单',
+    expand: '展开菜单',
+    copyright: '© 2025 Pomelo Admin. 版权所有',
   },
   menu: {
     dashboard: '控制台',
@@ -27,6 +30,7 @@ export default {
     errorPage: '错误页面',
     forbidden: '禁止访问',
     serverError: '服务器错误',
+    login: '登录',
   },
   error: {
     pageTitle: '错误页面',

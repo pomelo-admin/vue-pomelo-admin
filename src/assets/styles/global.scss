@@ -1,0 +1,28 @@
+// 添加对折叠菜单的样式支持
+.el-menu--popup {
+  .el-menu-item {
+    span {
+      display: inline-block !important;
+    }
+  }
+}
+
+// 菜单项过渡动画
+.el-menu-item, .el-sub-menu__title {
+  transition: all 0.3s ease-in-out;
+}
+
+// 折叠状态下的样式修复
+.el-menu--collapse {
+  .el-sub-menu__title {
+    span {
+      display: none;
+    }
+  }
+  
+  .el-menu-item {
+    span {
+      display: none;
+    }
+  }
+} 
