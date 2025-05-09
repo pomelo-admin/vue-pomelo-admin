@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "author": "1518014096@qq.com",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "serve": "vite",
