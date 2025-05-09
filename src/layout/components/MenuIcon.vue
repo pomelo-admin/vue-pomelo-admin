@@ -17,8 +17,8 @@ const isCollapse = inject('isCollapse', false);
 const props = defineProps({
   icon: {
     type: String,
-    default: ''
-  }
+    default: '',
+  },
 });
 
 // 解析图标名称，使用element-plus内置图标

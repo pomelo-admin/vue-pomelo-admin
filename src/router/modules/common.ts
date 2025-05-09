@@ -40,4 +40,4 @@ const commonRoutes: RouteRecordRaw[] = [
   },
 ];
 
-export default commonRoutes; 
+export default commonRoutes;

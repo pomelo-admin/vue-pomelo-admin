@@ -14,13 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
 import Footer from '@/components/Footer.vue';
-
-// AppMain组件，用于显示路由内容
-const route = useRoute();
-
-// console.log('AppMain mounted, current route:', route.path);
 </script>
 
 <style lang="scss" scoped>

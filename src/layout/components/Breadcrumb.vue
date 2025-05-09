@@ -3,7 +3,8 @@
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item, index) in breadcrumbs" :key="item.path">
         <span v-if="index === breadcrumbs.length - 1 || !item.meta?.title" class="no-redirect">{{
-          getMenuTitle(item.meta?.title) }}</span>
+          getMenuTitle(item.meta?.title)
+        }}</span>
         <a v-else @click.prevent="handleLink(item)">{{ getMenuTitle(item.meta?.title) }}</a>
       </el-breadcrumb-item>
     </transition-group>

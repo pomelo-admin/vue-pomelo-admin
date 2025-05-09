@@ -40,4 +40,4 @@ export function logout() {
     url: '/auth/logout',
     method: 'post',
   });
-} 
+}

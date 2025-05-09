@@ -20,12 +20,21 @@
 
           <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" size="large">
             <el-form-item prop="username">
-              <el-input v-model="loginForm.username" :placeholder="$t('common.username')" :prefix-icon="User" />
+              <el-input
+                v-model="loginForm.username"
+                :placeholder="$t('common.username')"
+                :prefix-icon="User"
+              />
             </el-form-item>
 
             <el-form-item prop="password">
-              <el-input v-model="loginForm.password" :placeholder="$t('common.password')" :prefix-icon="Lock"
-                type="password" show-password />
+              <el-input
+                v-model="loginForm.password"
+                :placeholder="$t('common.password')"
+                :prefix-icon="Lock"
+                type="password"
+                show-password
+              />
             </el-form-item>
 
             <div class="w-full flex justify-between items-center mb-4">
@@ -39,8 +48,8 @@
           </el-form>
 
           <div class="mt-4 text-center">
-            <p class="text-gray-500">{{ $t('common.noAccount') }} <el-button link>{{ $t('common.register')
-                }}</el-button>
+            <p class="text-gray-500">
+              {{ $t('common.noAccount') }} <el-button link>{{ $t('common.register') }}</el-button>
             </p>
           </div>
         </div>
@@ -72,18 +81,16 @@ const userStore = useUserStore();
 // 登录表单
 const loginForm = reactive({
   username: 'admin',
-  password: 'admin123'
+  password: 'admin123',
 });
 
 // 登录规则
 const loginRules = {
-  username: [
-    { required: true, message: t('common.username') + '不能为空', trigger: 'blur' }
-  ],
+  username: [{ required: true, message: t('common.username') + '不能为空', trigger: 'blur' }],
   password: [
     { required: true, message: t('common.password') + '不能为空', trigger: 'blur' },
-    { min: 6, message: t('common.password') + '长度至少为6个字符', trigger: 'blur' }
-  ]
+    { min: 6, message: t('common.password') + '长度至少为6个字符', trigger: 'blur' },
+  ],
 };
 
 // 登录处理

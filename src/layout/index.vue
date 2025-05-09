@@ -76,7 +76,6 @@ const toggleTheme = () => {
 
       // 确保弹出菜单正确显示
       :deep(.el-menu--popup) {
-
         .el-menu-item,
         .el-sub-menu__title {
           span {

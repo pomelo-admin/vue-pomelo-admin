@@ -6,7 +6,7 @@ import { removeToken, setToken, getToken } from '@/utils/auth';
 const mockLogin = async (credentials: { username: string; password: string }) => {
   // 模拟网络延迟
   await new Promise(resolve => setTimeout(resolve, 1000));
-  
+
   // 检查用户名和密码（仅为演示）
   if (credentials.username === 'admin' && credentials.password === 'admin123') {
     return {
@@ -16,24 +16,24 @@ const mockLogin = async (credentials: { username: string; password: string }) =>
         username: 'admin',
         avatar: '',
         roles: ['admin'],
-        permissions: ['*']
-      }
+        permissions: ['*'],
+      },
     };
   }
-  
+
   throw new Error('用户名或密码错误');
 };
 
 // 模拟获取用户信息
 const mockGetUserInfo = async () => {
   await new Promise(resolve => setTimeout(resolve, 500));
-  
+
   return {
     id: '1',
     username: 'admin',
     avatar: '',
     roles: ['admin'],
-    permissions: ['*']
+    permissions: ['*'],
   };
 };
 
@@ -117,4 +117,4 @@ export const useUserStore = defineStore('user', () => {
     logout,
     resetState,
   };
-}); 
+});

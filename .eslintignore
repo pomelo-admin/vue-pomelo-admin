@@ -1,0 +1,8 @@
+node_modules
+dist
+*.d.ts
+*.js
+!.eslintrc.cjs
+public
+components.d.ts
+auto-imports.d.ts 

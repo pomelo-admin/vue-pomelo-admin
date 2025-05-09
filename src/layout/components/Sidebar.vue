@@ -1,9 +1,22 @@
 <template>
   <div class="sidebar">
-    <el-menu :default-active="activeMenu" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false"
-      class="sidebar-menu" :text-color="isDark ? '#fff' : '#333'" active-text-color="#409eff"
-      :background-color="isDark ? '#304156' : '#f0f2f5'" popper-effect="light">
-      <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+    <el-menu
+      :default-active="activeMenu"
+      :collapse="isCollapse"
+      :unique-opened="true"
+      :collapse-transition="false"
+      class="sidebar-menu"
+      :text-color="isDark ? '#fff' : '#333'"
+      active-text-color="#409eff"
+      :background-color="isDark ? '#304156' : '#f0f2f5'"
+      popper-effect="light"
+    >
+      <sidebar-item
+        v-for="route in routes"
+        :key="route.path"
+        :item="route"
+        :base-path="route.path"
+      />
     </el-menu>
   </div>
 </template>

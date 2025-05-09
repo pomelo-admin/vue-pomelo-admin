@@ -71,4 +71,4 @@ export default {
     activity: '活动内容',
     status: '状态',
   },
-}; 
+};

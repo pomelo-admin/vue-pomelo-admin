@@ -11,8 +11,8 @@ import { isExternal } from '@/utils/validate';
 const props = defineProps({
   to: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 // 判断链接类型
@@ -25,12 +25,12 @@ const linkProps = computed(() => {
   // console.log('AppLink to:', props.to);
   return isExternal(props.to)
     ? {
-      href: props.to,
-      target: '_blank',
-      rel: 'noopener'
-    }
+        href: props.to,
+        target: '_blank',
+        rel: 'noopener',
+      }
     : {
-      to: props.to
-    };
+        to: props.to,
+      };
 });
 </script>

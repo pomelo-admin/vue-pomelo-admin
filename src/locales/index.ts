@@ -7,15 +7,6 @@ const messages = {
   'en-US': enUS,
 };
 
-// 获取浏览器语言设置
-const getBrowserLanguage = () => {
-  const browserLang = navigator.language;
-  if (browserLang.startsWith('zh')) {
-    return 'zh-CN';
-  }
-  return 'en-US';
-};
-
 // 获取本地存储的语言设置或使用浏览器语言
 const getLanguage = () => {
   const cachedLang = localStorage.getItem('language');
@@ -29,4 +20,4 @@ const i18n = createI18n({
   messages,
 });
 
-export default i18n; 
+export default i18n;

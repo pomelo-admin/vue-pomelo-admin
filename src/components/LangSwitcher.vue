@@ -8,8 +8,12 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="zh-CN" :disabled="currentLang === 'zh-CN'">中文</el-dropdown-item>
-        <el-dropdown-item command="en-US" :disabled="currentLang === 'en-US'">English</el-dropdown-item>
+        <el-dropdown-item command="zh-CN" :disabled="currentLang === 'zh-CN'"
+          >中文</el-dropdown-item
+        >
+        <el-dropdown-item command="en-US" :disabled="currentLang === 'en-US'"
+          >English</el-dropdown-item
+        >
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -32,9 +36,7 @@ onMounted(() => {
 
 // 更新页面标题
 const updatePageTitle = () => {
-  const title = route.meta.title
-    ? t(`menu.${route.meta.title as string}`)
-    : '';
+  const title = route.meta.title ? t(`menu.${route.meta.title as string}`) : '';
   const appTitle = t('common.appTitle');
   document.title = title ? `${title} | ${appTitle}` : appTitle;
 };

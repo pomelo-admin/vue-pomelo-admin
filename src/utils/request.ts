@@ -10,14 +10,14 @@ const service = axios.create({
 
 // 请求拦截器
 service.interceptors.request.use(
-  (config) => {
+  config => {
     const userStore = useUserStore();
     if (userStore.token) {
       config.headers['Authorization'] = `Bearer ${userStore.token}`;
     }
     return config;
   },
-  (error) => {
+  error => {
     console.error('Request error:', error);
     return Promise.reject(error);
   }
@@ -25,7 +25,7 @@ service.interceptors.request.use(
 
 // 响应拦截器
 service.interceptors.response.use(
-  (response) => {
+  response => {
     const res = response.data;
     // 处理业务逻辑错误
     if (res.code !== 200) {
@@ -53,7 +53,7 @@ service.interceptors.response.use(
       return res;
     }
   },
-  (error) => {
+  error => {
     console.error('Response error:', error);
     ElMessage({
       message: error.message || '网络异常，请稍后再试',
@@ -64,4 +64,4 @@ service.interceptors.response.use(
   }
 );
 
-export default service; 
+export default service;

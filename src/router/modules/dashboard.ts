@@ -11,9 +11,9 @@ const dashboardRoutes: RouteRecordRaw = {
       path: 'index',
       name: 'DashboardIndex',
       component: () => import('@/views/dashboard/index.vue'),
-      meta: { title: 'dashboard', icon: 'DataBoard' }
-    }
-  ]
+      meta: { title: 'dashboard', icon: 'DataBoard' },
+    },
+  ],
 };
 
-export default dashboardRoutes; 
+export default dashboardRoutes;

@@ -2,7 +2,11 @@
   <div class="navbar-container">
     <!-- 菜单折叠按钮 -->
     <div class="menu-collapse-btn" @click="toggleSidebar">
-      <el-tooltip effect="dark" :content="isCollapse ? $t('common.expand') : $t('common.collapse')" placement="bottom">
+      <el-tooltip
+        effect="dark"
+        :content="isCollapse ? $t('common.expand') : $t('common.collapse')"
+        placement="bottom"
+      >
         <el-icon :size="20">
           <Fold v-if="!isCollapse" />
           <Expand v-else />
@@ -33,7 +37,11 @@
 
       <!-- 主题切换 -->
       <div class="right-menu-item cursor-pointer" @click="$emit('toggleTheme')">
-        <el-tooltip effect="dark" :content="isDark ? $t('common.lightMode') : $t('common.darkMode')" placement="bottom">
+        <el-tooltip
+          effect="dark"
+          :content="isDark ? $t('common.lightMode') : $t('common.darkMode')"
+          placement="bottom"
+        >
           <el-icon :size="20">
             <Moon v-if="!isDark" />
             <Sunny v-else />
@@ -74,17 +82,22 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store/modules/user';
 import Breadcrumb from './Breadcrumb.vue';
 import LangSwitcher from '@/components/LangSwitcher.vue';
 import defaultAvatar from '@/assets/images/default-avatar.png';
 import {
-  FullScreen, Moon, Sunny, ArrowDown, User, SwitchButton, Fold, Expand
+  FullScreen,
+  Moon,
+  Sunny,
+  ArrowDown,
+  User,
+  SwitchButton,
+  Fold,
+  Expand,
 } from '@element-plus/icons-vue';
 
 defineEmits(['toggleTheme']);
-const { t } = useI18n();
 
 const isDark = inject('isDark', false);
 const isCollapse = inject('isCollapse', false) as any;

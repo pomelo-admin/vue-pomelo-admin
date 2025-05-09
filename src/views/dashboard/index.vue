@@ -17,7 +17,8 @@
                   <span class="text-green-500">
                     <el-icon>
                       <ArrowUp />
-                    </el-icon> 12%
+                    </el-icon>
+                    12%
                   </span>
                   较上周
                 </div>
@@ -41,7 +42,8 @@
                   <span class="text-green-500">
                     <el-icon>
                       <ArrowUp />
-                    </el-icon> 8%
+                    </el-icon>
+                    8%
                   </span>
                   较上周
                 </div>
@@ -65,7 +67,8 @@
                   <span class="text-red-500">
                     <el-icon>
                       <ArrowDown />
-                    </el-icon> 5%
+                    </el-icon>
+                    5%
                   </span>
                   较上周
                 </div>
@@ -89,7 +92,8 @@
                   <span class="text-green-500">
                     <el-icon>
                       <ArrowUp />
-                    </el-icon> 15%
+                    </el-icon>
+                    15%
                   </span>
                   较上周
                 </div>
@@ -152,7 +156,15 @@
           <el-table-column prop="activity" :label="$t('dashboard.activity')" />
           <el-table-column prop="status" :label="$t('dashboard.status')">
             <template #default="scope">
-              <el-tag :type="scope.row.status === '成功' ? 'success' : scope.row.status === '失败' ? 'danger' : 'info'">
+              <el-tag
+                :type="
+                  scope.row.status === '成功'
+                    ? 'success'
+                    : scope.row.status === '失败'
+                      ? 'danger'
+                      : 'info'
+                "
+              >
                 {{ scope.row.status }}
               </el-tag>
             </template>
@@ -165,12 +177,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import {
-  User, ShoppingCart, Wallet, View, ArrowUp, ArrowDown
-} from '@element-plus/icons-vue';
+import { User, ShoppingCart, Wallet, View, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
 
-const { t } = useI18n();
 const chartTimeRange = ref('month');
 
 // 假数据
@@ -179,32 +187,32 @@ const activities = ref([
     time: '2023-10-15 10:30:24',
     user: '管理员',
     activity: '登录系统',
-    status: '成功'
+    status: '成功',
   },
   {
     time: '2023-10-15 09:12:53',
     user: '张三',
     activity: '创建新订单 #23456',
-    status: '成功'
+    status: '成功',
   },
   {
     time: '2023-10-14 16:45:12',
     user: '李四',
     activity: '更新商品价格',
-    status: '成功'
+    status: '成功',
   },
   {
     time: '2023-10-14 14:22:37',
     user: '王五',
     activity: '尝试删除系统日志',
-    status: '失败'
+    status: '失败',
   },
   {
     time: '2023-10-14 11:05:49',
     user: '赵六',
     activity: '导出用户数据',
-    status: '进行中'
-  }
+    status: '进行中',
+  },
 ]);
 </script>
 

@@ -17,7 +17,17 @@ const router = createRouter({
 NProgress.configure({ showSpinner: false });
 
 // 白名单
-const whiteList = ['/login', '/404', '/403', '/500', '/error/404', '/error/403', '/error/500', '/dashboard', '/dashboard/index'];
+const whiteList = [
+  '/login',
+  '/404',
+  '/403',
+  '/500',
+  '/error/404',
+  '/error/403',
+  '/error/500',
+  '/dashboard',
+  '/dashboard/index',
+];
 
 // 全局前置守卫
 router.beforeEach(async (to, from, next) => {
@@ -25,9 +35,7 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start();
 
   // 设置页面标题
-  const title = to.meta.title 
-    ? i18n.global.t(`menu.${to.meta.title as string}`) 
-    : '';
+  const title = to.meta.title ? i18n.global.t(`menu.${to.meta.title as string}`) : '';
   const appTitle = i18n.global.t('common.appTitle');
   document.title = title ? `${title} | ${appTitle}` : appTitle;
 
@@ -36,7 +44,7 @@ router.beforeEach(async (to, from, next) => {
   // 检查是否是错误页面模块路由或控制台页面
   const isErrorModulePage = to.path.startsWith('/error/');
   const isDashboardPage = to.path === '/dashboard' || to.path === '/dashboard/index';
-  
+
   if (isErrorModulePage || isDashboardPage) {
     // console.log('检测到特殊模块页面:', to.path);
     // 特殊处理控制台首页
@@ -58,16 +66,16 @@ router.beforeEach(async (to, from, next) => {
       // 获取用户信息
       const userStore = useUserStore();
       const hasRoles = userStore.userInfo.roles && userStore.userInfo.roles.length > 0;
-      
+
       if (hasRoles) {
         next();
       } else {
         try {
           // 获取用户信息
           await userStore.getUserInfoAction();
-          
+
           // 此处可根据用户角色动态添加路由
-          
+
           // 确保路由完成
           next({ ...to, replace: true });
         } catch (error) {
@@ -95,4 +103,4 @@ router.afterEach(() => {
   NProgress.done();
 });
 
-export default router; 
+export default router;

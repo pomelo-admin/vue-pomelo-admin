@@ -1,0 +1,8 @@
+node_modules
+dist
+public
+*.svg
+*.sh
+*.d.ts
+components.d.ts
+auto-imports.d.ts 
