@@ -48,7 +48,7 @@ pnpm build:staging
 
 ## 项目结构
 
-```
+```bash
 src/
 ├── api/          # API请求
 ├── assets/       # 静态资源
