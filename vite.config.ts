@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { versionPlugin } from './plugins/version-plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -21,6 +22,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
       dts: 'src/components.d.ts',
     }),
+    versionPlugin(),
   ],
   base: '/vue-pomelo-admin/',
   resolve: {
@@ -32,5 +34,8 @@ export default defineConfig({
     port: 3000,
     open: true,
     cors: true,
+  },
+  define: {
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(Date.now().toString()),
   },
 });

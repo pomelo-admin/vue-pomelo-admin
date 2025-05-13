@@ -2,6 +2,13 @@
   <router-view />
 </template>
 
+<script setup lang="ts">
+import { useVersionCheck } from '@/utils/version';
+
+// 启用版本检查，当检测到前端部署新版本时会自动通知用户刷新
+useVersionCheck();
+</script>
+
 <style scoped>
 .logo {
   height: 6em;

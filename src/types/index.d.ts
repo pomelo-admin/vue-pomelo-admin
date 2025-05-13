@@ -14,6 +14,10 @@ interface ImportMetaEnv {
   readonly VITE_APP_DESCRIPTION: string;
   readonly VITE_API_BASE_URL: string;
   readonly BASE_URL: string;
+  readonly MODE: string;  // 'development' | 'production'
+  readonly DEV: boolean;  // 是否为开发模式
+  readonly PROD: boolean; // 是否为生产模式
+  readonly VITE_APP_VERSION: string; // 应用版本号
 }
 
 interface ImportMeta {
