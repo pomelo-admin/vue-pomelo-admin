@@ -22,7 +22,7 @@ async function fetchLatestVersion(): Promise<VersionInfo | null> {
   try {
     // 添加时间戳参数防止缓存
     const timestamp = Date.now();
-    const response = await fetch(`/version.json?t=${timestamp}`, {
+    const response = await fetch(`${import.meta.env.BASE_URL}version.json?t=${timestamp}`, {
       cache: 'no-cache',
       headers: {
         Pragma: 'no-cache',
@@ -111,9 +111,4 @@ export function useVersionCheck() {
     checkForUpdates,
     reload: () => window.location.reload(),
   };
-}
-
-// 在开发环境中禁用自动检查
-if (import.meta.env.DEV) {
-  stopVersionCheck();
 }
