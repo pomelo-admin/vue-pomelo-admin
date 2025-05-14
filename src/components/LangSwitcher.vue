@@ -60,9 +60,9 @@ watch(() => locale.value, updatePageTitle);
 
 <style scoped>
 .lang-dropdown-link {
-  cursor: pointer;
   display: flex;
   align-items: center;
   color: inherit;
+  cursor: pointer;
 }
 </style>

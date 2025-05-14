@@ -1,0 +1,17 @@
+# 构建产物
+dist/
+build/
+
+# Node 模块
+node_modules/
+
+# 自动生成的文件
+auto-imports.d.ts
+components.d.ts
+
+# 测试文件
+**/*.test.ts
+**/*.spec.ts
+
+# 其他不需要检查的文件
+*.min.css 

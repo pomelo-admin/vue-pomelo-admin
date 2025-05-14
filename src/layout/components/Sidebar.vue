@@ -58,6 +58,7 @@ const activeMenu = computed(() => {
 
   .sidebar-menu {
     @apply h-full w-full border-none;
+
     --el-menu-bg-color: v-bind('isDark ? "#304156" : "#f0f2f5"');
 
     &:not(.el-menu--collapse) {

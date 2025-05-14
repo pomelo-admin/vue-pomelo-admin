@@ -68,6 +68,7 @@ const toggleTheme = () => {
 
   .sidebar-container {
     @apply h-full flex flex-col transition-all duration-300 ease-in-out z-10;
+
     width: 220px;
     background-color: v-bind('isDark ? "#304156" : "#f0f2f5"');
 
@@ -87,10 +88,12 @@ const toggleTheme = () => {
 
     .logo-container {
       @apply h-16 flex items-center justify-center p-4;
+
       background-color: v-bind('isDark ? "#304156" : "#f0f2f5"');
 
       h1 {
         @apply text-lg font-bold truncate;
+
         color: v-bind('isDark ? "#fff" : "#333"');
       }
     }
@@ -98,9 +101,10 @@ const toggleTheme = () => {
     // 确保滚动区域背景色一致
     .sidebar-scrollbar {
       @apply flex-1;
-      background-color: v-bind('isDark ? "#304156" : "#f0f2f5"');
+
       padding: 0;
       margin: 0;
+      background-color: v-bind('isDark ? "#304156" : "#f0f2f5"');
 
       :deep(.el-scrollbar__view) {
         height: 100%;

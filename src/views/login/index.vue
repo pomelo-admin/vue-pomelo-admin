@@ -150,7 +150,7 @@ const handleLogin = async () => {
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .login-panel {
     @apply w-[90%] max-w-md h-auto flex-col;
 
