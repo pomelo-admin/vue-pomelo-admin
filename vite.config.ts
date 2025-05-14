@@ -5,9 +5,12 @@ import { fileURLToPath } from 'url';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { versionPlugin } from './plugins/version-plugin';
+import { versionPlugin, getVersion } from './plugins/version-plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// 在配置开始时就生成版本号
+const version = getVersion();
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,7 +25,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
       dts: 'src/components.d.ts',
     }),
-    versionPlugin(),
+    versionPlugin(version),
   ],
   base: '/vue-pomelo-admin/',
   resolve: {
@@ -36,6 +39,6 @@ export default defineConfig({
     cors: true,
   },
   define: {
-    'import.meta.env.VITE_APP_VERSION': JSON.stringify(Date.now().toString()),
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(version),
   },
 });

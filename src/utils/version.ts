@@ -4,7 +4,6 @@ import { ElNotification } from 'element-plus';
 // 版本信息接口
 interface VersionInfo {
   version: string;
-  buildTime: string;
 }
 
 // 当前应用版本 - 初始化为加载时的时间戳或环境变量中的版本号

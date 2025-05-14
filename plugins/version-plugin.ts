@@ -2,11 +2,14 @@ import { Plugin } from 'vite';
 import fs from 'fs';
 import path from 'path';
 
+// 生成版本号 (使用时间戳)
+export const getVersion = () => Date.now().toString();
+
 /**
  * Vite插件：生成应用版本文件
- * 在构建时生成包含版本号和构建时间的version.json文件
+ * 在构建时生成包含版本号的version.json文件
  */
-export function versionPlugin(): Plugin {
+export function versionPlugin(version: string): Plugin {
   const versionFile = 'version.json';
 
   return {
@@ -15,14 +18,9 @@ export function versionPlugin(): Plugin {
 
     // 这个钩子会在所有打包结束之后执行
     closeBundle() {
-      // 生成版本号 (使用时间戳或从package.json获取)
-      const timestamp = Date.now();
-      const buildTime = new Date().toISOString();
-
       // 版本信息
       const versionInfo = {
-        version: timestamp.toString(),
-        buildTime: buildTime,
+        version,
       };
 
       // 写入version.json文件到dist目录
@@ -38,8 +36,7 @@ export function versionPlugin(): Plugin {
       fs.writeFileSync(targetFile, JSON.stringify(versionInfo, null, 2));
 
       console.log(`\n✅ Version file generated at ${targetFile}`);
-      console.log(`   Version: ${versionInfo.version}`);
-      console.log(`   Build time: ${versionInfo.buildTime}\n`);
+      console.log(`   Version: ${versionInfo.version}\n`);
     },
   };
 }
