@@ -13,6 +13,7 @@ const needRefresh = ref(false);
 // 检测周期 (毫秒)
 const CHECK_INTERVAL = 60 * 1000; // 每分钟检查一次
 let checkTimer: number | null = null;
+let notificationInstance: any = null; // 保存当前的通知实例
 
 /**
  * 从服务器获取最新版本信息
@@ -48,8 +49,8 @@ async function checkForUpdates() {
 
   if (!latestVersion) return;
 
-  // 如果版本不同，则提示更新
-  if (latestVersion.version !== currentVersion.value) {
+  // 如果版本不同，且当前没有显示的通知，则提示更新
+  if (latestVersion.version !== currentVersion.value && !notificationInstance) {
     needRefresh.value = true;
     showUpdateNotification();
   }
@@ -59,7 +60,10 @@ async function checkForUpdates() {
  * 显示更新通知
  */
 function showUpdateNotification() {
-  ElNotification({
+  // 如果已经有通知在显示，就不再显示新的通知
+  if (notificationInstance) return;
+
+  notificationInstance = ElNotification({
     title: '新版本可用',
     message: '应用已更新，请刷新页面以使用最新版本',
     type: 'info',
@@ -68,6 +72,10 @@ function showUpdateNotification() {
     showClose: true,
     onClick: () => {
       window.location.reload();
+    },
+    onClose: () => {
+      // 通知关闭时，清除实例引用，允许下次检查时再次显示
+      notificationInstance = null;
     },
   });
 }
@@ -88,6 +96,13 @@ function stopVersionCheck() {
     clearInterval(checkTimer);
     checkTimer = null;
   }
+  // 清除可能存在的通知
+  if (notificationInstance) {
+    // 调用close确保关闭了通知
+    notificationInstance.close();
+    // 确保通知实例被重置
+    notificationInstance = null;
+  }
 }
 
 /**
@@ -101,6 +116,7 @@ export function useVersionCheck() {
     }
   });
 
+  // 组件卸载时停止版本检查
   onUnmounted(() => {
     stopVersionCheck();
   });
