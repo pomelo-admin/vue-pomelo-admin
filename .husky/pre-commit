@@ -1,3 +1,11 @@
 #!/usr/bin/env sh
 
+# 加载nvm环境
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # 加载nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # 加载bash完成
+
+# 使用项目指定的Node.js版本
+nvm use 18 >/dev/null 2>&1 || echo "请确保安装了Node.js 18"
+
 npx lint-staged
