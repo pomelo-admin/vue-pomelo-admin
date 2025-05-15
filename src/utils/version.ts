@@ -1,5 +1,6 @@
-import { ref, onMounted, onUnmounted } from 'vue';
-import { ElNotification } from 'element-plus';
+import { ref, onMounted, onUnmounted, h } from 'vue';
+import { ElNotification, ElButton } from 'element-plus';
+import i18n from '@/locales';
 
 // 版本信息接口
 interface VersionInfo {
@@ -64,15 +65,25 @@ function showUpdateNotification() {
   if (notificationInstance) return;
 
   notificationInstance = ElNotification({
-    title: '新版本可用',
-    message: '应用已更新，请刷新页面以使用最新版本',
+    title: i18n.global.t('common.update.title'),
+    message: h('div', { style: 'margin-bottom: 10px' }, [
+      h('p', { style: 'margin-bottom: 10px' }, i18n.global.t('common.update.message')),
+      h(
+        ElButton,
+        {
+          type: 'primary',
+          size: 'small',
+          onClick: () => {
+            window.location.reload();
+          },
+        },
+        { default: () => i18n.global.t('common.update.refresh') }
+      ),
+    ]),
     type: 'info',
     duration: 0, // 不自动关闭
     position: 'top-right',
     showClose: true,
-    onClick: () => {
-      window.location.reload();
-    },
     onClose: () => {
       // 通知关闭时，清除实例引用，允许下次检查时再次显示
       notificationInstance = null;
