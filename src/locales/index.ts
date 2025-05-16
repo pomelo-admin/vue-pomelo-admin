@@ -1,6 +1,16 @@
 import { createI18n } from 'vue-i18n';
-import zhCN from './zh-CN';
-import enUS from './en-US';
+import type { DefineLocaleMessage } from 'vue-i18n';
+import { load } from 'js-yaml';
+
+// 导入YAML文件
+// @ts-ignore - 忽略类型错误，因为Vite会处理这些导入
+import zhCNYaml from './zh-CN.yaml?raw';
+// @ts-ignore
+import enUSYaml from './en-US.yaml?raw';
+
+// 解析YAML文件并添加类型断言
+const zhCN = load(zhCNYaml) as DefineLocaleMessage;
+const enUS = load(enUSYaml) as DefineLocaleMessage;
 
 const messages = {
   'zh-CN': zhCN,
