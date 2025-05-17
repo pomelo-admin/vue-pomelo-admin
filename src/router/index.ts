@@ -19,6 +19,8 @@ NProgress.configure({ showSpinner: false });
 // 白名单
 const whiteList = [
   '/login',
+  '/register',
+  '/forgot-password',
   '/404',
   '/403',
   '/500',

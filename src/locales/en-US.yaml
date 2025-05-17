@@ -34,6 +34,8 @@ menu:
   forbidden: Forbidden
   serverError: Server Error
   login: Login
+  forgotPassword: Forgot Password
+  register: Register
 
 error:
   pageTitle: Error Pages
@@ -54,6 +56,44 @@ login:
   description: Professional Admin Template
   success: Login successful
   error: Login failed, please try again
+
+forgotPassword:
+  title: Reset Password
+  welcome: Pomelo Admin
+  description: We'll help you reset your password
+  emailPlaceholder: Enter your registered email
+  emailRequired: Please enter your email
+  emailInvalid: Please enter a valid email
+  submit: Send Reset Link
+  emailSentTitle: Email Sent
+  emailSentDesc: Password reset link has been sent to your email. Please check and follow the instructions to reset your password
+  emailSentSuccess: Password reset email has been sent
+  resendEmail: Resend Email
+  resendSuccess: Email has been resent
+  backToLogin: Remember your password?
+  error: Send failed, please try again
+
+register:
+  title: Create Account
+  welcome: Pomelo Admin
+  description: Join our admin platform
+  emailPlaceholder: Enter your email
+  confirmPassword: Confirm Password
+  agreeTerms: I agree to the Terms & Conditions
+  termsLink: Terms of Service
+  haveAccount: Already have an account?
+  success: Registration successful
+  error: Registration failed, please try again
+  usernameRequired: Username is required
+  usernameLength: Username must be 3-20 characters
+  emailRequired: Email is required
+  emailInvalid: Please enter a valid email
+  passwordRequired: Password is required
+  passwordLength: Password must be at least 6 characters
+  confirmPasswordRequired: Please confirm your password
+  passwordMismatch: Passwords do not match
+  agreeTermsRequired: Please agree to the terms
+  usernameTaken: Username is already taken
 
 dashboard:
   totalUsers: Total Users

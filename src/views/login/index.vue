@@ -39,7 +39,9 @@
 
             <div class="w-full flex justify-between items-center mb-4">
               <el-checkbox v-model="rememberMe">{{ $t('common.rememberMe') }}</el-checkbox>
-              <el-button link>{{ $t('common.forgotPassword') }}</el-button>
+              <el-button link @click="goToForgotPassword">{{
+                $t('common.forgotPassword')
+              }}</el-button>
             </div>
 
             <el-button type="primary" class="w-full" :loading="loading" @click="handleLogin">
@@ -49,7 +51,8 @@
 
           <div class="mt-4 text-center">
             <p class="text-gray-500">
-              {{ $t('common.noAccount') }} <el-button link>{{ $t('common.register') }}</el-button>
+              {{ $t('common.noAccount') }}
+              <el-button link @click="goToRegister">{{ $t('common.register') }}</el-button>
             </p>
           </div>
         </div>
@@ -68,6 +71,7 @@ import { useUserStore } from '@/store/modules/user';
 import { ElMessage } from 'element-plus';
 import { User, Lock } from '@element-plus/icons-vue';
 import { useI18n } from 'vue-i18n';
+import type { FormRules } from 'element-plus';
 import Footer from '@/components/Footer.vue';
 
 const { t } = useI18n();
@@ -85,13 +89,13 @@ const loginForm = reactive({
 });
 
 // 登录规则
-const loginRules = {
+const loginRules = reactive<FormRules>({
   username: [{ required: true, message: t('common.username') + '不能为空', trigger: 'blur' }],
   password: [
     { required: true, message: t('common.password') + '不能为空', trigger: 'blur' },
     { min: 6, message: t('common.password') + '长度至少为6个字符', trigger: 'blur' },
   ],
-};
+});
 
 // 登录处理
 const handleLogin = async () => {
@@ -114,6 +118,16 @@ const handleLogin = async () => {
       }
     }
   });
+};
+
+// 跳转到忘记密码页面
+const goToForgotPassword = () => {
+  router.push('/forgot-password');
+};
+
+// 跳转到注册页面
+const goToRegister = () => {
+  router.push('/register');
 };
 </script>
 

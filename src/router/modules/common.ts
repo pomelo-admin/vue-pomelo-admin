@@ -13,6 +13,18 @@ const commonRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/login/index.vue'),
     meta: { title: 'login', hidden: true },
   },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/register/index.vue'),
+    meta: { title: 'register', hidden: true },
+  },
+  {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    component: () => import('@/views/forgot-password/index.vue'),
+    meta: { title: 'forgotPassword', hidden: true },
+  },
   // 独立的错误页面路由
   {
     path: '/404',
