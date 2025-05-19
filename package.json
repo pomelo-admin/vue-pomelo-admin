@@ -1,10 +1,15 @@
 {
-  "name": "pomelo-admin",
+  "name": "vue-pomelo-admin",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "author": "1518014096@qq.com",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0",
+    "pnpm": ">=7.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "serve": "vite",
