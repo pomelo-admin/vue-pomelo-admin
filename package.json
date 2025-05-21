@@ -61,6 +61,8 @@
     "vue-router": "4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.15.3",
     "@types/nprogress": "^0.2.3",
