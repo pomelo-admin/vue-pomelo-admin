@@ -25,9 +25,10 @@ common:
 menu:
   dashboard: 控制台
   system: 系统管理
-  user: 用户管理
-  role: 角色管理
   permission: 权限管理
+  userManagement: 用户管理
+  roleManagement: 角色管理
+  permissionManagement: 权限管理
   notFound: 页面未找到
   error: 错误页面
   errorPage: 错误页面

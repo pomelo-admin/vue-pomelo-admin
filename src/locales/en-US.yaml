@@ -25,9 +25,9 @@ common:
 menu:
   dashboard: Dashboard
   system: System
-  user: Users
-  role: Roles
-  permission: Permissions
+  userManagement: User Management
+  roleManagement: Role Management
+  permissionManagement: Permission Management
   notFound: Page Not Found
   error: Error Pages
   errorPage: Error Pages

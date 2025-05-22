@@ -3,6 +3,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { getToken } from '@/utils/auth';
 import { useUserStore } from '@/store/modules/user';
+import { usePermissionStore } from '@/store/modules/permission';
 import i18n from '@/locales';
 // 导入路由配置，所有路由模块已在routes.ts中聚合
 import routes from './routes';
@@ -48,10 +49,8 @@ router.beforeEach(async (to, from, next) => {
   const isDashboardPage = to.path === '/dashboard' || to.path === '/dashboard/index';
 
   if (isErrorModulePage || isDashboardPage) {
-    // console.log('检测到特殊模块页面:', to.path);
     // 特殊处理控制台首页
     if (to.path === '/dashboard') {
-      // console.log('重定向到控制台首页');
       next('/dashboard/index');
       return;
     }
@@ -65,8 +64,9 @@ router.beforeEach(async (to, from, next) => {
       next({ path: '/' });
       NProgress.done();
     } else {
-      // 获取用户信息
+      // 获取用户信息和权限信息
       const userStore = useUserStore();
+      const permissionStore = usePermissionStore();
       const hasRoles = userStore.userInfo.roles && userStore.userInfo.roles.length > 0;
 
       if (hasRoles) {
@@ -76,7 +76,8 @@ router.beforeEach(async (to, from, next) => {
           // 获取用户信息
           await userStore.getUserInfoAction();
 
-          // 此处可根据用户角色动态添加路由
+          // 初始化权限信息
+          await permissionStore.initPermissions();
 
           // 确保路由完成
           next({ ...to, replace: true });
