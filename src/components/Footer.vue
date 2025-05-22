@@ -1,11 +1,13 @@
 <template>
   <div class="footer">
-    <p>{{ $t('common.copyright') }}</p>
+    <p>{{ t('common.copyright') }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-// 页脚组件
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped>

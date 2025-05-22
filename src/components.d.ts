@@ -39,6 +39,7 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElTree: typeof import('element-plus/es')['ElTree']
     Footer: typeof import('./components/Footer.vue')['default']
     LangSwitcher: typeof import('./components/LangSwitcher.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

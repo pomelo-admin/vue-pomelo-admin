@@ -11,9 +11,9 @@
               alt="Logo"
               class="w-32 h-32 mb-6 mx-auto animate-pulse-slow"
             />
-            <h2 class="text-3xl font-bold text-white mb-3">{{ $t('forgotPassword.welcome') }}</h2>
+            <h2 class="text-3xl font-bold text-white mb-3">{{ t('forgotPassword.welcome') }}</h2>
             <p class="text-white text-lg mt-2 opacity-90 max-w-xs mx-auto">
-              {{ $t('forgotPassword.description') }}
+              {{ t('forgotPassword.description') }}
             </p>
           </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="forgot-password-form">
           <div class="flex flex-col items-center mb-8">
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-primary">
-              {{ $t('forgotPassword.title') }}
+              {{ t('forgotPassword.title') }}
             </h2>
           </div>
 
@@ -31,7 +31,7 @@
               <el-form-item prop="email" class="custom-form-item">
                 <el-input
                   v-model="forgotForm.email"
-                  :placeholder="$t('forgotPassword.emailPlaceholder')"
+                  :placeholder="t('forgotPassword.emailPlaceholder')"
                   :prefix-icon="Message"
                   class="custom-input"
                 />
@@ -43,7 +43,7 @@
                 :loading="loading"
                 @click="handleSubmit"
               >
-                {{ $t('forgotPassword.submit') }}
+                {{ t('forgotPassword.submit') }}
               </el-button>
             </el-form>
           </div>
@@ -51,8 +51,8 @@
           <div v-else class="text-center">
             <el-result
               icon="success"
-              :title="$t('forgotPassword.emailSentTitle')"
-              :sub-title="$t('forgotPassword.emailSentDesc')"
+              :title="t('forgotPassword.emailSentTitle')"
+              :sub-title="t('forgotPassword.emailSentDesc')"
             >
               <template #extra>
                 <el-button
@@ -61,7 +61,7 @@
                   @click="resendEmail"
                   :loading="resendLoading"
                 >
-                  {{ $t('forgotPassword.resendEmail') }}
+                  {{ t('forgotPassword.resendEmail') }}
                 </el-button>
               </template>
             </el-result>
@@ -69,9 +69,9 @@
 
           <div class="mt-6 text-center">
             <p class="text-gray-600">
-              {{ $t('forgotPassword.backToLogin') }}
+              {{ t('forgotPassword.backToLogin') }}
               <el-button link class="custom-link login-link" @click="goToLogin">{{
-                $t('common.login')
+                t('common.login')
               }}</el-button>
             </p>
           </div>

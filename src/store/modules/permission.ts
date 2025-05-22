@@ -35,6 +35,9 @@ const mockPermissions: Permission[] = [
   { id: '11', name: '权限管理分配', code: 'permission:assign', description: '允许分配权限' },
   { id: '12', name: '系统设置查看', code: 'setting:view', description: '允许查看系统设置' },
   { id: '13', name: '系统设置编辑', code: 'setting:edit', description: '允许编辑系统设置' },
+  { id: '14', name: '权限管理创建', code: 'permission:create', description: '允许创建权限' },
+  { id: '15', name: '权限管理编辑', code: 'permission:edit', description: '允许编辑权限' },
+  { id: '16', name: '权限管理删除', code: 'permission:delete', description: '允许删除权限' },
 ];
 
 // 模拟角色数据

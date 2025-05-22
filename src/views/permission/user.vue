@@ -1,45 +1,60 @@
 <template>
-  <div class="app-container">
+  <div class="p-[5px]">
     <el-card class="box-card">
       <template #header>
-        <div class="card-header">
-          <span>用户管理</span>
-          <div class="right-panel">
-            <el-input
-              v-model="searchText"
-              placeholder="搜索用户"
-              clearable
-              style="width: 200px; margin-right: 10px"
-              @keyup.enter="handleSearch"
-            />
-            <el-button type="primary" @click="handleSearch">搜索</el-button>
+        <div class="flex justify-between items-center">
+          <el-form :inline="true" :model="searchForm" class="flex-1">
+            <el-form-item :label="t('common.username')">
+              <el-input
+                v-model="searchForm.username"
+                :placeholder="t('common.username')"
+                clearable
+                @keyup.enter="handleSearch"
+              />
+            </el-form-item>
+            <el-form-item :label="t('permission.realName')">
+              <el-input
+                v-model="searchForm.realName"
+                :placeholder="t('permission.realName')"
+                clearable
+                @keyup.enter="handleSearch"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="handleSearch">{{
+                t('permission.search')
+              }}</el-button>
+              <el-button @click="handleResetSearch">{{ t('permission.reset') }}</el-button>
+            </el-form-item>
+          </el-form>
+          <div class="flex items-center">
             <el-button type="success" @click="handleAdd" v-permission="'user:create'">
-              新增用户
+              {{ t('permission.addUser') }}
             </el-button>
           </div>
         </div>
       </template>
       <el-table :data="userList" stripe style="width: 100%" v-loading="loading">
         <el-table-column prop="id" label="ID" width="60" />
-        <el-table-column prop="username" label="用户名" width="120" />
-        <el-table-column prop="realName" label="姓名" width="120" />
-        <el-table-column prop="email" label="邮箱" />
-        <el-table-column prop="phone" label="电话" width="120" />
-        <el-table-column label="状态" width="100">
+        <el-table-column prop="username" :label="t('common.username')" width="120" />
+        <el-table-column prop="realName" :label="t('permission.realName')" width="120" />
+        <el-table-column prop="email" :label="t('permission.email')" />
+        <el-table-column prop="phone" :label="t('permission.phone')" width="120" />
+        <el-table-column :label="t('permission.status')" width="100">
           <template #default="{ row }">
             <el-tag :type="row.status === 1 ? 'success' : 'danger'">
-              {{ row.status === 1 ? '启用' : '禁用' }}
+              {{ row.status === 1 ? t('permission.enabled') : t('permission.disabled') }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="角色" width="180">
+        <el-table-column :label="t('permission.role')" width="180">
           <template #default="{ row }">
-            <el-tag v-for="role in row.roles" :key="role.id" style="margin-right: 5px" type="info">
+            <el-tag v-for="role in row.roles" :key="role.id" class="mr-[5px]" type="info">
               {{ role.name }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column :label="t('permission.operation')" width="200" fixed="right">
           <template #default="{ row }">
             <el-button
               type="primary"
@@ -48,7 +63,7 @@
               @click="handleEdit(row)"
               v-permission="'user:edit'"
             >
-              编辑
+              {{ t('permission.edit') }}
             </el-button>
             <el-button
               type="primary"
@@ -57,7 +72,7 @@
               @click="handleSetRole(row)"
               v-permission="'user:edit'"
             >
-              分配角色
+              {{ t('permission.assignRole') }}
             </el-button>
             <el-button
               type="danger"
@@ -66,13 +81,13 @@
               @click="handleDelete(row)"
               v-permission="'user:delete'"
             >
-              删除
+              {{ t('permission.delete') }}
             </el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <div class="pagination-container">
+      <div class="mt-5 flex justify-start">
         <el-pagination
           v-model:current-page="page"
           v-model:page-size="pageSize"
@@ -89,41 +104,43 @@
     <!-- 用户表单对话框 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="dialogType === 'add' ? '新增用户' : '编辑用户'"
+      :title="dialogType === 'add' ? t('permission.addUser') : t('permission.editUser')"
       width="500px"
     >
       <el-form ref="userFormRef" :model="userForm" :rules="userRules" label-width="80px">
-        <el-form-item label="用户名" prop="username">
+        <el-form-item :label="t('common.username')" prop="username">
           <el-input v-model="userForm.username" :disabled="dialogType === 'edit'" />
         </el-form-item>
-        <el-form-item label="姓名" prop="realName">
+        <el-form-item :label="t('permission.realName')" prop="realName">
           <el-input v-model="userForm.realName" />
         </el-form-item>
-        <el-form-item label="密码" prop="password" v-if="dialogType === 'add'">
+        <el-form-item :label="t('common.password')" prop="password" v-if="dialogType === 'add'">
           <el-input v-model="userForm.password" type="password" show-password />
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
+        <el-form-item :label="t('permission.email')" prop="email">
           <el-input v-model="userForm.email" />
         </el-form-item>
-        <el-form-item label="电话" prop="phone">
+        <el-form-item :label="t('permission.phone')" prop="phone">
           <el-input v-model="userForm.phone" />
         </el-form-item>
-        <el-form-item label="状态">
+        <el-form-item :label="t('permission.status')">
           <el-switch v-model="userForm.status" :active-value="1" :inactive-value="0" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleSave" :loading="saveLoading"> 确定 </el-button>
+          <el-button @click="dialogVisible = false">{{ t('permission.cancel') }}</el-button>
+          <el-button type="primary" @click="handleSave" :loading="saveLoading">
+            {{ t('permission.save') }}
+          </el-button>
         </span>
       </template>
     </el-dialog>
 
     <!-- 角色分配对话框 -->
-    <el-dialog v-model="roleDialogVisible" title="分配角色" width="500px">
+    <el-dialog v-model="roleDialogVisible" :title="t('permission.assignRole')" width="500px">
       <div v-if="currentUser">
-        <p>用户：{{ currentUser.username }} ({{ currentUser.realName }})</p>
+        <p>{{ t('permission.user') }}：{{ currentUser.username }} ({{ currentUser.realName }})</p>
         <el-checkbox-group v-model="selectedRoles">
           <el-checkbox v-for="role in roleList" :key="role.id" :label="role.id">
             {{ role.name }}
@@ -135,9 +152,9 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="roleDialogVisible = false">取消</el-button>
+          <el-button @click="roleDialogVisible = false">{{ t('permission.cancel') }}</el-button>
           <el-button type="primary" @click="handleSaveRoles" :loading="saveRolesLoading">
-            确定
+            {{ t('permission.save') }}
           </el-button>
         </span>
       </template>
@@ -151,6 +168,9 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { InfoFilled } from '@element-plus/icons-vue';
 import { usePermissionStore } from '@/store/modules/permission';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 // 类型定义
 interface User {
@@ -171,7 +191,6 @@ interface User {
 const loading = ref(false);
 const saveLoading = ref(false);
 const saveRolesLoading = ref(false);
-const searchText = ref('');
 const page = ref(1);
 const pageSize = ref(10);
 const total = ref(0);
@@ -183,6 +202,12 @@ const currentUser = ref<User | null>(null);
 const selectedRoles = ref<string[]>([]);
 const permissionStore = usePermissionStore();
 const roleList = computed(() => permissionStore.roles);
+
+// 搜索表单
+const searchForm = reactive({
+  username: '',
+  realName: '',
+});
 
 // 用户表单
 const userFormRef = ref();
@@ -199,19 +224,19 @@ const userForm = reactive({
 // 表单验证规则
 const userRules = reactive<FormRules>({
   username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' },
+    { required: true, message: t('common.username'), trigger: 'blur' },
+    { min: 3, max: 20, message: t('register.usernameLength'), trigger: 'blur' },
   ],
-  realName: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+  realName: [{ required: true, message: t('permission.realName'), trigger: 'blur' }],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' },
+    { required: true, message: t('common.password'), trigger: 'blur' },
+    { min: 6, max: 20, message: t('register.passwordLength'), trigger: 'blur' },
   ],
   email: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' },
+    { required: true, message: t('permission.email'), trigger: 'blur' },
+    { type: 'email', message: t('register.emailInvalid'), trigger: 'blur' },
   ],
-  phone: [{ pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur' }],
+  phone: [{ pattern: /^1[3-9]\d{9}$/, message: t('permission.phone'), trigger: 'blur' }],
 });
 
 // 初始化方法
@@ -276,13 +301,12 @@ const fetchUserList = async () => {
       },
     ];
 
-    // 假设搜索匹配用户名或姓名
-    const filteredUsers = searchText.value
-      ? mockUsers.filter(
-          user =>
-            user.username.includes(searchText.value) || user.realName.includes(searchText.value)
-        )
-      : mockUsers;
+    // 根据搜索条件过滤
+    const filteredUsers = mockUsers.filter(user => {
+      const usernameMatch = !searchForm.username || user.username.includes(searchForm.username);
+      const realNameMatch = !searchForm.realName || user.realName.includes(searchForm.realName);
+      return usernameMatch && realNameMatch;
+    });
 
     total.value = filteredUsers.length;
 
@@ -292,7 +316,7 @@ const fetchUserList = async () => {
     userList.value = filteredUsers.slice(start, end);
   } catch (error) {
     console.error('获取用户列表失败:', error);
-    ElMessage.error('获取用户列表失败');
+    ElMessage.error(t('permission.error'));
   } finally {
     loading.value = false;
   }
@@ -353,12 +377,12 @@ const handleSaveRoles = async () => {
     // 模拟API请求
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    ElMessage.success('角色分配成功');
+    ElMessage.success(t('permission.assignRoleSuccess'));
     roleDialogVisible.value = false;
     fetchUserList(); // 刷新用户列表
   } catch (error) {
     console.error('角色分配失败:', error);
-    ElMessage.error('角色分配失败');
+    ElMessage.error(t('permission.error'));
   } finally {
     saveRolesLoading.value = false;
   }
@@ -366,21 +390,25 @@ const handleSaveRoles = async () => {
 
 // 删除用户
 const handleDelete = (row: User) => {
-  ElMessageBox.confirm(`确定要删除用户 "${row.username}" 吗？`, '警告', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-  })
+  ElMessageBox.confirm(
+    t('permission.deleteUserConfirm', { username: row.username }),
+    t('permission.warning'),
+    {
+      confirmButtonText: t('permission.confirm'),
+      cancelButtonText: t('permission.cancel'),
+      type: 'warning',
+    }
+  )
     .then(async () => {
       try {
         // 模拟API请求
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        ElMessage.success('删除成功');
+        ElMessage.success(t('permission.deleteUserSuccess'));
         fetchUserList(); // 刷新用户列表
       } catch (error) {
         console.error('删除用户失败:', error);
-        ElMessage.error('删除用户失败');
+        ElMessage.error(t('permission.error'));
       }
     })
     .catch(() => {
@@ -400,12 +428,17 @@ const handleSave = async () => {
       // 模拟API请求
       await new Promise(resolve => setTimeout(resolve, 500));
 
-      ElMessage.success(dialogType.value === 'add' ? '新增成功' : '更新成功');
+      if (dialogType.value === 'add') {
+        ElMessage.success(t('permission.createUserSuccess'));
+      } else {
+        ElMessage.success(t('permission.updateUserSuccess'));
+      }
+
       dialogVisible.value = false;
       fetchUserList(); // 刷新用户列表
     } catch (error) {
       console.error('保存用户失败:', error);
-      ElMessage.error('保存用户失败');
+      ElMessage.error(t('permission.error'));
     } finally {
       saveLoading.value = false;
     }
@@ -427,26 +460,12 @@ const resetUserForm = () => {
     status: 1,
   });
 };
+
+// 重置搜索
+const handleResetSearch = () => {
+  searchForm.username = '';
+  searchForm.realName = '';
+  page.value = 1;
+  fetchUserList();
+};
 </script>
-
-<style lang="scss" scoped>
-.app-container {
-  padding: 20px;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pagination-container {
-  margin-top: 20px;
-  text-align: right;
-}
-
-.right-panel {
-  display: flex;
-  align-items: center;
-}
-</style>

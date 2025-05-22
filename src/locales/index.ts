@@ -1,6 +1,9 @@
 import { createI18n } from 'vue-i18n';
 import type { DefineLocaleMessage } from 'vue-i18n';
 import { load } from 'js-yaml';
+import ElementPlus from 'element-plus';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import en from 'element-plus/dist/locale/en.mjs';
 
 // 导入YAML文件
 // @ts-ignore - 忽略类型错误，因为Vite会处理这些导入
@@ -23,9 +26,15 @@ const getLanguage = () => {
   return cachedLang || 'zh-CN'; // 默认使用中文
 };
 
+// 当前语言
+const currentLocale = getLanguage();
+
+// Element Plus 语言配置
+export const elementLocale = currentLocale === 'zh-CN' ? zhCn : en;
+
 const i18n = createI18n({
   legacy: false, // 使用组合式API
-  locale: getLanguage(),
+  locale: currentLocale,
   fallbackLocale: 'zh-CN', // 回退语言
   messages,
 });

@@ -4,7 +4,7 @@
     <div class="menu-collapse-btn" @click="toggleSidebar">
       <el-tooltip
         effect="dark"
-        :content="isCollapse ? $t('common.expand') : $t('common.collapse')"
+        :content="isCollapse ? t('common.expand') : t('common.collapse')"
         placement="bottom"
       >
         <el-icon :size="20">
@@ -23,7 +23,7 @@
     <div class="right-menu">
       <!-- 全屏按钮 -->
       <div class="right-menu-item" @click="toggleFullScreen">
-        <el-tooltip effect="dark" :content="$t('common.fullscreen')" placement="bottom">
+        <el-tooltip effect="dark" :content="t('common.fullscreen')" placement="bottom">
           <el-icon :size="20">
             <FullScreen />
           </el-icon>
@@ -39,7 +39,7 @@
       <div class="right-menu-item cursor-pointer" @click="$emit('toggleTheme')">
         <el-tooltip
           effect="dark"
-          :content="isDark ? $t('common.lightMode') : $t('common.darkMode')"
+          :content="isDark ? t('common.lightMode') : t('common.darkMode')"
           placement="bottom"
         >
           <el-icon :size="20">
@@ -64,13 +64,13 @@
               <el-icon>
                 <User />
               </el-icon>
-              <span class="ml-1">{{ $t('common.userCenter') }}</span>
+              <span class="ml-1">{{ t('common.userCenter') }}</span>
             </el-dropdown-item>
             <el-dropdown-item divided @click="handleLogout">
               <el-icon>
                 <SwitchButton />
               </el-icon>
-              <span class="ml-1">{{ $t('common.logout') }}</span>
+              <span class="ml-1">{{ t('common.logout') }}</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -96,8 +96,11 @@ import {
   Fold,
   Expand,
 } from '@element-plus/icons-vue';
+import { useI18n } from 'vue-i18n';
 
 defineEmits(['toggleTheme']);
+
+const { t } = useI18n();
 
 const isDark = inject('isDark', false);
 const isCollapse = inject('isCollapse', false) as any;

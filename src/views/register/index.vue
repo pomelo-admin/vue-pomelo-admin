@@ -11,9 +11,9 @@
               alt="Logo"
               class="w-32 h-32 mb-6 mx-auto animate-pulse-slow"
             />
-            <h2 class="text-3xl font-bold text-white mb-3">{{ $t('register.welcome') }}</h2>
+            <h2 class="text-3xl font-bold text-white mb-3">{{ t('register.welcome') }}</h2>
             <p class="text-white text-lg mt-2 opacity-90 max-w-xs mx-auto">
-              {{ $t('register.description') }}
+              {{ t('register.description') }}
             </p>
           </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="register-form">
           <div class="flex flex-col items-center mb-8">
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-primary">
-              {{ $t('register.title') }}
+              {{ t('register.title') }}
             </h2>
           </div>
 
@@ -30,7 +30,7 @@
             <el-form-item prop="username" class="custom-form-item">
               <el-input
                 v-model="registerForm.username"
-                :placeholder="$t('common.username')"
+                :placeholder="t('common.username')"
                 :prefix-icon="User"
                 class="custom-input"
               />
@@ -39,7 +39,7 @@
             <el-form-item prop="email" class="custom-form-item">
               <el-input
                 v-model="registerForm.email"
-                :placeholder="$t('register.emailPlaceholder')"
+                :placeholder="t('register.emailPlaceholder')"
                 :prefix-icon="Message"
                 class="custom-input"
               />
@@ -48,7 +48,7 @@
             <el-form-item prop="password" class="custom-form-item">
               <el-input
                 v-model="registerForm.password"
-                :placeholder="$t('common.password')"
+                :placeholder="t('common.password')"
                 :prefix-icon="Lock"
                 type="password"
                 show-password
@@ -59,7 +59,7 @@
             <el-form-item prop="confirmPassword" class="custom-form-item">
               <el-input
                 v-model="registerForm.confirmPassword"
-                :placeholder="$t('register.confirmPassword')"
+                :placeholder="t('register.confirmPassword')"
                 :prefix-icon="Lock"
                 type="password"
                 show-password
@@ -69,8 +69,8 @@
 
             <div class="w-full flex items-center mb-6">
               <el-checkbox v-model="agreeTerms" class="custom-checkbox">
-                {{ $t('register.agreeTerms') }}
-                <el-button link class="custom-link">{{ $t('register.termsLink') }}</el-button>
+                {{ t('register.agreeTerms') }}
+                <el-button link class="custom-link">{{ t('register.termsLink') }}</el-button>
               </el-checkbox>
             </div>
 
@@ -80,15 +80,15 @@
               :loading="loading"
               @click="handleRegister"
             >
-              {{ $t('common.register') }}
+              {{ t('common.register') }}
             </el-button>
           </el-form>
 
           <div class="mt-6 text-center">
             <p class="text-gray-600">
-              {{ $t('register.haveAccount') }}
+              {{ t('register.haveAccount') }}
               <el-button link class="custom-link login-link" @click="goToLogin">{{
-                $t('common.login')
+                t('common.login')
               }}</el-button>
             </p>
           </div>

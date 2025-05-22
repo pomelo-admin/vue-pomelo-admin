@@ -38,6 +38,75 @@ menu:
   forgotPassword: 忘记密码
   register: 注册
 
+# 权限管理模块
+permission:
+  # 通用
+  create: 新增
+  edit: 编辑
+  delete: 删除
+  save: 保存
+  cancel: 取消
+  search: 搜索
+  reset: 重置
+  confirm: 确定
+  warning: 警告
+  success: 成功
+  error: 错误
+  total: '共 {total} 条'
+  operation: 操作
+
+  # 权限管理
+  permissionManagement: 权限管理
+  permissionName: 权限名称
+  permissionCode: 权限标识
+  permissionDesc: 描述
+  addPermission: 新增权限
+  editPermission: 编辑权限
+  deletePermission: 删除权限
+  createSuccess: 新增权限成功
+  updateSuccess: 更新权限成功
+  deleteSuccess: 删除权限成功
+  deleteConfirm: '确定要删除权限 "{name}" 吗？'
+  codeFormatTip: '格式: 模块:操作, 如: user:create'
+  codeExists: '权限标识 {code} 已存在'
+  usedByRole: 该权限已被角色使用，无法删除
+
+  # 角色管理
+  roleManagement: 角色管理
+  roleName: 角色名称
+  roleCode: 角色标识
+  roleDesc: 描述
+  addRole: 新增角色
+  editRole: 编辑角色
+  deleteRole: 删除角色
+  assignPermission: 分配权限
+  role: 角色
+  createRoleSuccess: 新增角色成功
+  updateRoleSuccess: 更新角色成功
+  deleteRoleSuccess: 删除角色成功
+  deleteRoleConfirm: '确定要删除角色 "{name}" 吗？'
+  cantDeleteAdmin: 不能删除超级管理员角色
+  assignPermissionSuccess: 权限分配成功
+
+  # 用户管理
+  userManagement: 用户管理
+  realName: 姓名
+  email: 邮箱
+  phone: 电话
+  status: 状态
+  enabled: 启用
+  disabled: 禁用
+  addUser: 新增用户
+  editUser: 编辑用户
+  deleteUser: 删除用户
+  assignRole: 分配角色
+  user: 用户
+  createUserSuccess: 新增用户成功
+  updateUserSuccess: 更新用户成功
+  deleteUserSuccess: 删除用户成功
+  deleteUserConfirm: '确定要删除用户 "{username}" 吗？'
+  assignRoleSuccess: 角色分配成功
+
 error:
   pageTitle: 错误页面
   pageDescription: 系统中常见的错误页面展示与预览

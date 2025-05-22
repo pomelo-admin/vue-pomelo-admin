@@ -70,6 +70,16 @@ router.beforeEach(async (to, from, next) => {
       const hasRoles = userStore.userInfo.roles && userStore.userInfo.roles.length > 0;
 
       if (hasRoles) {
+        // 检查用户是否有权限访问此路由
+        if (to.meta && to.meta.permission) {
+          const permissions = to.meta.permission as string[];
+          const hasPermission = permissions.some(p => permissionStore.hasPermission(p));
+          if (!hasPermission && to.path !== '/403') {
+            next('/403'); // 如果没权限，跳转到403页面
+            NProgress.done();
+            return;
+          }
+        }
         next();
       } else {
         try {

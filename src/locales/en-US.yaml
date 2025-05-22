@@ -25,6 +25,7 @@ common:
 menu:
   dashboard: Dashboard
   system: System
+  permission: Permission Management
   userManagement: User Management
   roleManagement: Role Management
   permissionManagement: Permission Management
@@ -36,6 +37,75 @@ menu:
   login: Login
   forgotPassword: Forgot Password
   register: Register
+
+# Permission Management Module
+permission:
+  # Common
+  create: Create
+  edit: Edit
+  delete: Delete
+  save: Save
+  cancel: Cancel
+  search: Search
+  reset: Reset
+  confirm: Confirm
+  warning: Warning
+  success: Success
+  error: Error
+  total: 'Total {total} items'
+  operation: Operation
+
+  # Permission Management
+  permissionManagement: Permission Management
+  permissionName: Permission Name
+  permissionCode: Permission Code
+  permissionDesc: Description
+  addPermission: Add Permission
+  editPermission: Edit Permission
+  deletePermission: Delete Permission
+  createSuccess: Permission created successfully
+  updateSuccess: Permission updated successfully
+  deleteSuccess: Permission deleted successfully
+  deleteConfirm: 'Are you sure you want to delete permission "{name}"?'
+  codeFormatTip: 'Format: module:action, e.g. user:create'
+  codeExists: 'Permission code {code} already exists'
+  usedByRole: This permission is used by roles and cannot be deleted
+
+  # Role Management
+  roleManagement: Role Management
+  roleName: Role Name
+  roleCode: Role Code
+  roleDesc: Description
+  addRole: Add Role
+  editRole: Edit Role
+  deleteRole: Delete Role
+  assignPermission: Assign Permissions
+  role: Role
+  createRoleSuccess: Role created successfully
+  updateRoleSuccess: Role updated successfully
+  deleteRoleSuccess: Role deleted successfully
+  deleteRoleConfirm: 'Are you sure you want to delete role "{name}"?'
+  cantDeleteAdmin: Cannot delete admin role
+  assignPermissionSuccess: Permissions assigned successfully
+
+  # User Management
+  userManagement: User Management
+  realName: Real Name
+  email: Email
+  phone: Phone
+  status: Status
+  enabled: Enabled
+  disabled: Disabled
+  addUser: Add User
+  editUser: Edit User
+  deleteUser: Delete User
+  assignRole: Assign Roles
+  user: User
+  createUserSuccess: User created successfully
+  updateUserSuccess: User updated successfully
+  deleteUserSuccess: User deleted successfully
+  deleteUserConfirm: 'Are you sure you want to delete user "{username}"?'
+  assignRoleSuccess: Roles assigned successfully
 
 error:
   pageTitle: Error Pages

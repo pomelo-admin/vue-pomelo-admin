@@ -1,23 +1,46 @@
 <template>
-  <div class="app-container">
+  <div class="p-[5px]">
     <el-card class="box-card">
       <template #header>
-        <div class="card-header">
-          <span>权限管理</span>
-          <div class="right-panel">
+        <div class="flex justify-between items-center">
+          <el-form :inline="true" :model="searchForm" class="flex-1">
+            <el-form-item :label="t('permission.permissionName')">
+              <el-input
+                v-model="searchForm.name"
+                :placeholder="t('permission.permissionName')"
+                clearable
+                @keyup.enter="handleSearch"
+              />
+            </el-form-item>
+            <el-form-item :label="t('permission.permissionCode')">
+              <el-input
+                v-model="searchForm.code"
+                :placeholder="t('permission.permissionCode')"
+                clearable
+                @keyup.enter="handleSearch"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="handleSearch">{{
+                t('permission.search')
+              }}</el-button>
+              <el-button @click="handleResetSearch">{{ t('permission.reset') }}</el-button>
+            </el-form-item>
+          </el-form>
+          <div class="flex items-center">
             <el-button type="success" @click="handleAdd" v-permission="'permission:create'">
-              新增权限
+              {{ t('permission.addPermission') }}
             </el-button>
           </div>
         </div>
       </template>
 
-      <el-table :data="filteredPermissions" stripe style="width: 100%" v-loading="loading">
+      <el-table :data="permissionList" stripe style="width: 100%" v-loading="loading">
         <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="name" label="权限名称" width="180" />
-        <el-table-column prop="code" label="权限标识" width="180" />
-        <el-table-column prop="description" label="描述" />
-        <el-table-column label="操作" width="180" fixed="right">
+        <el-table-column prop="name" :label="t('permission.permissionName')" width="180" />
+        <el-table-column prop="code" :label="t('permission.permissionCode')" width="180" />
+        <el-table-column prop="description" :label="t('permission.permissionDesc')" />
+        <el-table-column :label="t('permission.operation')" width="180" fixed="right">
           <template #default="{ row }">
             <el-button
               type="primary"
@@ -26,7 +49,7 @@
               @click="handleEdit(row)"
               v-permission="'permission:edit'"
             >
-              编辑
+              {{ t('permission.edit') }}
             </el-button>
             <el-button
               type="danger"
@@ -35,19 +58,19 @@
               @click="handleDelete(row)"
               v-permission="'permission:delete'"
             >
-              删除
+              {{ t('permission.delete') }}
             </el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <div class="pagination-container">
+      <div class="mt-5 flex justify-start">
         <el-pagination
           v-model:current-page="currentPage"
           v-model:page-size="pageSize"
           :page-sizes="[10, 20, 50, 100]"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="permissionStore.permissions.length"
+          :total="total"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
@@ -57,7 +80,7 @@
     <!-- 权限表单对话框 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="dialogType === 'add' ? '新增权限' : '编辑权限'"
+      :title="dialogType === 'add' ? t('permission.addPermission') : t('permission.editPermission')"
       width="500px"
     >
       <el-form
@@ -66,21 +89,25 @@
         :rules="permissionRules"
         label-width="80px"
       >
-        <el-form-item label="权限名称" prop="name">
+        <el-form-item :label="t('permission.permissionName')" prop="name">
           <el-input v-model="permissionForm.name" />
         </el-form-item>
-        <el-form-item label="权限标识" prop="code">
+        <el-form-item :label="t('permission.permissionCode')" prop="code">
           <el-input v-model="permissionForm.code" :disabled="dialogType === 'edit'" />
-          <div class="form-hint">格式: 模块:操作, 如: user:create</div>
+          <div class="text-xs text-gray-400 leading-normal mt-1">
+            {{ t('permission.codeFormatTip') }}
+          </div>
         </el-form-item>
-        <el-form-item label="描述" prop="description">
+        <el-form-item :label="t('permission.permissionDesc')" prop="description">
           <el-input v-model="permissionForm.description" type="textarea" :rows="3" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleSave" :loading="saveLoading"> 确定 </el-button>
+          <el-button @click="dialogVisible = false">{{ t('permission.cancel') }}</el-button>
+          <el-button type="primary" @click="handleSave" :loading="saveLoading">
+            {{ t('permission.save') }}
+          </el-button>
         </span>
       </template>
     </el-dialog>
@@ -93,6 +120,9 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { usePermissionStore } from '@/store/modules/permission';
 import type { Permission } from '@/store/modules/permission';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 // 状态变量
 const loading = ref(false);
@@ -102,48 +132,79 @@ const dialogType = ref<'add' | 'edit'>('add');
 const permissionStore = usePermissionStore();
 const currentPage = ref(1);
 const pageSize = ref(10);
+const total = ref(0);
+const permissionList = ref<Permission[]>([]);
 
-// 分页过滤后的权限列表
-const filteredPermissions = computed(() => {
-  const start = (currentPage.value - 1) * pageSize.value;
-  const end = start + pageSize.value;
-  return permissionStore.permissions.slice(start, end);
-});
-
-// 权限表单
-const permissionFormRef = ref();
-const permissionForm = reactive({
-  id: '',
+// 搜索表单
+const searchForm = reactive({
   name: '',
   code: '',
-  description: '',
-});
-
-// 表单验证规则
-const permissionRules = reactive<FormRules>({
-  name: [{ required: true, message: '请输入权限名称', trigger: 'blur' }],
-  code: [
-    { required: true, message: '请输入权限标识', trigger: 'blur' },
-    {
-      pattern: /^[a-zA-Z0-9_]+:[a-zA-Z0-9_]+$/,
-      message: '权限标识格式不正确，应为：模块:操作',
-      trigger: 'blur',
-    },
-  ],
 });
 
 // 初始化方法
 onMounted(async () => {
+  await permissionStore.initPermissions();
+  fetchPermissionList();
+});
+
+// 从API获取权限列表（模拟）
+const fetchPermissionList = async () => {
   loading.value = true;
   try {
-    await permissionStore.initPermissions();
+    // 模拟API请求
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // 从store获取全部权限，在真实环境中这应该是从API获取
+    const allPermissions = permissionStore.permissions;
+
+    // 根据搜索条件过滤
+    const filteredPermissions = allPermissions.filter(permission => {
+      const nameMatch =
+        !searchForm.name || permission.name.toLowerCase().includes(searchForm.name.toLowerCase());
+      const codeMatch =
+        !searchForm.code || permission.code.toLowerCase().includes(searchForm.code.toLowerCase());
+      return nameMatch && codeMatch;
+    });
+
+    // 设置总数
+    total.value = filteredPermissions.length;
+
+    // 分页处理
+    const start = (currentPage.value - 1) * pageSize.value;
+    const end = start + pageSize.value;
+    permissionList.value = filteredPermissions.slice(start, end);
   } catch (error) {
-    console.error('初始化权限数据失败:', error);
-    ElMessage.error('获取权限数据失败');
+    console.error('获取权限列表失败:', error);
+    ElMessage.error(t('permission.error'));
   } finally {
     loading.value = false;
   }
-});
+};
+
+// 搜索处理
+const handleSearch = () => {
+  currentPage.value = 1;
+  fetchPermissionList();
+};
+
+// 重置搜索
+const handleResetSearch = () => {
+  searchForm.name = '';
+  searchForm.code = '';
+  currentPage.value = 1;
+  fetchPermissionList();
+};
+
+// 分页处理
+const handleSizeChange = (size: number) => {
+  pageSize.value = size;
+  fetchPermissionList();
+};
+
+const handleCurrentChange = (page: number) => {
+  currentPage.value = page;
+  fetchPermissionList();
+};
 
 // 新增权限
 const handleAdd = () => {
@@ -173,13 +234,13 @@ const handleDelete = (row: Permission) => {
   );
 
   if (isUsedByRole) {
-    ElMessage.warning('该权限已被角色使用，无法删除');
+    ElMessage.warning(t('permission.usedByRole'));
     return;
   }
 
-  ElMessageBox.confirm(`确定要删除权限 "${row.name}" 吗？`, '警告', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
+  ElMessageBox.confirm(t('permission.deleteConfirm', { name: row.name }), t('permission.warning'), {
+    confirmButtonText: t('permission.confirm'),
+    cancelButtonText: t('permission.cancel'),
     type: 'warning',
   })
     .then(async () => {
@@ -193,10 +254,11 @@ const handleDelete = (row: Permission) => {
           permissionStore.permissions.splice(index, 1);
         }
 
-        ElMessage.success('删除成功');
+        ElMessage.success(t('permission.deleteSuccess'));
+        fetchPermissionList(); // 刷新列表
       } catch (error) {
         console.error('删除权限失败:', error);
-        ElMessage.error('删除权限失败');
+        ElMessage.error(t('permission.error'));
       }
     })
     .catch(() => {
@@ -222,7 +284,7 @@ const handleSave = async () => {
           p => p.code === permissionForm.code
         );
         if (existingPermission) {
-          ElMessage.error(`权限标识 ${permissionForm.code} 已存在`);
+          ElMessage.error(t('permission.codeExists', { code: permissionForm.code }));
           saveLoading.value = false;
           return;
         }
@@ -235,6 +297,7 @@ const handleSave = async () => {
           description: permissionForm.description,
         };
         permissionStore.permissions.push(newPermission);
+        ElMessage.success(t('permission.createSuccess'));
       } else {
         // 更新权限
         const index = permissionStore.permissions.findIndex(p => p.id === permissionForm.id);
@@ -245,18 +308,41 @@ const handleSave = async () => {
             description: permissionForm.description,
           };
         }
+        ElMessage.success(t('permission.updateSuccess'));
       }
 
-      ElMessage.success(dialogType.value === 'add' ? '新增成功' : '更新成功');
       dialogVisible.value = false;
+      fetchPermissionList(); // 刷新列表
     } catch (error) {
       console.error('保存权限失败:', error);
-      ElMessage.error('保存权限失败');
+      ElMessage.error(t('permission.error'));
     } finally {
       saveLoading.value = false;
     }
   });
 };
+
+// 权限表单
+const permissionFormRef = ref();
+const permissionForm = reactive({
+  id: '',
+  name: '',
+  code: '',
+  description: '',
+});
+
+// 表单验证规则
+const permissionRules = reactive<FormRules>({
+  name: [{ required: true, message: t('permission.permissionName'), trigger: 'blur' }],
+  code: [
+    { required: true, message: t('permission.permissionCode'), trigger: 'blur' },
+    {
+      pattern: /^[a-zA-Z0-9_]+:[a-zA-Z0-9_]+$/,
+      message: t('permission.codeFormatTip'),
+      trigger: 'blur',
+    },
+  ],
+});
 
 // 重置权限表单
 const resetPermissionForm = () => {
@@ -270,44 +356,4 @@ const resetPermissionForm = () => {
     description: '',
   });
 };
-
-// 分页处理
-const handleSizeChange = (size: number) => {
-  pageSize.value = size;
-  currentPage.value = 1;
-};
-
-const handleCurrentChange = (page: number) => {
-  currentPage.value = page;
-};
 </script>
-
-<style lang="scss" scoped>
-.app-container {
-  padding: 20px;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.right-panel {
-  display: flex;
-  align-items: center;
-}
-
-.pagination-container {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.form-hint {
-  font-size: 12px;
-  color: #909399;
-  line-height: 1.5;
-  margin-top: 4px;
-}
-</style>

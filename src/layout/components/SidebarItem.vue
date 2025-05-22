@@ -46,8 +46,8 @@
 
     <!-- 没有子菜单的情况，显示普通菜单项 -->
     <template v-else>
-      <app-link :to="resolvePath(item.path)">
-        <el-menu-item :index="resolvePath(item.path)">
+      <app-link :to="props.basePath">
+        <el-menu-item :index="props.basePath">
           <menu-icon :icon="item.meta?.icon" />
           <template #title>{{ getMenuTitle(item.meta?.title) }}</template>
         </el-menu-item>
@@ -115,7 +115,9 @@ const resolvePath = (routePath: string) => {
 
   // 常规路径解析
   const result = path.resolve(props.basePath, routePath);
-
+  console.log('props.basePath', props.basePath);
+  console.log('routePath', routePath);
+  console.log('result', result);
   return result;
 };
 </script>

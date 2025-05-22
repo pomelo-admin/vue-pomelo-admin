@@ -11,9 +11,6 @@ importers:
       '@element-plus/icons-vue':
         specifier: ^2.3.1
         version: 2.3.1(vue@3.5.13(typescript@5.7.3))
-      '@vueuse/core':
-        specifier: ^13.1.0
-        version: 13.1.0(vue@3.5.13(typescript@5.7.3))
       autoprefixer:
         specifier: '10'
         version: 10.4.21(postcss@8.5.3)
@@ -3026,7 +3023,8 @@ snapshots:
 
   '@types/web-bluetooth@0.0.16': {}
 
-  '@types/web-bluetooth@0.0.21': {}
+  '@types/web-bluetooth@0.0.21':
+    optional: true
 
   '@typescript-eslint/eslint-plugin@8.32.0(@typescript-eslint/parser@8.32.0(eslint@8.57.0)(typescript@5.7.3))(eslint@8.57.0)(typescript@5.7.3)':
     dependencies:
@@ -3209,6 +3207,7 @@ snapshots:
       '@vueuse/metadata': 13.1.0
       '@vueuse/shared': 13.1.0(vue@3.5.13(typescript@5.7.3))
       vue: 3.5.13(typescript@5.7.3)
+    optional: true
 
   '@vueuse/core@9.13.0(vue@3.5.13(typescript@5.7.3))':
     dependencies:
@@ -3220,13 +3219,15 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/metadata@13.1.0': {}
+  '@vueuse/metadata@13.1.0':
+    optional: true
 
   '@vueuse/metadata@9.13.0': {}
 
   '@vueuse/shared@13.1.0(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       vue: 3.5.13(typescript@5.7.3)
+    optional: true
 
   '@vueuse/shared@9.13.0(vue@3.5.13(typescript@5.7.3))':
     dependencies:

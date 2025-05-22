@@ -1,12 +1,35 @@
 <template>
-  <div class="app-container">
+  <div class="p-[5px]">
     <el-card class="box-card">
       <template #header>
-        <div class="card-header">
-          <span>角色管理</span>
-          <div class="right-panel">
+        <div class="flex justify-between items-center">
+          <el-form :inline="true" :model="searchForm" class="flex-1">
+            <el-form-item :label="t('permission.roleName')">
+              <el-input
+                v-model="searchForm.name"
+                :placeholder="t('permission.roleName')"
+                clearable
+                @keyup.enter="handleSearch"
+              />
+            </el-form-item>
+            <el-form-item :label="t('permission.roleCode')">
+              <el-input
+                v-model="searchForm.code"
+                :placeholder="t('permission.roleCode')"
+                clearable
+                @keyup.enter="handleSearch"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="handleSearch">{{
+                t('permission.search')
+              }}</el-button>
+              <el-button @click="handleResetSearch">{{ t('permission.reset') }}</el-button>
+            </el-form-item>
+          </el-form>
+          <div class="flex items-center">
             <el-button type="success" @click="handleAdd" v-permission="'role:create'">
-              新增角色
+              {{ t('permission.addRole') }}
             </el-button>
           </div>
         </div>
@@ -14,10 +37,10 @@
 
       <el-table :data="roleList" stripe style="width: 100%" v-loading="loading">
         <el-table-column prop="id" label="ID" width="60" />
-        <el-table-column prop="name" label="角色名称" width="150" />
-        <el-table-column prop="code" label="角色标识" width="150" />
-        <el-table-column prop="description" label="描述" />
-        <el-table-column label="操作" width="250" fixed="right">
+        <el-table-column prop="name" :label="t('permission.roleName')" width="150" />
+        <el-table-column prop="code" :label="t('permission.roleCode')" width="150" />
+        <el-table-column prop="description" :label="t('permission.roleDesc')" />
+        <el-table-column :label="t('permission.operation')" width="250" fixed="right">
           <template #default="{ row }">
             <el-button
               type="primary"
@@ -26,7 +49,7 @@
               @click="handleEdit(row)"
               v-permission="'role:edit'"
             >
-              编辑
+              {{ t('permission.edit') }}
             </el-button>
             <el-button
               type="success"
@@ -35,7 +58,7 @@
               @click="handleSetPermission(row)"
               v-permission="'permission:assign'"
             >
-              分配权限
+              {{ t('permission.assignPermission') }}
             </el-button>
             <el-button
               type="danger"
@@ -44,42 +67,61 @@
               @click="handleDelete(row)"
               v-permission="'role:delete'"
             >
-              删除
+              {{ t('permission.delete') }}
             </el-button>
           </template>
         </el-table-column>
       </el-table>
+
+      <div class="mt-5 flex justify-start">
+        <el-pagination
+          v-model:current-page="currentPage"
+          v-model:page-size="pageSize"
+          :page-sizes="[10, 20, 50, 100]"
+          :background="true"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
     </el-card>
 
     <!-- 角色表单对话框 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="dialogType === 'add' ? '新增角色' : '编辑角色'"
+      :title="dialogType === 'add' ? t('permission.addRole') : t('permission.editRole')"
       width="500px"
     >
       <el-form ref="roleFormRef" :model="roleForm" :rules="roleRules" label-width="80px">
-        <el-form-item label="角色名称" prop="name">
+        <el-form-item :label="t('permission.roleName')" prop="name">
           <el-input v-model="roleForm.name" />
         </el-form-item>
-        <el-form-item label="角色标识" prop="code">
+        <el-form-item :label="t('permission.roleCode')" prop="code">
           <el-input v-model="roleForm.code" :disabled="dialogType === 'edit'" />
         </el-form-item>
-        <el-form-item label="描述" prop="description">
+        <el-form-item :label="t('permission.roleDesc')" prop="description">
           <el-input v-model="roleForm.description" type="textarea" :rows="3" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleSave" :loading="saveLoading"> 确定 </el-button>
+          <el-button @click="dialogVisible = false">{{ t('permission.cancel') }}</el-button>
+          <el-button type="primary" @click="handleSave" :loading="saveLoading">
+            {{ t('permission.save') }}
+          </el-button>
         </span>
       </template>
     </el-dialog>
 
     <!-- 权限分配对话框 -->
-    <el-dialog v-model="permissionDialogVisible" title="分配权限" width="600px">
+    <el-dialog
+      v-model="permissionDialogVisible"
+      :title="t('permission.assignPermission')"
+      width="600px"
+    >
       <div v-if="currentRole">
-        <p>角色：{{ currentRole.name }} ({{ currentRole.code }})</p>
+        <p>{{ t('permission.role') }}：{{ currentRole.name }} ({{ currentRole.code }})</p>
         <el-tree
           ref="permissionTreeRef"
           :data="permissionTreeData"
@@ -92,13 +134,15 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="permissionDialogVisible = false">取消</el-button>
+          <el-button @click="permissionDialogVisible = false">{{
+            t('permission.cancel')
+          }}</el-button>
           <el-button
             type="primary"
             @click="handleSavePermissions"
             :loading="savePermissionsLoading"
           >
-            确定
+            {{ t('permission.save') }}
           </el-button>
         </span>
       </template>
@@ -112,6 +156,9 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { usePermissionStore } from '@/store/modules/permission';
 import type { Role, Permission } from '@/store/modules/permission';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 // 状态变量
 const loading = ref(false);
@@ -123,9 +170,18 @@ const permissionDialogVisible = ref(false);
 const currentRole = ref<Role | null>(null);
 const selectedPermissions = ref<string[]>([]);
 const permissionStore = usePermissionStore();
-const roleList = computed(() => permissionStore.roles);
 const permissionList = computed(() => permissionStore.permissions);
 const permissionTreeRef = ref();
+const total = ref(0);
+const roleList = ref<Role[]>([]);
+const currentPage = ref(1);
+const pageSize = ref(10);
+
+// 搜索表单
+const searchForm = reactive({
+  name: '',
+  code: '',
+});
 
 // 角色表单
 const roleFormRef = ref();
@@ -139,10 +195,10 @@ const roleForm = reactive({
 
 // 表单验证规则
 const roleRules = reactive<FormRules>({
-  name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
+  name: [{ required: true, message: t('permission.roleName'), trigger: 'blur' }],
   code: [
-    { required: true, message: '请输入角色标识', trigger: 'blur' },
-    { pattern: /^[a-zA-Z0-9_]+$/, message: '角色标识只能包含字母、数字和下划线', trigger: 'blur' },
+    { required: true, message: t('permission.roleCode'), trigger: 'blur' },
+    { pattern: /^[a-zA-Z0-9_]+$/, message: t('permission.roleCode'), trigger: 'blur' },
   ],
 });
 
@@ -189,16 +245,62 @@ function getModuleName(code: string): string {
   return nameMap[code] || code;
 }
 
-// 初始化方法
-onMounted(async () => {
+// 从API获取角色列表（模拟）
+const fetchRoleList = async () => {
   loading.value = true;
   try {
-    await permissionStore.initPermissions();
+    // 模拟API请求
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // 从store获取全部角色，在真实环境中这应该是从API获取
+    const allRoles = permissionStore.roles;
+
+    // 根据搜索条件过滤
+    const filteredRoles = allRoles.filter(role => {
+      const nameMatch =
+        !searchForm.name || role.name.toLowerCase().includes(searchForm.name.toLowerCase());
+      const codeMatch =
+        !searchForm.code || role.code.toLowerCase().includes(searchForm.code.toLowerCase());
+      return nameMatch && codeMatch;
+    });
+
+    // 设置总数
+    total.value = filteredRoles.length;
+
+    // 分页处理
+    const start = (currentPage.value - 1) * pageSize.value;
+    const end = start + pageSize.value;
+    roleList.value = filteredRoles.slice(start, end);
   } catch (error) {
-    console.error('初始化权限数据失败:', error);
-    ElMessage.error('获取权限数据失败');
+    console.error('获取角色列表失败:', error);
+    ElMessage.error(t('permission.error'));
   } finally {
     loading.value = false;
+  }
+};
+
+// 搜索处理
+const handleSearch = () => {
+  currentPage.value = 1; // 重置为第一页
+  fetchRoleList();
+};
+
+// 重置搜索
+const handleResetSearch = () => {
+  searchForm.name = '';
+  searchForm.code = '';
+  currentPage.value = 1; // 重置为第一页
+  fetchRoleList();
+};
+
+// 初始化方法
+onMounted(async () => {
+  try {
+    await permissionStore.initPermissions();
+    await fetchRoleList();
+  } catch (error) {
+    console.error('初始化数据失败:', error);
+    ElMessage.error('获取数据失败');
   }
 });
 
@@ -258,11 +360,12 @@ const handleSavePermissions = async () => {
       }
     }
 
-    ElMessage.success('权限分配成功');
+    ElMessage.success(t('permission.assignPermissionSuccess'));
     permissionDialogVisible.value = false;
+    fetchRoleList(); // 刷新角色列表
   } catch (error) {
     console.error('权限分配失败:', error);
-    ElMessage.error('权限分配失败');
+    ElMessage.error(t('permission.error'));
   } finally {
     savePermissionsLoading.value = false;
   }
@@ -272,15 +375,19 @@ const handleSavePermissions = async () => {
 const handleDelete = (row: Role) => {
   // 阻止删除超级管理员
   if (row.code === 'admin') {
-    ElMessage.warning('不能删除超级管理员角色');
+    ElMessage.warning(t('permission.cantDeleteAdmin'));
     return;
   }
 
-  ElMessageBox.confirm(`确定要删除角色 "${row.name}" 吗？`, '警告', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-  })
+  ElMessageBox.confirm(
+    t('permission.deleteRoleConfirm', { name: row.name }),
+    t('permission.warning'),
+    {
+      confirmButtonText: t('permission.confirm'),
+      cancelButtonText: t('permission.cancel'),
+      type: 'warning',
+    }
+  )
     .then(async () => {
       try {
         // 模拟API请求
@@ -292,10 +399,11 @@ const handleDelete = (row: Role) => {
           permissionStore.roles.splice(index, 1);
         }
 
-        ElMessage.success('删除成功');
+        ElMessage.success(t('permission.deleteRoleSuccess'));
+        fetchRoleList(); // 刷新角色列表
       } catch (error) {
         console.error('删除角色失败:', error);
-        ElMessage.error('删除角色失败');
+        ElMessage.error(t('permission.error'));
       }
     })
     .catch(() => {
@@ -325,6 +433,7 @@ const handleSave = async () => {
           permissions: [],
         };
         permissionStore.roles.push(newRole);
+        ElMessage.success(t('permission.createRoleSuccess'));
       } else {
         // 更新角色
         const index = permissionStore.roles.findIndex(r => r.id === roleForm.id);
@@ -335,13 +444,14 @@ const handleSave = async () => {
             description: roleForm.description,
           };
         }
+        ElMessage.success(t('permission.updateRoleSuccess'));
       }
 
-      ElMessage.success(dialogType.value === 'add' ? '新增成功' : '更新成功');
       dialogVisible.value = false;
+      fetchRoleList(); // 刷新角色列表
     } catch (error) {
       console.error('保存角色失败:', error);
-      ElMessage.error('保存角色失败');
+      ElMessage.error(t('permission.error'));
     } finally {
       saveLoading.value = false;
     }
@@ -361,21 +471,15 @@ const resetRoleForm = () => {
     permissions: [],
   });
 };
+
+// 处理分页
+const handleSizeChange = (size: number) => {
+  pageSize.value = size;
+  fetchRoleList();
+};
+
+const handleCurrentChange = (page: number) => {
+  currentPage.value = page;
+  fetchRoleList();
+};
 </script>
-
-<style lang="scss" scoped>
-.app-container {
-  padding: 20px;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.right-panel {
-  display: flex;
-  align-items: center;
-}
-</style>

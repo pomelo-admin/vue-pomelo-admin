@@ -47,8 +47,12 @@ const handleLangChange = (lang: string) => {
   currentLang.value = lang;
   // 保存语言设置到本地存储
   localStorage.setItem('language', lang);
-  // 更新页面标题
-  updatePageTitle();
+
+  // 切换语言后刷新页面来应用Element Plus的语言设置
+  // 这样可以避免TypeScript类型问题
+  setTimeout(() => {
+    window.location.reload();
+  }, 100);
 };
 
 // 监听路由变化，更新标题

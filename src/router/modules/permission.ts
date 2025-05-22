@@ -19,6 +19,7 @@ const permissionRoutes: RouteRecordRaw = {
       meta: {
         title: 'userManagement',
         icon: 'User',
+        permission: ['user:view'],
       },
     },
     {
@@ -28,6 +29,7 @@ const permissionRoutes: RouteRecordRaw = {
       meta: {
         title: 'roleManagement',
         icon: 'UserFilled',
+        permission: ['role:view'],
       },
     },
     {
@@ -37,6 +39,7 @@ const permissionRoutes: RouteRecordRaw = {
       meta: {
         title: 'permissionManagement',
         icon: 'Key',
+        permission: ['permission:view'],
       },
     },
   ],

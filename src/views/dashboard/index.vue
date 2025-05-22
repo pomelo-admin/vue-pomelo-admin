@@ -11,7 +11,7 @@
                 </el-icon>
               </div>
               <div class="card-content">
-                <div class="card-title">{{ $t('dashboard.totalUsers') }}</div>
+                <div class="card-title">{{ t('dashboard.totalUsers') }}</div>
                 <div class="card-value">1,856</div>
                 <div class="card-footer">
                   <span class="text-green-500">
@@ -36,7 +36,7 @@
                 </el-icon>
               </div>
               <div class="card-content">
-                <div class="card-title">{{ $t('dashboard.totalOrders') }}</div>
+                <div class="card-title">{{ t('dashboard.totalOrders') }}</div>
                 <div class="card-value">438</div>
                 <div class="card-footer">
                   <span class="text-green-500">
@@ -61,7 +61,7 @@
                 </el-icon>
               </div>
               <div class="card-content">
-                <div class="card-title">{{ $t('dashboard.totalIncome') }}</div>
+                <div class="card-title">{{ t('dashboard.totalIncome') }}</div>
                 <div class="card-value">¥ 25,680</div>
                 <div class="card-footer">
                   <span class="text-red-500">
@@ -86,7 +86,7 @@
                 </el-icon>
               </div>
               <div class="card-content">
-                <div class="card-title">{{ $t('dashboard.totalViews') }}</div>
+                <div class="card-title">{{ t('dashboard.totalViews') }}</div>
                 <div class="card-value">42,359</div>
                 <div class="card-footer">
                   <span class="text-green-500">
@@ -110,11 +110,11 @@
           <el-card shadow="hover" class="h-[400px]">
             <template #header>
               <div class="flex justify-between items-center">
-                <span class="font-bold">{{ $t('dashboard.salesTrend') }}</span>
+                <span class="font-bold">{{ t('dashboard.salesTrend') }}</span>
                 <el-radio-group v-model="chartTimeRange" size="small">
-                  <el-radio-button value="week">{{ $t('dashboard.week') }}</el-radio-button>
-                  <el-radio-button value="month">{{ $t('dashboard.month') }}</el-radio-button>
-                  <el-radio-button value="year">{{ $t('dashboard.year') }}</el-radio-button>
+                  <el-radio-button value="week">{{ t('dashboard.week') }}</el-radio-button>
+                  <el-radio-button value="month">{{ t('dashboard.month') }}</el-radio-button>
+                  <el-radio-button value="year">{{ t('dashboard.year') }}</el-radio-button>
                 </el-radio-group>
               </div>
             </template>
@@ -129,8 +129,8 @@
           <el-card shadow="hover" class="h-[400px]">
             <template #header>
               <div class="flex justify-between items-center">
-                <span class="font-bold">{{ $t('dashboard.salesCategory') }}</span>
-                <el-button link>{{ $t('dashboard.more') }}</el-button>
+                <span class="font-bold">{{ t('dashboard.salesCategory') }}</span>
+                <el-button link>{{ t('dashboard.more') }}</el-button>
               </div>
             </template>
             <div class="h-[300px] flex items-center justify-center">
@@ -146,15 +146,15 @@
       <el-card shadow="hover">
         <template #header>
           <div class="flex justify-between items-center">
-            <span class="font-bold">{{ $t('dashboard.recentActivity') }}</span>
-            <el-button link>{{ $t('dashboard.viewAll') }}</el-button>
+            <span class="font-bold">{{ t('dashboard.recentActivity') }}</span>
+            <el-button link>{{ t('dashboard.viewAll') }}</el-button>
           </div>
         </template>
         <el-table :data="activities" style="width: 100%">
-          <el-table-column prop="time" :label="$t('dashboard.time')" width="180" />
-          <el-table-column prop="user" :label="$t('dashboard.user')" width="180" />
-          <el-table-column prop="activity" :label="$t('dashboard.activity')" />
-          <el-table-column prop="status" :label="$t('dashboard.status')">
+          <el-table-column prop="time" :label="t('dashboard.time')" width="180" />
+          <el-table-column prop="user" :label="t('dashboard.user')" width="180" />
+          <el-table-column prop="activity" :label="t('dashboard.activity')" />
+          <el-table-column prop="status" :label="t('dashboard.status')">
             <template #default="scope">
               <el-tag
                 :type="
@@ -178,6 +178,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { User, ShoppingCart, Wallet, View, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const chartTimeRange = ref('month');
 
