@@ -8,7 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    DeleteConfirmation: typeof import('./components/DeleteConfirmation.vue')['default']
+    DeleteConfirmation: typeof import('./components/common/DeleteConfirmation.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
@@ -41,8 +41,8 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
-    Footer: typeof import('./components/Footer.vue')['default']
-    LangSwitcher: typeof import('./components/LangSwitcher.vue')['default']
+    Footer: typeof import('./components/common/Footer.vue')['default']
+    LangSwitcher: typeof import('./components/common/LangSwitcher.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

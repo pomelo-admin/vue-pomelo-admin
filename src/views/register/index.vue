@@ -108,7 +108,7 @@ import { ElMessage } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { User, Lock, Message } from '@element-plus/icons-vue';
 import { useI18n } from 'vue-i18n';
-import Footer from '@/components/Footer.vue';
+import Footer from '@/components/common/Footer.vue';
 
 const { t } = useI18n();
 const loading = ref(false);

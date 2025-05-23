@@ -15,7 +15,7 @@ const systemRoutes: RouteRecordRaw = {
     {
       path: 'user',
       name: 'UserManagement',
-      component: () => import('@/views/system-management/user/index.vue'),
+      component: () => import('@/views/system/user/index.vue'),
       meta: {
         title: 'userManagement',
         icon: 'User',
@@ -25,7 +25,7 @@ const systemRoutes: RouteRecordRaw = {
     {
       path: 'role',
       name: 'RoleManagement',
-      component: () => import('@/views/system-management/role/index.vue'),
+      component: () => import('@/views/system/role/index.vue'),
       meta: {
         title: 'roleManagement',
         icon: 'UserFilled',
@@ -35,7 +35,7 @@ const systemRoutes: RouteRecordRaw = {
     {
       path: 'permission',
       name: 'PermissionManagement',
-      component: () => import('@/views/system-management/permission/index.vue'),
+      component: () => import('@/views/system/permission/index.vue'),
       meta: {
         title: 'permissionManagement',
         icon: 'Key',

@@ -84,7 +84,7 @@ import { inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/store/modules/user';
 import Breadcrumb from './Breadcrumb.vue';
-import LangSwitcher from '@/components/LangSwitcher.vue';
+import LangSwitcher from '@/components/common/LangSwitcher.vue';
 import defaultAvatar from '@/assets/images/default-avatar.png';
 import {
   FullScreen,

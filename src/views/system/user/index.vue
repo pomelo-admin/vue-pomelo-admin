@@ -61,7 +61,7 @@ import UserSearch from './components/UserSearch.vue';
 import UserTable from './components/UserTable.vue';
 import UserForm from './components/UserForm.vue';
 import RoleAssignment from './components/RoleAssignment.vue';
-import DeleteConfirmation from '@/components/DeleteConfirmation.vue';
+import DeleteConfirmation from '@/components/common/DeleteConfirmation.vue';
 
 const { t } = useI18n();
 
