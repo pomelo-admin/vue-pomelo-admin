@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import commonRoutes from './modules/common';
 import dashboardRoutes from './modules/dashboard';
 import errorRoutes from './modules/error';
-import permissionRoutes from './modules/permission';
+import systemRoutes from './modules/system';
 
 // 将独立的错误页面路由和通配符路由从 commonRoutes 中分离出来
 const notFoundRoute = commonRoutes.find(route => route.path === '/:pathMatch(.*)*');
@@ -15,9 +15,9 @@ const filteredCommonRoutes = commonRoutes.filter(
 const routes: RouteRecordRaw[] = [
   ...filteredCommonRoutes,
   dashboardRoutes,
-  permissionRoutes,
   errorRoutes,
   ...errorPageRoutes,
+  systemRoutes,
 ];
 
 // 将通配符路由添加到最后

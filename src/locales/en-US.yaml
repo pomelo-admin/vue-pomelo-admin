@@ -17,6 +17,7 @@ common:
   collapse: Collapse Menu
   expand: Expand Menu
   copyright: © 2025 Pomelo Admin. All Rights Reserved.
+  deleteConfirm: 'Are you sure you want to delete "{name}"?'
   update:
     title: New Version Available
     message: Application has been updated, please refresh to use the latest version
@@ -25,6 +26,7 @@ common:
 menu:
   dashboard: Dashboard
   system: System
+  systemManagement: System Management
   permission: Permission Management
   userManagement: User Management
   roleManagement: Role Management
@@ -66,7 +68,6 @@ permission:
   createSuccess: Permission created successfully
   updateSuccess: Permission updated successfully
   deleteSuccess: Permission deleted successfully
-  deleteConfirm: 'Are you sure you want to delete permission "{name}"?'
   codeFormatTip: 'Format: module:action, e.g. user:create'
   codeExists: 'Permission code {code} already exists'
   usedByRole: This permission is used by roles and cannot be deleted

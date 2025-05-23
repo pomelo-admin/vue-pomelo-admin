@@ -102,7 +102,7 @@ const mockGetRolePermissions = async (roleId: string) => {
   return mockPermissions.filter(permission => role.permissions.includes(permission.id));
 };
 
-export const usePermissionStore = defineStore('permission', () => {
+export const useSystemStore = defineStore('system', () => {
   const roles = ref<Role[]>([]);
   const permissions = ref<Permission[]>([]);
   const userStore = useUserStore();
@@ -202,10 +202,14 @@ export const usePermissionStore = defineStore('permission', () => {
     }
   };
 
-  // 初始化权限数据
+  // 初始化权限
   const initPermissions = async () => {
-    await getPermissions();
-    await getRoles();
+    try {
+      await Promise.all([getRoles(), getPermissions()]);
+    } catch (error) {
+      console.error('初始化权限失败:', error);
+      return Promise.reject(error);
+    }
   };
 
   return {

@@ -17,6 +17,7 @@ common:
   collapse: 收起菜单
   expand: 展开菜单
   copyright: © 2025 Pomelo Admin. 版权所有
+  deleteConfirm: '确定要删除 "{name}" 吗？'
   update:
     title: 新版本可用
     message: 应用已更新，请刷新页面以使用最新版本
@@ -25,6 +26,7 @@ common:
 menu:
   dashboard: 控制台
   system: 系统管理
+  systemManagement: 系统管理
   permission: 权限管理
   userManagement: 用户管理
   roleManagement: 角色管理
@@ -66,7 +68,6 @@ permission:
   createSuccess: 新增权限成功
   updateSuccess: 更新权限成功
   deleteSuccess: 删除权限成功
-  deleteConfirm: '确定要删除权限 "{name}" 吗？'
   codeFormatTip: '格式: 模块:操作, 如: user:create'
   codeExists: '权限标识 {code} 已存在'
   usedByRole: 该权限已被角色使用，无法删除

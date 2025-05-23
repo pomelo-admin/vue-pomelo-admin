@@ -3,7 +3,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { getToken } from '@/utils/auth';
 import { useUserStore } from '@/store/modules/user';
-import { usePermissionStore } from '@/store/modules/permission';
+import { useSystemStore } from '@/store/modules/system';
 import i18n from '@/locales';
 // 导入路由配置，所有路由模块已在routes.ts中聚合
 import routes from './routes';
@@ -66,14 +66,14 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // 获取用户信息和权限信息
       const userStore = useUserStore();
-      const permissionStore = usePermissionStore();
+      const systemStore = useSystemStore();
       const hasRoles = userStore.userInfo.roles && userStore.userInfo.roles.length > 0;
 
       if (hasRoles) {
         // 检查用户是否有权限访问此路由
         if (to.meta && to.meta.permission) {
           const permissions = to.meta.permission as string[];
-          const hasPermission = permissions.some(p => permissionStore.hasPermission(p));
+          const hasPermission = permissions.some(p => systemStore.hasPermission(p));
           if (!hasPermission && to.path !== '/403') {
             next('/403'); // 如果没权限，跳转到403页面
             NProgress.done();
@@ -87,7 +87,7 @@ router.beforeEach(async (to, from, next) => {
           await userStore.getUserInfoAction();
 
           // 初始化权限信息
-          await permissionStore.initPermissions();
+          await systemStore.initPermissions();
 
           // 确保路由完成
           next({ ...to, replace: true });
