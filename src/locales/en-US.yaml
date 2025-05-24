@@ -39,6 +39,8 @@ menu:
   login: Login
   forgotPassword: Forgot Password
   register: Register
+  features: Feature Components
+  sliderCaptcha: Slider Captcha
 
 # Permission Management Module
 permission:
@@ -184,3 +186,23 @@ dashboard:
   user: User
   activity: Activity
   status: Status
+
+features:
+  sliderCaptcha:
+    title: Slider Captcha
+    description: This is a slider captcha component that can be used for form validation, login protection, and other security scenarios. Slide the puzzle piece to complete the image verification.
+    modalMode: Modal Mode
+    inlineMode: Inline Mode
+    modalDescription: Modal mode displays the captcha in a popup window when clicked, suitable for most scenarios
+    inlineDescription: Inline mode embeds the captcha directly in the page, suitable for fixed position display
+    showModal: Show Modal Captcha
+    showInline: Show Inline Captcha
+    hideInline: Hide Inline Captcha
+    eventLog: Event Log
+    successLog: 'Verification success, offset: {offset}'
+    failLog: 'Verification failed, offset: {offset}'
+    closeLog: 'Captcha window closed'
+    resetLog: 'Captcha reset'
+    successMessage: 'Verification successful!'
+    comingSoon: Component under development, stay tuned!
+    componentPath: 'Component Path: {path}'

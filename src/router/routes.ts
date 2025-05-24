@@ -3,6 +3,7 @@ import commonRoutes from './modules/common';
 import dashboardRoutes from './modules/dashboard';
 import errorRoutes from './modules/error';
 import systemRoutes from './modules/system';
+import featuresRoutes from './modules/features';
 
 // 将独立的错误页面路由和通配符路由从 commonRoutes 中分离出来
 const notFoundRoute = commonRoutes.find(route => route.path === '/:pathMatch(.*)*');
@@ -18,6 +19,7 @@ const routes: RouteRecordRaw[] = [
   errorRoutes,
   ...errorPageRoutes,
   systemRoutes,
+  featuresRoutes,
 ];
 
 // 将通配符路由添加到最后

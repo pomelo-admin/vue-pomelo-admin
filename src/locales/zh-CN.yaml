@@ -39,6 +39,8 @@ menu:
   login: 登录
   forgotPassword: 忘记密码
   register: 注册
+  features: 功能组件
+  sliderCaptcha: 滑块验证码
 
 # 权限管理模块
 permission:
@@ -184,3 +186,23 @@ dashboard:
   user: 用户
   activity: 活动内容
   status: 状态
+
+features:
+  sliderCaptcha:
+    title: 滑块验证码
+    description: 这是一个滑块验证码组件，可以用于表单验证、登录保护等场景。滑动滑块完成图形拼图，即可完成验证。
+    modalMode: 模态框模式
+    inlineMode: 内嵌模式
+    modalDescription: 模态框模式会在点击按钮后弹出验证窗口，适合大多数场景使用
+    inlineDescription: 内嵌模式直接将验证码嵌入页面中，适合固定位置显示的场景
+    showModal: 显示模态框验证码
+    showInline: 显示内嵌验证码
+    hideInline: 隐藏内嵌验证码
+    eventLog: 事件日志
+    successLog: '验证成功，偏移量: {offset}'
+    failLog: '验证失败，偏移量: {offset}'
+    closeLog: '验证窗口已关闭'
+    resetLog: '验证码已重置'
+    successMessage: '验证通过！'
+    comingSoon: 组件开发中，敬请期待！
+    componentPath: 组件路径：{path}

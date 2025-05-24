@@ -45,6 +45,7 @@ declare module 'vue' {
     LangSwitcher: typeof import('./components/common/LangSwitcher.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SliderCaptcha: typeof import('./components/features/slider-captcha/index.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

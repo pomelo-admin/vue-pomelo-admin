@@ -1,14 +1,14 @@
 {
   "name": "vue-pomelo-admin",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "author": "1518014096@qq.com",
   "license": "MIT",
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0",
-    "pnpm": ">=7.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0",
+    "pnpm": ">=8.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -22,7 +22,8 @@
     "lint:style": "stylelint \"src/**/*.{vue,scss,css}\" --fix",
     "lint:all": "npm run lint && npm run lint:style",
     "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "spell": "cspell \"src/**/*.{js,ts,vue,jsx,tsx,md,yaml,yml}\""
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -57,7 +58,8 @@
     "unplugin-vue-components": "^28.5.0",
     "vue": "^3.5.13",
     "vue-i18n": "^11.1.3",
-    "vue-router": "4"
+    "vue-router": "4",
+    "vue3-puzzle-vcode": "^1.1.7"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
@@ -70,6 +72,7 @@
     "@typescript-eslint/parser": "^8.32.0",
     "@vitejs/plugin-vue": "^5.2.2",
     "@vue/tsconfig": "^0.7.0",
+    "cspell": "^9.0.2",
     "eslint": "8.57.0",
     "eslint-config-prettier": "^10.1.3",
     "eslint-plugin-prettier": "^5.4.0",
