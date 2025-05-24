@@ -23,7 +23,7 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()],
-      dts: 'src/components.d.ts',
+      dts: 'src/types/components.d.ts',
     }),
     versionPlugin(version),
   ],

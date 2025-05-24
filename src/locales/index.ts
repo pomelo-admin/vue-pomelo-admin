@@ -1,7 +1,6 @@
 import { createI18n } from 'vue-i18n';
 import type { DefineLocaleMessage } from 'vue-i18n';
 import { load } from 'js-yaml';
-import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import en from 'element-plus/dist/locale/en.mjs';
 

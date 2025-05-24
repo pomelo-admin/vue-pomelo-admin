@@ -8,57 +8,29 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    // ====== 自定义组件 ======
-    CaptchaDisplay: typeof import('./components/features/digit-captcha/components/CaptchaDisplay.vue')['default']
-    DeleteConfirmation: typeof import('./components/common/DeleteConfirmation.vue')['default']
-    DigitCaptcha: typeof import('./components/features/digit-captcha/index.vue')['default']
-    DigitInput: typeof import('./components/features/digit-captcha/components/DigitInput.vue')['default']
-    Footer: typeof import('./components/common/Footer.vue')['default']
-    LangSwitcher: typeof import('./components/common/LangSwitcher.vue')['default']
-    SliderCaptcha: typeof import('./components/features/slider-captcha/index.vue')['default']
-
-    // ====== vue-router 组件 ======
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-
-    // ====== Element Plus 组件 ======
+    CaptchaDisplay: typeof import('./../components/features/digit-captcha/components/CaptchaDisplay.vue')['default']
+    DeleteConfirmation: typeof import('./../components/common/DeleteConfirmation.vue')['default']
+    DigitCaptcha: typeof import('./../components/features/digit-captcha/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCard: typeof import('element-plus/es')['ElCard']
-    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
-    ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
-    ElCol: typeof import('element-plus/es')['ElCol']
-    ElDialog: typeof import('element-plus/es')['ElDialog']
-    ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
-    ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElPagination: typeof import('element-plus/es')['ElPagination']
-    ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
-    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
-    ElResult: typeof import('element-plus/es')['ElResult']
-    ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
-    ElSwitch: typeof import('element-plus/es')['ElSwitch']
-    ElTable: typeof import('element-plus/es')['ElTable']
-    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
-    ElTabPane: typeof import('element-plus/es')['ElTabPane']
-    ElTabs: typeof import('element-plus/es')['ElTabs']
-    ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    ElTree: typeof import('element-plus/es')['ElTree']
-  }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+    Footer: typeof import('./../components/common/Footer.vue')['default']
+    LangSwitcher: typeof import('./../components/common/LangSwitcher.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    SliderCaptcha: typeof import('./../components/features/slider-captcha/index.vue')['default']
   }
 }
