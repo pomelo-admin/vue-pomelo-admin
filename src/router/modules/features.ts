@@ -21,6 +21,15 @@ const featuresRoutes: RouteRecordRaw = {
         icon: 'Connection',
       },
     },
+    {
+      path: 'digit-captcha',
+      name: 'DigitCaptcha',
+      component: () => import('@/views/features/digit-captcha/index.vue'),
+      meta: {
+        title: 'digitCaptcha',
+        icon: 'Tickets',
+      },
+    },
   ],
 };
 

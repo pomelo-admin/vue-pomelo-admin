@@ -22,6 +22,8 @@ common:
     title: New Version Available
     message: Application has been updated, please refresh to use the latest version
     refresh: Refresh Now
+  submit: Submit
+  reset: Reset
 
 menu:
   dashboard: Dashboard
@@ -41,6 +43,7 @@ menu:
   register: Register
   features: Feature Components
   sliderCaptcha: Slider Captcha
+  digitCaptcha: Digit Captcha
 
 # Permission Management Module
 permission:
@@ -206,3 +209,30 @@ features:
     successMessage: 'Verification successful!'
     comingSoon: Component under development, stay tuned!
     componentPath: 'Component Path: {path}'
+  digitCaptcha:
+    title: Digit Captcha
+    description: This is a digit captcha component that can be used for form validation, login protection, and other security scenarios. Users need to input the displayed digits or letters to complete verification.
+    numericMode: Numeric Mode
+    alphanumericMode: Alphanumeric Mode
+    numericDescription: Numeric mode only displays digits 0-9, suitable for simple scenarios
+    alphanumericDescription: Alphanumeric mode displays both digits and uppercase letters, increasing verification difficulty and security
+    successMessage: 'Verification successful!'
+    failMessage: 'Verification failed, please try again!'
+    componentPath: 'Component Path: {path}'
+    eventLog: Event Log
+    noLog: No logs yet
+    inputChange: Input changed
+    inputSuccess: Verification succeeded
+    inputFail: Verification failed
+    inputError: The captcha is incorrect, please try again
+    formSuccess: Form validation passed, submitted successfully!
+    formFail: Captcha error, submission failed!
+    formReset: Form has been reset
+    alphaInputChange: Alphanumeric captcha input changed
+    alphaInputSuccess: Alphanumeric captcha verification succeeded
+    alphaInputFail: Alphanumeric captcha verification failed
+    alphaFormSuccess: Alphanumeric captcha form validation passed!
+    alphaFormFail: Alphanumeric captcha form validation failed!
+    alphaFormReset: Alphanumeric captcha form has been reset
+    captchaLabel: Captcha
+    alphaPlaceholder: Please enter the captcha

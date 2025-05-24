@@ -22,6 +22,8 @@ common:
     title: 新版本可用
     message: 应用已更新，请刷新页面以使用最新版本
     refresh: 立即刷新
+  submit: 验证
+  reset: 重置
 
 menu:
   dashboard: 控制台
@@ -41,6 +43,7 @@ menu:
   register: 注册
   features: 功能组件
   sliderCaptcha: 滑块验证码
+  digitCaptcha: 数字验证码
 
 # 权限管理模块
 permission:
@@ -206,3 +209,30 @@ features:
     successMessage: '验证通过！'
     comingSoon: 组件开发中，敬请期待！
     componentPath: 组件路径：{path}
+  digitCaptcha:
+    title: 数字验证码
+    description: 这是一个数字验证码组件，可以用于表单验证、登录保护等场景。用户需要通过键盘输入看到的数字或字母，完成验证。
+    numericMode: 纯数字模式
+    alphanumericMode: 字母数字混合模式
+    numericDescription: 纯数字模式只显示0-9的数字，适合简单场景使用
+    alphanumericDescription: 字母数字混合模式显示数字和大写字母，提高验证难度和安全性
+    successMessage: '验证通过！'
+    failMessage: '验证失败，请重试！'
+    componentPath: 组件路径：{path}
+    eventLog: 事件日志
+    noLog: 暂无日志
+    inputChange: 输入变化
+    inputSuccess: 验证成功
+    inputFail: 验证失败
+    inputError: 验证码输入错误，请重新输入
+    formSuccess: 表单验证通过，提交成功!
+    formFail: 验证码错误，提交失败!
+    formReset: 表单已重置
+    alphaInputChange: 字母数字验证码输入变化
+    alphaInputSuccess: 字母数字验证码验证成功
+    alphaInputFail: 字母数字验证码验证失败
+    alphaFormSuccess: 字母数字验证码表单验证通过!
+    alphaFormFail: 字母数字验证码表单验证失败!
+    alphaFormReset: 字母数字验证码表单已重置
+    captchaLabel: 验证码
+    alphaPlaceholder: 请输入验证码
