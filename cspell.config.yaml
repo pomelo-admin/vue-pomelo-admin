@@ -3,6 +3,7 @@ language: en
 words:
   - unplugin
   - Vcode
+  - lowcode
 ignorePaths:
   - node_modules
   - dist

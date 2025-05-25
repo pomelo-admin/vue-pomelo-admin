@@ -30,6 +30,15 @@ const featuresRoutes: RouteRecordRaw = {
         icon: 'Tickets',
       },
     },
+    {
+      path: 'json-editor',
+      name: 'JsonEditor',
+      component: () => import('@/views/features/json-editor/index.vue'),
+      meta: {
+        title: 'jsonEditor',
+        icon: 'Edit',
+      },
+    },
   ],
 };
 

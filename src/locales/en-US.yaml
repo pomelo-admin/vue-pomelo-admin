@@ -29,21 +29,24 @@ menu:
   dashboard: Dashboard
   system: System
   systemManagement: System Management
-  permission: Permission Management
+  permission: Permission
   userManagement: User Management
   roleManagement: Role Management
   permissionManagement: Permission Management
-  notFound: Page Not Found
-  error: Error Pages
-  errorPage: Error Pages
+  notFound: Not Found
+  error: Error
+  errorPage: Error Page
   forbidden: Forbidden
   serverError: Server Error
   login: Login
   forgotPassword: Forgot Password
   register: Register
-  features: Feature Components
+  features: Features
   sliderCaptcha: Slider Captcha
   digitCaptcha: Digit Captcha
+  jsonEditor: JSON Editor
+  lowcode: Low Code
+  formGenerator: Form Generator
 
 # Permission Management Module
 permission:
@@ -191,6 +194,7 @@ dashboard:
   status: Status
 
 features:
+  componentPath: 'Component Path: {path}'
   sliderCaptcha:
     title: Slider Captcha
     description: This is a slider captcha component that can be used for form validation, login protection, and other security scenarios. Slide the puzzle piece to complete the image verification.
@@ -235,4 +239,23 @@ features:
     alphaFormFail: Alphanumeric captcha form validation failed!
     alphaFormReset: Alphanumeric captcha form has been reset
     captchaLabel: Captcha
-    alphaPlaceholder: Please enter the captcha
+  jsonEditor:
+    title: JSON Editor
+    description: This is a powerful JSON editor component with syntax highlighting, formatting, validation, and preview capabilities.
+    format: Format
+    copy: Copy
+    clear: Clear
+    preview: Preview
+    parseError: 'JSON parse error: {message}'
+    unknownError: Unknown error
+    formatSuccess: Format successful
+    formatError: Cannot format invalid JSON
+    copySuccess: Content copied to clipboard
+    copyError: Copy failed, please copy manually
+    copyEmptyWarning: No content to copy
+    formatEmptyWarning: No content to format
+    clearConfirm: Are you sure you want to clear the editor content?
+    clearInfo: Editor is already empty
+    placeholder: Enter your JSON data here
+    componentPath: 'Component Path: {path}'
+    usageExample: Usage Example

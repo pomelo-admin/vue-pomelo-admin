@@ -1,49 +1,61 @@
+# 公共
 common:
-  login: 登录
   logout: 退出登录
+  userProfile: 个人资料
+  menu: 菜单
+  dashboard: 仪表盘
+  welcome: 欢迎回来
+  messages: 消息
+  documentation: 文档
+  guide: 导航
+  profile: 个人中心
+  settings: 设置
+  darkMode: 暗黑模式
+  lightMode: 亮色模式
+  fullscreen: 全屏
+  exitFullscreen: 退出全屏
+  toggleMenu: 切换菜单
+  toggleSidebar: 切换侧边栏
+  searchHint: 搜索...
+  searchResults: 搜索结果
+  usernameRequired: 请输入用户名
+  passwordRequired: 请输入密码
   username: 用户名
   password: 密码
+  email: 电子邮箱
+  phone: 电话号码
+  signIn: 登录
+  signUp: 注册
+  search: 搜索
+  save: 保存
+  cancel: 取消
+  confirm: 确认
+  delete: 删除
+  edit: 编辑
+  create: 创建
+  submit: 提交
+  reset: 重置
+  success: 操作成功
+  error: 操作失败
+  warning: 警告
+  info: 提示
+  loading: 加载中...
   rememberMe: 记住我
   forgotPassword: 忘记密码？
   register: 立即注册
   noAccount: 还没有账号？
-  dashboard: 控制台
-  fullscreen: 全屏
-  exitFullscreen: 退出全屏
-  lightMode: 浅色模式
-  darkMode: 深色模式
-  userCenter: 个人中心
-  appTitle: Pomelo Admin
-  collapse: 收起菜单
-  expand: 展开菜单
   copyright: © 2025 Pomelo Admin. 版权所有
   deleteConfirm: '确定要删除 "{name}" 吗？'
   update:
     title: 新版本可用
     message: 应用已更新，请刷新页面以使用最新版本
     refresh: 立即刷新
-  submit: 验证
-  reset: 重置
-
-menu:
-  dashboard: 控制台
-  system: 系统管理
-  systemManagement: 系统管理
-  permission: 权限管理
-  userManagement: 用户管理
-  roleManagement: 角色管理
-  permissionManagement: 权限管理
-  notFound: 页面未找到
-  error: 错误页面
-  errorPage: 错误页面
-  forbidden: 禁止访问
-  serverError: 服务器错误
-  login: 登录
-  forgotPassword: 忘记密码
-  register: 注册
-  features: 功能组件
-  sliderCaptcha: 滑块验证码
-  digitCaptcha: 数字验证码
+  userCenter: 个人中心
+  appTitle: Pomelo Admin
+  collapse: 收起菜单
+  expand: 展开菜单
+  total: '共 {total} 条'
+  operation: 操作
 
 # 权限管理模块
 permission:
@@ -191,6 +203,7 @@ dashboard:
   status: 状态
 
 features:
+  componentPath: 组件路径：{path}
   sliderCaptcha:
     title: 滑块验证码
     description: 这是一个滑块验证码组件，可以用于表单验证、登录保护等场景。滑动滑块完成图形拼图，即可完成验证。
@@ -236,3 +249,46 @@ features:
     alphaFormReset: 字母数字验证码表单已重置
     captchaLabel: 验证码
     alphaPlaceholder: 请输入验证码
+  jsonEditor:
+    title: JSON编辑器
+    description: 这是一个功能强大的JSON编辑器组件，支持语法高亮、格式化、验证和预览功能。
+    format: 格式化
+    copy: 复制
+    clear: 清空
+    preview: 预览
+    parseError: 'JSON解析错误: {message}'
+    unknownError: 未知错误
+    formatSuccess: 格式化成功
+    formatError: 无法格式化无效的JSON
+    copySuccess: 内容已复制到剪贴板
+    copyError: 复制失败，请手动复制
+    copyEmptyWarning: 没有内容可复制
+    formatEmptyWarning: 没有内容可格式化
+    clearConfirm: 确定要清空编辑器内容吗？
+    clearInfo: 编辑器已经是空的了
+    placeholder: 在此输入您的JSON数据
+    componentPath: 组件路径：{path}
+    usageExample: 使用方法
+
+menu:
+  dashboard: 控制台
+  system: 系统管理
+  systemManagement: 系统管理
+  permission: 权限管理
+  userManagement: 用户管理
+  roleManagement: 角色管理
+  permissionManagement: 权限管理
+  notFound: 页面未找到
+  error: 错误页面
+  errorPage: 错误页面
+  forbidden: 禁止访问
+  serverError: 服务器错误
+  login: 登录
+  forgotPassword: 忘记密码
+  register: 注册
+  features: 功能组件
+  sliderCaptcha: 滑块验证码
+  digitCaptcha: 数字验证码
+  jsonEditor: JSON编辑器
+  lowcode: 低代码
+  formGenerator: 表单生成器
