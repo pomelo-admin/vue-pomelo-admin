@@ -259,3 +259,9 @@ features:
     placeholder: Enter your JSON data here
     componentPath: 'Component Path: {path}'
     usageExample: Usage Example
+  jsonVisualizer:
+    title: JSON Visualizer
+    description: This component visualizes JSON data in a tree-like structure for better readability.
+    emptyState: No data to display. Please enter JSON data in the editor.
+    componentPath: 'Component Path: {path}'
+    usageExample: Usage Example

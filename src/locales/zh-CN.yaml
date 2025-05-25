@@ -269,6 +269,12 @@ features:
     placeholder: 在此输入您的JSON数据
     componentPath: 组件路径：{path}
     usageExample: 使用方法
+  jsonVisualizer:
+    title: JSON可视化
+    description: 此组件以树状结构可视化JSON数据，提高可读性。
+    emptyState: 没有可显示的数据。请在编辑器中输入JSON数据。
+    componentPath: 组件路径：{path}
+    usageExample: 使用方法
 
 menu:
   dashboard: 控制台
@@ -290,5 +296,6 @@ menu:
   sliderCaptcha: 滑块验证码
   digitCaptcha: 数字验证码
   jsonEditor: JSON编辑器
+  jsonVisualizer: JSON可视化
   lowcode: 低代码
   formGenerator: 表单生成器

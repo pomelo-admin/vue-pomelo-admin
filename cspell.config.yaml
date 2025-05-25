@@ -4,6 +4,7 @@ words:
   - unplugin
   - Vcode
   - lowcode
+  - antv
 ignorePaths:
   - node_modules
   - dist

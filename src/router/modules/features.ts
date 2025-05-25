@@ -39,6 +39,15 @@ const featuresRoutes: RouteRecordRaw = {
         icon: 'Edit',
       },
     },
+    {
+      path: 'json-visualizer',
+      name: 'JsonVisualizer',
+      component: () => import('@/views/features/json-visualizer/index.vue'),
+      meta: {
+        title: 'jsonVisualizer',
+        icon: 'View',
+      },
+    },
   ],
 };
 
