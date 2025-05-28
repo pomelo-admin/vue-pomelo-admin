@@ -167,36 +167,36 @@ const clearJSON = () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .json-editor-card {
   margin-bottom: 20px;
-}
 
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-.header-actions {
-  display: flex;
-  gap: 10px;
-}
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+  }
 
-.editor-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+  .editor-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-.editor-container {
-  height: 400px;
-  overflow: hidden;
-  border: 1px solid #dcdfe6;
-  border-radius: 4px;
-}
+    .editor-container {
+      height: 400px;
+      overflow: hidden;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+    }
 
-.error-panel {
-  margin-top: 10px;
+    .error-panel {
+      margin-top: 10px;
+    }
+  }
 }
 </style>

@@ -56,6 +56,10 @@ common:
   expand: 展开菜单
   total: '共 {total} 条'
   operation: 操作
+  componentInfo: 组件信息
+  componentPath: 组件路径：{path}
+  usageExample: 使用示例
+  usageNote: 以下是组件的基本使用方法，您可以根据需要进行调整
 
 # 权限管理模块
 permission:
@@ -222,6 +226,9 @@ features:
     successMessage: '验证通过！'
     comingSoon: 组件开发中，敬请期待！
     componentPath: 组件路径：{path}
+    dragText: 拖动滑块完成拼图
+    successText: 验证通过
+    failText: 验证失败，请重试
   digitCaptcha:
     title: 数字验证码
     description: 这是一个数字验证码组件，可以用于表单验证、登录保护等场景。用户需要通过键盘输入看到的数字或字母，完成验证。
@@ -249,6 +256,11 @@ features:
     alphaFormReset: 字母数字验证码表单已重置
     captchaLabel: 验证码
     alphaPlaceholder: 请输入验证码
+    placeholder: 请输入验证码
+    refresh: 刷新
+    validate: 验证
+    successText: 验证通过
+    failText: 验证失败，请重试
   jsonEditor:
     title: JSON编辑器
     description: 这是一个功能强大的JSON编辑器组件，支持语法高亮、格式化、验证和预览功能。
@@ -258,23 +270,38 @@ features:
     preview: 预览
     parseError: 'JSON解析错误: {message}'
     unknownError: 未知错误
-    formatSuccess: 格式化成功
-    formatError: 无法格式化无效的JSON
-    copySuccess: 内容已复制到剪贴板
-    copyError: 复制失败，请手动复制
+    formatSuccess: JSON格式化成功
+    formatError: JSON格式化失败
+    copySuccess: 已复制到剪贴板
+    copyError: 复制失败
     copyEmptyWarning: 没有内容可复制
     formatEmptyWarning: 没有内容可格式化
     clearConfirm: 确定要清空编辑器内容吗？
     clearInfo: 编辑器已经是空的了
-    placeholder: 在此输入您的JSON数据
+    placeholder: 请输入JSON数据
     componentPath: 组件路径：{path}
     usageExample: 使用方法
+    emptyState: 请输入JSON数据
   jsonVisualizer:
     title: JSON可视化
-    description: 此组件以树状结构可视化JSON数据，提高可读性。
-    emptyState: 没有可显示的数据。请在编辑器中输入JSON数据。
+    description: 将JSON数据以树形图的方式进行可视化展示，支持各种复杂的JSON结构。
+    emptyState: 暂无数据，请在左侧输入JSON
     componentPath: 组件路径：{path}
     usageExample: 使用方法
+  chinaMap:
+    title: 中国地图热力图
+    description: 通过热力图展示中国各省份的数据分布情况。
+    emptyState: 暂无数据，请提供省份数据
+    mapTitle: 中国地图
+    seriesName: 省份数据
+    componentPath: 组件路径：{path}
+  heatMap:
+    title: 热力图
+    description: 展示各省数据的热力分布
+    emptyState: 暂无数据
+    mapTitle: 热力图
+    seriesName: 数据
+    componentPath: 组件路径：{path}
 
 menu:
   dashboard: 控制台
@@ -297,5 +324,6 @@ menu:
   digitCaptcha: 数字验证码
   jsonEditor: JSON编辑器
   jsonVisualizer: JSON可视化
+  heatMap: 热力图
   lowcode: 低代码
   formGenerator: 表单生成器

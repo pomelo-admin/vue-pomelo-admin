@@ -48,6 +48,15 @@ const featuresRoutes: RouteRecordRaw = {
         icon: 'View',
       },
     },
+    {
+      path: 'heat-map',
+      name: 'HeatMap',
+      component: () => import('@/views/features/heat-map/index.vue'),
+      meta: {
+        title: 'heatMap',
+        icon: 'MapLocation',
+      },
+    },
   ],
 };
 

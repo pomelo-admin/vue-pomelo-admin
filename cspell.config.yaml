@@ -5,6 +5,7 @@ words:
   - Vcode
   - lowcode
   - antv
+  - echarts
 ignorePaths:
   - node_modules
   - dist

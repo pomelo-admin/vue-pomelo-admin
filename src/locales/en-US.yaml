@@ -18,6 +18,10 @@ common:
   expand: Expand Menu
   copyright: © 2025 Pomelo Admin. All Rights Reserved.
   deleteConfirm: 'Are you sure you want to delete "{name}"?'
+  componentInfo: Component Information
+  componentPath: 'Component Path: {path}'
+  usageExample: Usage Example
+  usageNote: Below is the basic usage of the component, which you can adjust as needed
   update:
     title: New Version Available
     message: Application has been updated, please refresh to use the latest version
@@ -45,6 +49,8 @@ menu:
   sliderCaptcha: Slider Captcha
   digitCaptcha: Digit Captcha
   jsonEditor: JSON Editor
+  jsonVisualizer: JSON Visualizer
+  heatMap: Heat Map
   lowcode: Low Code
   formGenerator: Form Generator
 
@@ -197,7 +203,10 @@ features:
   componentPath: 'Component Path: {path}'
   sliderCaptcha:
     title: Slider Captcha
-    description: This is a slider captcha component that can be used for form validation, login protection, and other security scenarios. Slide the puzzle piece to complete the image verification.
+    description: Verify user identity by sliding the puzzle piece into place.
+    dragText: Drag the slider to complete the puzzle
+    successText: Verification passed
+    failText: Verification failed, please try again
     modalMode: Modal Mode
     inlineMode: Inline Mode
     modalDescription: Modal mode displays the captcha in a popup window when clicked, suitable for most scenarios
@@ -215,7 +224,12 @@ features:
     componentPath: 'Component Path: {path}'
   digitCaptcha:
     title: Digit Captcha
-    description: This is a digit captcha component that can be used for form validation, login protection, and other security scenarios. Users need to input the displayed digits or letters to complete verification.
+    description: Verify user identity by entering the digits shown in the image.
+    placeholder: Please enter captcha
+    refresh: Refresh
+    validate: Validate
+    successText: Verification passed
+    failText: Verification failed, please try again
     numericMode: Numeric Mode
     alphanumericMode: Alphanumeric Mode
     numericDescription: Numeric mode only displays digits 0-9, suitable for simple scenarios
@@ -241,27 +255,37 @@ features:
     captchaLabel: Captcha
   jsonEditor:
     title: JSON Editor
-    description: This is a powerful JSON editor component with syntax highlighting, formatting, validation, and preview capabilities.
+    description: Advanced JSON editor with syntax highlighting, formatting, and error detection.
+    formatSuccess: JSON formatted successfully
+    formatError: Failed to format JSON
+    copySuccess: Copied to clipboard
+    copyError: Copy failed
+    emptyState: Please enter JSON data
     format: Format
     copy: Copy
     clear: Clear
     preview: Preview
     parseError: 'JSON parse error: {message}'
     unknownError: Unknown error
-    formatSuccess: Format successful
-    formatError: Cannot format invalid JSON
-    copySuccess: Content copied to clipboard
-    copyError: Copy failed, please copy manually
-    copyEmptyWarning: No content to copy
-    formatEmptyWarning: No content to format
-    clearConfirm: Are you sure you want to clear the editor content?
-    clearInfo: Editor is already empty
-    placeholder: Enter your JSON data here
-    componentPath: 'Component Path: {path}'
     usageExample: Usage Example
+    componentPath: 'Component Path: {path}'
   jsonVisualizer:
     title: JSON Visualizer
-    description: This component visualizes JSON data in a tree-like structure for better readability.
+    description: Visualize JSON data in a tree structure for better readability.
     emptyState: No data to display. Please enter JSON data in the editor.
     componentPath: 'Component Path: {path}'
     usageExample: Usage Example
+  chinaMap:
+    title: China Map Heatmap
+    description: Visualize data distribution across Chinese provinces using a heatmap.
+    emptyState: No data available, please provide province data
+    mapTitle: China Map
+    seriesName: Province Data
+    componentPath: 'Component Path: {path}'
+  heatMap:
+    title: Heat Map
+    description: Displays heat distribution by province
+    emptyState: No data available
+    mapTitle: Heat Map
+    seriesName: Data
+    componentPath: 'Component Path: {path}'
