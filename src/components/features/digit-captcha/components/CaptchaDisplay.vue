@@ -81,9 +81,9 @@ defineExpose({
 <style lang="scss" scoped>
 .captcha-display {
   display: flex;
+  gap: 4px;
   align-items: center;
   justify-content: center;
-  gap: 4px;
   height: calc(100% - 2px);
   padding: 0 8px;
   cursor: pointer;
@@ -97,12 +97,12 @@ defineExpose({
 
   &__digit {
     font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
     font-size: 18px;
+    font-weight: bold;
     color: #606266;
     letter-spacing: 2px;
     text-decoration: line-through;
-    text-decoration-color: rgba(0, 0, 0, 0.2);
+    text-decoration-color: rgb(0 0 0 / 20%);
     transform: skewX(-10deg);
   }
 }

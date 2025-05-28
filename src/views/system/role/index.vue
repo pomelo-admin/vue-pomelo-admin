@@ -62,7 +62,7 @@ import RoleSearch from './components/RoleSearch.vue';
 import RoleTable from './components/RoleTable.vue';
 import RoleForm from './components/RoleForm.vue';
 import PermissionAssignment from './components/PermissionAssignment.vue';
-import DeleteConfirmation from '@/components/common/DeleteConfirmation.vue';
+import { DeleteConfirmation } from '@/components/common';
 
 const { t } = useI18n();
 

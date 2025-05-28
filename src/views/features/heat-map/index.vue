@@ -10,8 +10,8 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import FeatureDemo from '@/components/common/FeatureDemo.vue';
-import HeatMap from '@/components/features/heat-map/index.vue';
+import { FeatureDemo } from '@/components/common';
+import { HeatMap } from '@/components/features';
 
 const { t } = useI18n();
 
@@ -87,8 +87,8 @@ const provinceNameMap: Record<string, string> = {
   宁夏: 'Ningxia',
   新疆: 'Xinjiang',
   台湾: 'Taiwan',
-  香港: 'Hong Kong',
-  澳门: 'Macao',
+  香港: 'HongKong',
+  澳门: 'Aomen',
 };
 
 // 转换为数组格式

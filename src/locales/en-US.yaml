@@ -28,6 +28,25 @@ common:
     refresh: Refresh Now
   submit: Submit
   reset: Reset
+  close: Close
+  save: Save
+  search: Search
+  add: Add
+  delete: Delete
+  import: Import
+  export: Export
+  more: More
+  loading: Loading...
+  success: Success
+  fail: Failure
+  confirm: Confirm
+  cancel: Cancel
+  note: Note
+  filePath: File Path
+  view: View
+  examples: Examples
+  publicPathExample: Use file from public directory
+  initialPageExample: Set initial page number
 
 menu:
   dashboard: Dashboard
@@ -53,6 +72,7 @@ menu:
   heatMap: Heat Map
   lowcode: Low Code
   formGenerator: Form Generator
+  pdfViewer: PDF Viewer
 
 # Permission Management Module
 permission:
@@ -289,3 +309,26 @@ features:
     mapTitle: Heat Map
     seriesName: Data
     componentPath: 'Component Path: {path}'
+  pdfViewer:
+    title: PDF Viewer
+    description: Load remote PDF file.
+    errorTitle: Loading Error
+    loadError: PDF loading failed
+    renderError: Rendering error
+    noSource: No PDF file path provided
+    passwordRequired: This PDF file requires a password
+    publicDirTip: Please ensure the PDF file is placed in the public directory, or use an accessible URL
+    checkPathTip: Please check if the file path is correct and accessible
+    corsError: This may be due to CORS restrictions. The remote server needs to allow cross-origin requests
+    remoteUrlExample: Use a remote PDF file URL
+    passwordExample: Provide password for protected PDFs
+    showAllPages: Show all pages
+    rotate: 'Rotate (Current: {angle}°)'
+    print: Print document
+    totalPages: 'Total {total} pages'
+    newFeatures: New Features
+    showAllPagesDesc: Display all pages of the PDF at once for easier browsing
+    rotateFeature: Rotation
+    rotateDesc: Rotate the PDF document by 90, 180, or 270 degrees
+    printFeature: Print
+    printDesc: Print the current PDF document directly from the viewer

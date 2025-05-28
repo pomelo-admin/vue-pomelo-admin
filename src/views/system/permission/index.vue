@@ -49,7 +49,7 @@ import { useI18n } from 'vue-i18n';
 import PermissionSearch from './components/PermissionSearch.vue';
 import PermissionTable from './components/PermissionTable.vue';
 import PermissionForm from './components/PermissionForm.vue';
-import DeleteConfirmation from '@/components/common/DeleteConfirmation.vue';
+import { DeleteConfirmation } from '@/components/common';
 
 const { t } = useI18n();
 

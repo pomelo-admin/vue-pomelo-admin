@@ -62,7 +62,7 @@
               :loading="loading"
               @click="handleLogin"
             >
-              {{ t('common.login') }}
+              {{ t('common.signIn') }}
             </el-button>
           </el-form>
 
@@ -91,7 +91,7 @@ import { ElMessage } from 'element-plus';
 import { User, Lock } from '@element-plus/icons-vue';
 import { useI18n } from 'vue-i18n';
 import type { FormRules } from 'element-plus';
-import Footer from '@/components/common/Footer.vue';
+import { Footer } from '@/components/common';
 
 const { t } = useI18n();
 const loading = ref(false);

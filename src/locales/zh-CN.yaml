@@ -60,6 +60,18 @@ common:
   componentPath: 组件路径：{path}
   usageExample: 使用示例
   usageNote: 以下是组件的基本使用方法，您可以根据需要进行调整
+  close: 关闭
+  add: 添加
+  import: 导入
+  export: 导出
+  more: 更多
+  fail: 失败
+  note: 注意
+  filePath: 文件路径
+  view: 查看
+  examples: 示例
+  publicPathExample: 使用public目录下的文件
+  initialPageExample: 设置初始页码
 
 # 权限管理模块
 permission:
@@ -302,6 +314,29 @@ features:
     mapTitle: 热力图
     seriesName: 数据
     componentPath: 组件路径：{path}
+  pdfViewer:
+    title: PDF预览
+    description: 加载远程PDF文件。
+    errorTitle: 加载错误
+    loadError: PDF加载失败
+    renderError: 渲染错误
+    noSource: 未提供PDF文件路径
+    passwordRequired: 此PDF文件需要密码
+    publicDirTip: 请确保PDF文件放在public目录下，或使用可访问的URL地址
+    checkPathTip: 请检查文件路径是否正确且可访问
+    corsError: 这可能是由于CORS跨域限制导致的。远程服务器需要允许跨域请求
+    remoteUrlExample: 使用远程PDF文件URL
+    passwordExample: 为受保护的PDF提供密码
+    showAllPages: 显示所有页面
+    rotate: '旋转（当前：{angle}°）'
+    print: 打印文档
+    totalPages: '共 {total} 页'
+    newFeatures: 新功能
+    showAllPagesDesc: 一次显示PDF的所有页面，便于浏览
+    rotateFeature: 旋转功能
+    rotateDesc: 将PDF文档旋转90、180或270度
+    printFeature: 打印功能
+    printDesc: 直接从查看器打印当前PDF文档
 
 menu:
   dashboard: 控制台
@@ -327,3 +362,4 @@ menu:
   heatMap: 热力图
   lowcode: 低代码
   formGenerator: 表单生成器
+  pdfViewer: PDF预览

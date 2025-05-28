@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import Footer from '@/components/common/Footer.vue';
+import { Footer } from '@/components/common';
 </script>
 
 <style lang="scss" scoped>

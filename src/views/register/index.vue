@@ -88,7 +88,7 @@
             <p class="text-gray-600">
               {{ t('register.haveAccount') }}
               <el-button link class="custom-link login-link" @click="goToLogin">{{
-                t('common.login')
+                t('common.signIn')
               }}</el-button>
             </p>
           </div>
@@ -108,7 +108,7 @@ import { ElMessage } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { User, Lock, Message } from '@element-plus/icons-vue';
 import { useI18n } from 'vue-i18n';
-import Footer from '@/components/common/Footer.vue';
+import { Footer } from '@/components/common';
 
 const { t } = useI18n();
 const loading = ref(false);

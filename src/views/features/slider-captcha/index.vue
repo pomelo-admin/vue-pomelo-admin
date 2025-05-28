@@ -77,8 +77,8 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ElMessage } from 'element-plus';
-import FeatureDemo from '@/components/common/FeatureDemo.vue';
-import SliderCaptcha from '@/components/features/slider-captcha/index.vue';
+import { FeatureDemo } from '@/components/common';
+import { SliderCaptcha } from '@/components/features';
 
 const { t } = useI18n();
 

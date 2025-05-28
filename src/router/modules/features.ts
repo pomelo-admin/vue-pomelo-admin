@@ -57,6 +57,15 @@ const featuresRoutes: RouteRecordRaw = {
         icon: 'MapLocation',
       },
     },
+    {
+      path: 'pdf-viewer',
+      name: 'PdfViewer',
+      component: () => import('@/views/features/pdf-viewer/index.vue'),
+      meta: {
+        title: 'pdfViewer',
+        icon: 'Document',
+      },
+    },
   ],
 };
 

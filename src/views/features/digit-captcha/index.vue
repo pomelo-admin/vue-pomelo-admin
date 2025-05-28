@@ -96,8 +96,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import FeatureDemo from '@/components/common/FeatureDemo.vue';
-import DigitCaptcha from '@/components/features/digit-captcha/index.vue';
+import { FeatureDemo } from '@/components/common';
+import { DigitCaptcha } from '@/components/features';
 
 const { t } = useI18n();
 
