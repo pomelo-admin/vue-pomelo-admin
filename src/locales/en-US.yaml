@@ -73,6 +73,8 @@ menu:
   lowcode: Low Code
   formGenerator: Form Generator
   pdfViewer: PDF Viewer
+  commonFeatures: Common Features
+  watermark: Watermark
 
 # Permission Management Module
 permission:
@@ -335,3 +337,23 @@ features:
     loading: Loading PDF...
     pdfNotReady: PDF not ready, please try again later
     printFailed: Print failed, please try again later
+  watermark:
+    title: Watermark
+    description: Add watermark to any content to protect sensitive information
+    basicUsage: Basic Usage
+    defaultText: Watermark
+    basicDescription: Basic watermark with default settings. The watermark is applied to the entire container.
+    customText: Custom Text
+    confidential: CONFIDENTIAL
+    customTextDescription: You can customize the watermark text and font size to match your needs.
+    customStyle: Custom Style
+    doNotShare: DO NOT SHARE
+    customStyleDescription: Customize the watermark appearance with different colors, opacity, and rotation angles.
+    dynamicWatermark: Dynamic Watermark
+    dynamicDescription: Change watermark properties dynamically using the controls below.
+    watermarkText: Watermark Text
+    enterText: Enter watermark text
+    fontSize: Font Size
+    rotateAngle: Rotation Angle
+    opacity: Opacity
+    textColor: Text Color

@@ -340,6 +340,26 @@ features:
     loading: 正在加载PDF...
     pdfNotReady: PDF未加载完成，请稍后再试
     printFailed: 打印失败，请稍后再试
+  watermark:
+    title: 水印
+    description: 为任何内容添加水印，保护敏感信息
+    basicUsage: 基础用法
+    defaultText: 水印
+    basicDescription: 基础水印，使用默认设置。水印将应用于整个容器。
+    customText: 自定义文本
+    confidential: 机密文件
+    customTextDescription: 您可以自定义水印文本和字体大小以满足需求。
+    customStyle: 自定义样式
+    doNotShare: 禁止分享
+    customStyleDescription: 通过不同的颜色、透明度和旋转角度自定义水印外观。
+    dynamicWatermark: 动态水印
+    dynamicDescription: 使用下方控件动态更改水印属性。
+    watermarkText: 水印文本
+    enterText: 输入水印文本
+    fontSize: 字体大小
+    rotateAngle: 旋转角度
+    opacity: 透明度
+    textColor: 文本颜色
 
 menu:
   dashboard: 控制台
@@ -366,3 +386,5 @@ menu:
   lowcode: 低代码
   formGenerator: 表单生成器
   pdfViewer: PDF预览
+  commonFeatures: 常用功能
+  watermark: 水印
