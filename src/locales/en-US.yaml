@@ -311,7 +311,7 @@ features:
     componentPath: 'Component Path: {path}'
   pdfViewer:
     title: PDF Viewer
-    description: Load remote PDF file.
+    description: Load remote PDF file, supports pagination and printing.
     errorTitle: Loading Error
     loadError: PDF loading failed
     renderError: Rendering error
@@ -332,3 +332,6 @@ features:
     rotateDesc: Rotate the PDF document by 90, 180, or 270 degrees
     printFeature: Print
     printDesc: Print the current PDF document directly from the viewer
+    loading: Loading PDF...
+    pdfNotReady: PDF not ready, please try again later
+    printFailed: Print failed, please try again later

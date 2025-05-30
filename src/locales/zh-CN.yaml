@@ -316,7 +316,7 @@ features:
     componentPath: 组件路径：{path}
   pdfViewer:
     title: PDF预览
-    description: 加载远程PDF文件。
+    description: 加载远程PDF文件，支持分页、打印等功能。
     errorTitle: 加载错误
     loadError: PDF加载失败
     renderError: 渲染错误
@@ -337,6 +337,9 @@ features:
     rotateDesc: 将PDF文档旋转90、180或270度
     printFeature: 打印功能
     printDesc: 直接从查看器打印当前PDF文档
+    loading: 正在加载PDF...
+    pdfNotReady: PDF未加载完成，请稍后再试
+    printFailed: 打印失败，请稍后再试
 
 menu:
   dashboard: 控制台

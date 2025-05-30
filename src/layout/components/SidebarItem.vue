@@ -115,9 +115,6 @@ const resolvePath = (routePath: string) => {
 
   // 常规路径解析
   const result = path.resolve(props.basePath, routePath);
-  console.log('props.basePath', props.basePath);
-  console.log('routePath', routePath);
-  console.log('result', result);
   return result;
 };
 </script>
