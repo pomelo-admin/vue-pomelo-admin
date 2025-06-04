@@ -1,47 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { removeToken, setToken, getToken } from '@/utils/auth';
-
-// 虚假的API调用
-const mockLogin = async (credentials: { username: string; password: string }) => {
-  // 模拟网络延迟
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  // 检查用户名和密码（仅为演示）
-  if (credentials.username === 'admin' && credentials.password === 'admin123') {
-    return {
-      token: 'mock-token-' + Date.now(),
-      user: {
-        id: '1',
-        username: 'admin',
-        avatar: '',
-        roles: ['admin'],
-        permissions: ['*'],
-      },
-    };
-  }
-
-  throw new Error('用户名或密码错误');
-};
-
-// 模拟获取用户信息
-const mockGetUserInfo = async () => {
-  await new Promise(resolve => setTimeout(resolve, 500));
-
-  return {
-    id: '1',
-    username: 'admin',
-    avatar: '',
-    roles: ['admin'],
-    permissions: ['*'],
-  };
-};
-
-// 模拟退出登录
-const mockLogout = async () => {
-  await new Promise(resolve => setTimeout(resolve, 500));
-  return { success: true };
-};
+import { login, getUserInfo, logout as apiLogout } from '@/api';
 
 export const useUserStore = defineStore('user', () => {
   const token = ref(getToken() || '');
@@ -56,11 +16,13 @@ export const useUserStore = defineStore('user', () => {
   // 登录
   async function loginAction(loginForm: { username: string; password: string }) {
     try {
-      const { token: userToken, user } = await mockLogin(loginForm);
-      token.value = userToken;
-      setToken(userToken);
-      userInfo.value = user;
-      permissions.value = user.permissions;
+      const response = await login(loginForm);
+      token.value = response.data.token;
+      setToken(response.data.token);
+
+      // 登录成功后获取用户信息
+      await getUserInfoAction();
+
       return { success: true };
     } catch (error) {
       return Promise.reject(error);
@@ -70,15 +32,17 @@ export const useUserStore = defineStore('user', () => {
   // 获取用户信息
   async function getUserInfoAction() {
     try {
-      const data = await mockGetUserInfo();
+      const response = await getUserInfo();
+      const userData = response.data;
+
       userInfo.value = {
-        id: data.id,
-        username: data.username,
-        avatar: data.avatar,
-        roles: data.roles,
+        id: userData.id,
+        username: userData.username,
+        avatar: userData.avatar,
+        roles: userData.roles,
       };
-      permissions.value = data.permissions || [];
-      return data;
+      permissions.value = userData.permissions || [];
+      return userData;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -87,7 +51,7 @@ export const useUserStore = defineStore('user', () => {
   // 登出
   async function logout() {
     try {
-      await mockLogout();
+      await apiLogout();
     } catch (error) {
       console.error('Logout error:', error);
     } finally {

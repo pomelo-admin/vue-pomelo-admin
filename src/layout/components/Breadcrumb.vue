@@ -64,7 +64,7 @@ watch(
   }
 
   a {
-    @apply text-primary hover:text-primary cursor-pointer;
+    @apply cursor-pointer;
   }
 }
 

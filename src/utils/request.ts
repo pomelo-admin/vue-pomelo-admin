@@ -34,7 +34,6 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000,
       });
-
       // 处理登录超时/token失效的情况
       if (res.code === 401 || res.code === 403) {
         const userStore = useUserStore();

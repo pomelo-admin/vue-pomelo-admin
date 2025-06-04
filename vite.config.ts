@@ -6,6 +6,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { versionPlugin, getVersion } from './plugins/version-plugin';
+import { viteMockServe } from 'vite-plugin-mock';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -13,36 +14,46 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const version = getVersion();
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-      imports: ['vue', 'vue-router', 'pinia'],
-      dts: 'src/types/auto-imports.d.ts',
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-      dts: 'src/types/components.d.ts',
-    }),
-    versionPlugin(version),
-  ],
-  base: '/vue-pomelo-admin/',
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
+export default defineConfig(({ command }) => {
+  const isBuild = command === 'build';
+
+  return {
+    plugins: [
+      vue(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+        imports: ['vue', 'vue-router', 'pinia'],
+        dts: 'src/types/auto-imports.d.ts',
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+        dts: 'src/types/components.d.ts',
+      }),
+      versionPlugin(version),
+      viteMockServe({
+        mockPath: 'mock',
+        enable: !isBuild,
+        logger: true,
+        cors: true,
+      }),
+    ],
+    base: '/vue-pomelo-admin/',
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
     },
-  },
-  server: {
-    port: 3000,
-    open: true,
-    cors: true,
-  },
-  define: {
-    'import.meta.env.VITE_APP_VERSION': JSON.stringify(version),
-  },
-  assetsInclude: ['**/*.yaml', '**/*.yml'],
-  optimizeDeps: {
-    exclude: ['js-yaml'],
-  },
+    server: {
+      port: 3000,
+      open: true,
+      cors: true,
+    },
+    define: {
+      'import.meta.env.VITE_APP_VERSION': JSON.stringify(version),
+    },
+    assetsInclude: ['**/*.yaml', '**/*.yml'],
+    optimizeDeps: {
+      exclude: ['js-yaml'],
+    },
+  };
 });

@@ -1,15 +1,25 @@
 import request from '@/utils/request';
 
-interface LoginParams {
+export interface LoginParams {
   username: string;
   password: string;
 }
 
-interface LoginResult {
-  token: string;
+export interface LoginResult {
+  code: number;
+  data: {
+    token: string;
+  };
+  message: string;
 }
 
-interface UserInfo {
+export interface UserInfoResponse {
+  code: number;
+  data: UserInfo;
+  message: string;
+}
+
+export interface UserInfo {
   id: string;
   username: string;
   avatar: string;
@@ -31,7 +41,7 @@ export function getUserInfo() {
   return request({
     url: '/user/info',
     method: 'get',
-  }) as Promise<UserInfo>;
+  }) as Promise<UserInfoResponse>;
 }
 
 // 登出
