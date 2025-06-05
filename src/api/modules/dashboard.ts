@@ -1,5 +1,12 @@
 import request from '@/utils/request';
 
+// API 响应类型
+export interface ApiResponse<T> {
+  code: number;
+  data: T;
+  message: string;
+}
+
 export interface VisitData {
   date: string;
   count: number;
@@ -24,8 +31,29 @@ export interface Activity {
   time: string;
 }
 
+// 仪表盘概览数据类型
+export interface OverviewData {
+  totalUsers: number;
+  totalOrders: number;
+  totalIncome: number;
+  totalViews: number;
+  weekGrowth: {
+    users: number;
+    orders: number;
+    income: number;
+    views: number;
+  };
+}
+
+// 销售数据类型
+export interface SalesApiData {
+  trend: SalesData[];
+  categories: CategoryData[];
+  type: string;
+}
+
 // 获取仪表盘概览数据
-export function getDashboardOverviewService() {
+export function getDashboardOverviewService(): Promise<ApiResponse<OverviewData>> {
   return request({
     url: '/dashboard/overview',
     method: 'get',
@@ -33,7 +61,7 @@ export function getDashboardOverviewService() {
 }
 
 // 获取访问量趋势数据
-export function getVisitsDataService() {
+export function getVisitsDataService(): Promise<ApiResponse<VisitData[]>> {
   return request({
     url: '/dashboard/visits',
     method: 'get',
@@ -41,7 +69,7 @@ export function getVisitsDataService() {
 }
 
 // 获取销售趋势数据
-export function getSalesDataService(params: { type: string }) {
+export function getSalesDataService(params: { type: string }): Promise<ApiResponse<SalesApiData>> {
   return request({
     url: '/dashboard/sales',
     method: 'get',
@@ -50,7 +78,7 @@ export function getSalesDataService(params: { type: string }) {
 }
 
 // 获取最近活动
-export function getActivitiesService(params: { limit: number }) {
+export function getActivitiesService(params: { limit: number }): Promise<ApiResponse<Activity[]>> {
   return request({
     url: '/dashboard/activities',
     method: 'get',

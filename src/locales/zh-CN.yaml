@@ -205,8 +205,13 @@ dashboard:
   totalIncome: 收入总额
   totalViews: 访问量
   compared: 较上周
-  salesTrend: 销售趋势分析
-  salesCategory: 销售类别占比
+  salesTrend: 销售趋势
+  salesTrendTitle: 销售趋势 - {type}
+  salesCategory: 销售分类
+  salesCategoryEmpty: 销售分类图表
+  salesTrendEmpty: 销售趋势图表
+  salesAmount: '销售额: ¥{value}'
+  salesCategoryTooltip: '{name}: {value} ({percentage}%)'
   recentActivity: 最近活动
   more: 更多
   viewAll: 查看全部
@@ -216,6 +221,7 @@ dashboard:
   time: 时间
   user: 用户
   activity: 活动内容
+  target: 目标对象
   status: 状态
 
 features:

@@ -208,8 +208,13 @@ dashboard:
   totalIncome: Total Income
   totalViews: Total Views
   compared: vs last week
-  salesTrend: Sales Trend Analysis
+  salesTrend: Sales Trend
+  salesTrendTitle: Sales Trend - {type}
   salesCategory: Sales Category
+  salesCategoryEmpty: Sales Category Chart
+  salesTrendEmpty: Sales Trend Chart
+  salesAmount: 'Sales: ¥{value}'
+  salesCategoryTooltip: '{name}: {value} ({percentage}%)'
   recentActivity: Recent Activity
   more: More
   viewAll: View All
@@ -219,6 +224,7 @@ dashboard:
   time: Time
   user: User
   activity: Activity
+  target: Target
   status: Status
 
 features:
