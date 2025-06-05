@@ -16,7 +16,7 @@ export interface Permission {
 }
 
 // 获取角色列表
-export function getRoleList(params: { page: number; pageSize: number }) {
+export function getRoleListService(params: { page: number; pageSize: number }) {
   return request({
     url: '/role/list',
     method: 'get',
@@ -25,7 +25,7 @@ export function getRoleList(params: { page: number; pageSize: number }) {
 }
 
 // 获取权限列表
-export function getPermissionList(params: { page: number; pageSize: number }) {
+export function getPermissionListService(params: { page: number; pageSize: number }) {
   return request({
     url: '/permission/list',
     method: 'get',
@@ -34,7 +34,7 @@ export function getPermissionList(params: { page: number; pageSize: number }) {
 }
 
 // 获取角色详情
-export function getRoleDetail(id: string) {
+export function getRoleDetailService(id: string) {
   return request({
     url: `/role/${id}`,
     method: 'get',
@@ -42,7 +42,7 @@ export function getRoleDetail(id: string) {
 }
 
 // 分配角色权限
-export function assignRolePermissions(data: { roleId: string; permissionCodes: string[] }) {
+export function assignRolePermissionsService(data: { roleId: string; permissionCodes: string[] }) {
   return request({
     url: '/role/assign-permissions',
     method: 'post',

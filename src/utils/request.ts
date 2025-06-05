@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { useUserStore } from '@/store/modules/user';
+import router from '@/router';
+
+// 定义不需要显示登录过期提示的路由路径数组
+const noAuthNoticeRoutes = ['/login', '/', '/register', '/forgot-password'];
 
 // 创建axios实例
 const service = axios.create({
@@ -27,24 +31,36 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    // 处理业务逻辑错误
     if (res.code !== 200) {
-      ElMessage({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000,
-      });
-      // 处理登录超时/token失效的情况
-      if (res.code === 401 || res.code === 403) {
-        const userStore = useUserStore();
-        ElMessageBox.confirm('登录已过期，请重新登录', '确认退出', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning',
-        }).then(() => {
-          userStore.logout().then(() => {
-            window.location.reload();
+      if (res.code === 401) {
+        const currentRoute = router.currentRoute.value;
+        const isNoAuthNoticePage = noAuthNoticeRoutes.includes(currentRoute.path);
+        if (!isNoAuthNoticePage) {
+          const userStore = useUserStore();
+          ElMessageBox.confirm('登录已过期，请重新登录', '确认退出', {
+            confirmButtonText: '重新登录',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }).then(() => {
+            userStore.logout().then(() => {
+              window.location.reload();
+            });
           });
+        } else {
+          const userStore = useUserStore();
+          userStore.resetState();
+        }
+      } else if (res.code === 403) {
+        ElMessage({
+          message: '权限不足，无法访问该资源',
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      } else {
+        ElMessage({
+          message: res.message || 'Error',
+          type: 'error',
+          duration: 5 * 1000,
         });
       }
       return Promise.reject(new Error(res.message || 'Error'));
@@ -53,9 +69,9 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.error('Response error:', error);
+    const errorMessage = error.response?.data?.message || '请求失败，请稍后重试';
     ElMessage({
-      message: error.message || '网络异常，请稍后再试',
+      message: errorMessage,
       type: 'error',
       duration: 5 * 1000,
     });

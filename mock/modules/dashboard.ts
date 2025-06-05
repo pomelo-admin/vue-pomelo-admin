@@ -1,5 +1,6 @@
-import { MockMethod } from 'vite-plugin-mock';
+import type { MockMethod } from 'vite-plugin-mock';
 import Mock from 'mockjs';
+import type { RequestParams } from '../types';
 const { Random } = Mock;
 
 // 定义类型
@@ -140,7 +141,7 @@ export default [
     url: '/dashboard/sales',
     method: 'get',
     timeout: 300,
-    response: ({ query }) => {
+    response: ({ query }: RequestParams) => {
       const { type = 'week' } = query;
 
       return {
@@ -160,7 +161,7 @@ export default [
     url: '/dashboard/activities',
     method: 'get',
     timeout: 300,
-    response: ({ query }) => {
+    response: ({ query }: RequestParams) => {
       const { limit = 10 } = query;
 
       return {

@@ -28,7 +28,7 @@ export interface UserInfo {
 }
 
 // 登录
-export function login(data: LoginParams) {
+export function loginService(data: LoginParams) {
   return request({
     url: '/auth/login',
     method: 'post',
@@ -37,7 +37,7 @@ export function login(data: LoginParams) {
 }
 
 // 获取用户信息
-export function getUserInfo() {
+export function getUserInfoService() {
   return request({
     url: '/user/info',
     method: 'get',
@@ -45,7 +45,7 @@ export function getUserInfo() {
 }
 
 // 登出
-export function logout() {
+export function logoutService() {
   return request({
     url: '/auth/logout',
     method: 'post',

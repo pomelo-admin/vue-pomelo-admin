@@ -1,5 +1,6 @@
-import { MockMethod } from 'vite-plugin-mock';
+import type { MockMethod } from 'vite-plugin-mock';
 import Mock from 'mockjs';
+import type { RequestParams } from '../types';
 const { Random } = Mock;
 
 // 用户类型定义
@@ -57,7 +58,7 @@ export default [
     url: '/auth/login',
     method: 'post',
     timeout: 500,
-    response: ({ body }) => {
+    response: ({ body }: RequestParams) => {
       const { username } = body;
 
       // 简单的身份验证逻辑
@@ -92,7 +93,7 @@ export default [
     url: '/user/info',
     method: 'get',
     timeout: 300,
-    response: ({ headers }) => {
+    response: ({ headers }: RequestParams) => {
       const token = headers?.authorization?.replace('Bearer ', '');
 
       if (token === 'mock-token-admin') {
@@ -148,7 +149,7 @@ export default [
     url: '/user/list',
     method: 'get',
     timeout: 500,
-    response: ({ query }) => {
+    response: ({ query }: RequestParams) => {
       const { page = 1, pageSize = 10 } = query;
 
       const pageUsers = users.slice((page - 1) * pageSize, page * pageSize);

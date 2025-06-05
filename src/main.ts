@@ -12,6 +12,13 @@ import directives from './directives';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import en from 'element-plus/dist/locale/en.mjs';
 
+// 在生产环境中启用 mock 服务
+import { setupProdMockServer } from '../mock/mockProdServer';
+
+if (import.meta.env.PROD) {
+  setupProdMockServer();
+}
+
 const app = createApp(App);
 
 // 获取当前语言

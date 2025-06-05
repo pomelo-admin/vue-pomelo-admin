@@ -1,5 +1,6 @@
-import { MockMethod } from 'vite-plugin-mock';
+import type { MockMethod } from 'vite-plugin-mock';
 import Mock from 'mockjs';
+import type { RequestParams } from '../types';
 const { Random } = Mock;
 
 // 角色类型定义
@@ -117,7 +118,7 @@ export default [
     url: '/role/list',
     method: 'get',
     timeout: 300,
-    response: ({ query }) => {
+    response: ({ query }: RequestParams) => {
       const { page = 1, pageSize = 10 } = query;
 
       const pageRoles = roles.slice((page - 1) * pageSize, page * pageSize);
@@ -140,7 +141,7 @@ export default [
     url: '/permission/list',
     method: 'get',
     timeout: 300,
-    response: ({ query }) => {
+    response: ({ query }: RequestParams) => {
       const { page = 1, pageSize = 10 } = query;
 
       const pagePermissions = permissions.slice((page - 1) * pageSize, page * pageSize);
@@ -163,7 +164,7 @@ export default [
     url: '/role/:id',
     method: 'get',
     timeout: 200,
-    response: ({ params }) => {
+    response: ({ params }: RequestParams) => {
       const { id } = params;
       const role = roles.find(role => role.id === id);
 
@@ -188,7 +189,7 @@ export default [
     url: '/role/assign-permissions',
     method: 'post',
     timeout: 300,
-    response: ({ body }) => {
+    response: ({ body }: RequestParams) => {
       const { roleId, permissionCodes } = body;
       const roleIndex = roles.findIndex(role => role.id === roleId);
 

@@ -32,7 +32,7 @@ export default defineConfig(({ command }) => {
       versionPlugin(version),
       viteMockServe({
         mockPath: 'mock',
-        enable: !isBuild,
+        enable: true,
         logger: true,
         cors: true,
       }),

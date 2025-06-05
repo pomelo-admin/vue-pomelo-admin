@@ -25,7 +25,7 @@ export interface Activity {
 }
 
 // 获取仪表盘概览数据
-export function getDashboardOverview() {
+export function getDashboardOverviewService() {
   return request({
     url: '/dashboard/overview',
     method: 'get',
@@ -33,7 +33,7 @@ export function getDashboardOverview() {
 }
 
 // 获取访问量趋势数据
-export function getVisitsData() {
+export function getVisitsDataService() {
   return request({
     url: '/dashboard/visits',
     method: 'get',
@@ -41,7 +41,7 @@ export function getVisitsData() {
 }
 
 // 获取销售趋势数据
-export function getSalesData(params: { type: string }) {
+export function getSalesDataService(params: { type: string }) {
   return request({
     url: '/dashboard/sales',
     method: 'get',
@@ -50,7 +50,7 @@ export function getSalesData(params: { type: string }) {
 }
 
 // 获取最近活动
-export function getActivities(params: { limit: number }) {
+export function getActivitiesService(params: { limit: number }) {
   return request({
     url: '/dashboard/activities',
     method: 'get',

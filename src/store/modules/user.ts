@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { removeToken, setToken, getToken } from '@/utils/auth';
-import { login, getUserInfo, logout as apiLogout } from '@/api';
+import { loginService, getUserInfoService, logoutService } from '@/api';
 
 export const useUserStore = defineStore('user', () => {
   const token = ref(getToken() || '');
@@ -16,14 +16,11 @@ export const useUserStore = defineStore('user', () => {
   // 登录
   async function loginAction(loginForm: { username: string; password: string }) {
     try {
-      const response = await login(loginForm);
-      token.value = response.data.token;
-      setToken(response.data.token);
-
+      const { data } = await loginService(loginForm);
+      token.value = data.token;
+      setToken(data.token);
       // 登录成功后获取用户信息
       await getUserInfoAction();
-
-      return { success: true };
     } catch (error) {
       return Promise.reject(error);
     }
@@ -32,7 +29,7 @@ export const useUserStore = defineStore('user', () => {
   // 获取用户信息
   async function getUserInfoAction() {
     try {
-      const response = await getUserInfo();
+      const response = await getUserInfoService();
       const userData = response.data;
 
       userInfo.value = {
@@ -51,7 +48,7 @@ export const useUserStore = defineStore('user', () => {
   // 登出
   async function logout() {
     try {
-      await apiLogout();
+      await logoutService();
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
