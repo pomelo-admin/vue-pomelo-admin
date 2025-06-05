@@ -138,7 +138,7 @@
                   v-else
                   ref="salesChartRef"
                   class="w-full flex items-center justify-center"
-                  style=" width: 100%;height: 320px; min-height: 320px"
+                  style="width: 100%; height: 320px; min-height: 320px"
                 ></div>
               </template>
             </el-skeleton>
@@ -162,7 +162,7 @@
                   v-else
                   ref="categoryChartRef"
                   class="w-full flex items-center justify-center"
-                  style=" width: 100%;height: 320px; min-height: 320px"
+                  style="width: 100%; height: 320px; min-height: 320px"
                 ></div>
               </template>
             </el-skeleton>
