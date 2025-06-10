@@ -56,13 +56,23 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useSystemStore } from '@/store/modules/system';
-import type { Role, Permission } from '@/store/modules/system';
 import { useI18n } from 'vue-i18n';
 import RoleSearch from './components/RoleSearch.vue';
 import RoleTable from './components/RoleTable.vue';
 import RoleForm from './components/RoleForm.vue';
 import PermissionAssignment from './components/PermissionAssignment.vue';
 import { DeleteConfirmation } from '@/components/common';
+import {
+  getRoleListService,
+  createRoleService,
+  updateRoleService,
+  deleteRoleService,
+  assignRolePermissionsService,
+  type Role,
+  type Permission,
+  type RoleCreateParams,
+  type RoleUpdateParams,
+} from '@/api';
 
 const { t } = useI18n();
 
@@ -148,32 +158,23 @@ onMounted(async () => {
   fetchRoleList();
 });
 
-// 从API获取角色列表（模拟）
+// 从API获取角色列表
 const fetchRoleList = async () => {
   loading.value = true;
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    // 从store获取全部角色，在真实环境这应该是从API获取
-    const allRoles = systemStore.roles;
-
-    // 根据搜索条件过滤
-    const filteredRoles = allRoles.filter(role => {
-      const nameMatch =
-        !searchParams.name || role.name.toLowerCase().includes(searchParams.name.toLowerCase());
-      const codeMatch =
-        !searchParams.code || role.code.toLowerCase().includes(searchParams.code.toLowerCase());
-      return nameMatch && codeMatch;
+    const res = await getRoleListService({
+      page: currentPage.value,
+      pageSize: pageSize.value,
+      name: searchParams.name || undefined,
+      code: searchParams.code || undefined,
     });
 
-    // 设置总数
-    total.value = filteredRoles.length;
-
-    // 分页处理
-    const start = (currentPage.value - 1) * pageSize.value;
-    const end = start + pageSize.value;
-    roleList.value = filteredRoles.slice(start, end);
+    if (res.code === 200) {
+      roleList.value = res.data.list;
+      total.value = res.data.total;
+    } else {
+      ElMessage.error(res.message || t('permission.error'));
+    }
   } catch (error) {
     console.error('获取角色列表失败:', error);
     ElMessage.error(t('permission.error'));
@@ -241,17 +242,17 @@ const handleDelete = (row: Role) => {
 // 确认删除
 const confirmDelete = async (role: Role) => {
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const res = await deleteRoleService(role.id);
 
-    // 从store移除角色
-    const index = systemStore.roles.findIndex(r => r.id === role.id);
-    if (index !== -1) {
-      systemStore.roles.splice(index, 1);
+    if (res.code === 200) {
+      ElMessage.success(t('permission.deleteRoleSuccess'));
+      // 重新获取角色列表
+      fetchRoleList();
+      // 更新全局角色列表
+      await systemStore.getRoles();
+    } else {
+      ElMessage.error(res.message || t('permission.error'));
     }
-
-    ElMessage.success(t('permission.deleteSuccess'));
-    fetchRoleList(); // 刷新列表
   } catch (error) {
     console.error('删除角色失败:', error);
     ElMessage.error(t('permission.error'));
@@ -271,17 +272,20 @@ const handleSavePermissions = async () => {
 
   savePermissionsLoading.value = true;
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const res = await assignRolePermissionsService({
+      roleId: currentRole.value.id,
+      permissionCodes: selectedPermissions.value,
+    });
 
-    // 更新角色的权限
-    const role = systemStore.roles.find(r => r.id === currentRole.value?.id);
-    if (role) {
-      role.permissions = [...selectedPermissions.value];
+    if (res.code === 200) {
+      ElMessage.success(t('permission.assignPermissionSuccess'));
+      permissionDialogVisible.value = false;
+      // 重新获取角色列表和全局角色数据
+      fetchRoleList();
+      await systemStore.getRoles();
+    } else {
+      ElMessage.error(res.message || t('permission.error'));
     }
-
-    ElMessage.success(t('permission.assignSuccess'));
-    permissionDialogVisible.value = false;
   } catch (error) {
     console.error('设置权限失败:', error);
     ElMessage.error(t('permission.error'));
@@ -294,43 +298,46 @@ const handleSavePermissions = async () => {
 const handleSave = async (formData: Partial<Role>) => {
   saveLoading.value = true;
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
-
     if (dialogType.value === 'add') {
-      // 检查角色标识是否已存在
-      const existingRole = systemStore.roles.find(r => r.code === formData.code);
-      if (existingRole) {
-        ElMessage.error(t('permission.codeExists', { code: formData.code }));
-        saveLoading.value = false;
-        return;
-      }
-
-      // 新增角色
-      const newRole: Role = {
-        id: 'role_' + Date.now().toString(),
+      // 创建角色
+      const params: RoleCreateParams = {
         name: formData.name || '',
         code: formData.code || '',
         description: formData.description || '',
-        permissions: [],
       };
-      systemStore.roles.push(newRole);
-      ElMessage.success(t('permission.createSuccess'));
+
+      const res = await createRoleService(params);
+
+      if (res.code === 200) {
+        ElMessage.success(t('permission.createRoleSuccess'));
+        dialogVisible.value = false;
+        // 重新获取角色列表和全局角色数据
+        fetchRoleList();
+        await systemStore.getRoles();
+      } else {
+        ElMessage.error(res.message || t('permission.error'));
+      }
     } else {
       // 更新角色
-      const index = systemStore.roles.findIndex(r => r.id === formData.id);
-      if (index !== -1) {
-        systemStore.roles[index] = {
-          ...systemStore.roles[index],
-          name: formData.name || systemStore.roles[index].name,
-          description: formData.description || systemStore.roles[index].description,
-        };
-      }
-      ElMessage.success(t('permission.updateSuccess'));
-    }
+      const params: RoleUpdateParams = {
+        id: formData.id || '',
+        name: formData.name,
+        code: formData.code,
+        description: formData.description,
+      };
 
-    dialogVisible.value = false;
-    fetchRoleList(); // 刷新列表
+      const res = await updateRoleService(params);
+
+      if (res.code === 200) {
+        ElMessage.success(t('permission.updateRoleSuccess'));
+        dialogVisible.value = false;
+        // 重新获取角色列表和全局角色数据
+        fetchRoleList();
+        await systemStore.getRoles();
+      } else {
+        ElMessage.error(res.message || t('permission.error'));
+      }
+    }
   } catch (error) {
     console.error('保存角色失败:', error);
     ElMessage.error(t('permission.error'));

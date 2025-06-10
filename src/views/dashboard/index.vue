@@ -112,7 +112,7 @@
       </el-row>
     </div>
 
-    <div class="data-analysis mt-4">
+    <div class="data-analysis">
       <el-row :gutter="20">
         <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
           <el-card shadow="hover" class="mb-4" :body-style="{ padding: '10px' }">
@@ -171,7 +171,7 @@
       </el-row>
     </div>
 
-    <div class="recent-activity mt-4">
+    <div class="recent-activity">
       <el-card shadow="hover">
         <template #header>
           <div class="flex justify-between items-center">

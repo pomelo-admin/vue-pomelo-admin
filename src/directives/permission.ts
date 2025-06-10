@@ -1,6 +1,6 @@
 import type { Directive, DirectiveBinding } from 'vue';
 import { useSystemStore } from '@/store/modules/system';
-import { useUserStore } from '@/store/modules/user';
+import { useAuthStore } from '@/store/modules/auth';
 
 /**
  * 权限指令
@@ -41,8 +41,8 @@ export const permission: Directive = {
 export const role: Directive = {
   mounted(el: HTMLElement, binding: DirectiveBinding) {
     const { value } = binding;
-    const userStore = useUserStore();
-    const { roles } = userStore.userInfo;
+    const authStore = useAuthStore();
+    const { roles } = authStore.userInfo;
 
     if (value) {
       let hasRole = false;

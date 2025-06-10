@@ -44,12 +44,20 @@
 import { ref, reactive, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useSystemStore } from '@/store/modules/system';
-import type { Permission } from '@/store/modules/system';
 import { useI18n } from 'vue-i18n';
 import PermissionSearch from './components/PermissionSearch.vue';
 import PermissionTable from './components/PermissionTable.vue';
 import PermissionForm from './components/PermissionForm.vue';
 import { DeleteConfirmation } from '@/components/common';
+import {
+  getPermissionListService,
+  createPermissionService,
+  updatePermissionService,
+  deletePermissionService,
+  type Permission,
+  type PermissionCreateParams,
+  type PermissionUpdateParams,
+} from '@/api';
 
 const { t } = useI18n();
 
@@ -78,34 +86,23 @@ onMounted(async () => {
   fetchPermissionList();
 });
 
-// 从API获取权限列表（模拟）
+// 从API获取权限列表
 const fetchPermissionList = async () => {
   loading.value = true;
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    // 从store获取全部权限，在真实环境中这应该是从API获取
-    const allPermissions = systemStore.permissions;
-
-    // 根据搜索条件过滤
-    const filteredPermissions = allPermissions.filter(permission => {
-      const nameMatch =
-        !searchParams.name ||
-        permission.name.toLowerCase().includes(searchParams.name.toLowerCase());
-      const codeMatch =
-        !searchParams.code ||
-        permission.code.toLowerCase().includes(searchParams.code.toLowerCase());
-      return nameMatch && codeMatch;
+    const res = await getPermissionListService({
+      page: currentPage.value,
+      pageSize: pageSize.value,
+      name: searchParams.name || undefined,
+      code: searchParams.code || undefined,
     });
 
-    // 设置总数
-    total.value = filteredPermissions.length;
-
-    // 分页处理
-    const start = (currentPage.value - 1) * pageSize.value;
-    const end = start + pageSize.value;
-    permissionList.value = filteredPermissions.slice(start, end);
+    if (res.code === 200) {
+      permissionList.value = res.data.list;
+      total.value = res.data.total;
+    } else {
+      ElMessage.error(res.message || t('permission.error'));
+    }
   } catch (error) {
     console.error('获取权限列表失败:', error);
     ElMessage.error(t('permission.error'));
@@ -165,17 +162,17 @@ const handleDelete = (row: Permission) => {
 // 确认删除
 const confirmDelete = async (permission: Permission) => {
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const res = await deletePermissionService(permission.id);
 
-    // 从列表移除权限
-    const index = systemStore.permissions.findIndex(p => p.id === permission.id);
-    if (index !== -1) {
-      systemStore.permissions.splice(index, 1);
+    if (res.code === 200) {
+      ElMessage.success(t('permission.deleteSuccess'));
+      // 重新获取权限列表
+      fetchPermissionList();
+      // 更新全局权限列表
+      await systemStore.initPermissions();
+    } else {
+      ElMessage.error(res.message || t('permission.error'));
     }
-
-    ElMessage.success(t('permission.deleteSuccess'));
-    fetchPermissionList(); // 刷新列表
   } catch (error) {
     console.error('删除权限失败:', error);
     ElMessage.error(t('permission.error'));
@@ -186,42 +183,48 @@ const confirmDelete = async (permission: Permission) => {
 const handleSave = async (formData: Partial<Permission>) => {
   saveLoading.value = true;
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
-
     if (dialogType.value === 'add') {
-      // 检查权限标识是否已存在
-      const existingPermission = systemStore.permissions.find(p => p.code === formData.code);
-      if (existingPermission) {
-        ElMessage.error(t('permission.codeExists', { code: formData.code }));
-        saveLoading.value = false;
-        return;
-      }
-
-      // 新增权限
-      const newPermission: Permission = {
-        id: 'perm_' + Date.now().toString(),
+      // 创建权限
+      const params: PermissionCreateParams = {
         name: formData.name || '',
         code: formData.code || '',
         description: formData.description || '',
       };
-      systemStore.permissions.push(newPermission);
-      ElMessage.success(t('permission.createSuccess'));
+
+      const res = await createPermissionService(params);
+
+      if (res.code === 200) {
+        ElMessage.success(t('permission.createSuccess'));
+        dialogVisible.value = false;
+        // 重新获取权限列表
+        fetchPermissionList();
+        // 更新全局权限列表
+        await systemStore.initPermissions();
+      } else {
+        ElMessage.error(res.message || t('permission.error'));
+      }
     } else {
       // 更新权限
-      const index = systemStore.permissions.findIndex(p => p.id === formData.id);
-      if (index !== -1) {
-        systemStore.permissions[index] = {
-          ...systemStore.permissions[index],
-          name: formData.name || systemStore.permissions[index].name,
-          description: formData.description || systemStore.permissions[index].description,
-        };
-      }
-      ElMessage.success(t('permission.updateSuccess'));
-    }
+      const params: PermissionUpdateParams = {
+        id: formData.id || '',
+        name: formData.name,
+        code: formData.code,
+        description: formData.description,
+      };
 
-    dialogVisible.value = false;
-    fetchPermissionList(); // 刷新列表
+      const res = await updatePermissionService(params);
+
+      if (res.code === 200) {
+        ElMessage.success(t('permission.updateSuccess'));
+        dialogVisible.value = false;
+        // 重新获取权限列表
+        fetchPermissionList();
+        // 更新全局权限列表
+        await systemStore.initPermissions();
+      } else {
+        ElMessage.error(res.message || t('permission.error'));
+      }
+    }
   } catch (error) {
     console.error('保存权限失败:', error);
     ElMessage.error(t('permission.error'));

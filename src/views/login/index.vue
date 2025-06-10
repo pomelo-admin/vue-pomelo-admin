@@ -86,7 +86,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { useUserStore } from '@/store/modules/user';
+import { useAuthStore } from '@/store/modules/auth';
 import { ElMessage } from 'element-plus';
 import { User, Lock } from '@element-plus/icons-vue';
 import { useI18n } from 'vue-i18n';
@@ -99,7 +99,7 @@ const rememberMe = ref(false);
 const loginFormRef = ref();
 const router = useRouter();
 const route = useRoute();
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 // 登录表单
 const loginForm = reactive({
@@ -124,7 +124,7 @@ const handleLogin = async () => {
     if (valid) {
       loading.value = true;
       try {
-        await userStore.loginAction(loginForm);
+        await authStore.loginAction(loginForm);
         ElMessage.success(t('login.success'));
 
         const redirect = route.query.redirect as string;

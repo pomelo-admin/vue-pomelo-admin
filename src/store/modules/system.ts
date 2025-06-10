@@ -1,7 +1,13 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
-import { useUserStore } from './user';
+import { useAuthStore } from './auth';
+import {
+  getRoleListService,
+  getPermissionListService,
+  type Role as ApiRole,
+  type Permission as ApiPermission,
+} from '@/api';
 
 // 权限类型定义
 export interface Permission {
@@ -105,17 +111,17 @@ const mockGetRolePermissions = async (roleId: string) => {
 export const useSystemStore = defineStore('system', () => {
   const roles = ref<Role[]>([]);
   const permissions = ref<Permission[]>([]);
-  const userStore = useUserStore();
+  const authStore = useAuthStore();
 
   // 用户拥有的权限代码列表
   const userPermissionCodes = computed(() => {
     // 如果用户有 admin 角色，直接返回所有权限
-    if (userStore.userInfo.roles.includes('admin')) {
+    if (authStore.userInfo.roles.includes('admin')) {
       return ['*'];
     }
 
     // 找出用户对应的角色，并获取这些角色拥有的所有权限ID
-    const userRoleIds = userStore.userInfo.roles;
+    const userRoleIds = authStore.userInfo.roles;
     const userRoles = roles.value.filter(role => userRoleIds.includes(role.code));
 
     // 如果任一角色有 '*' 权限，则返回所有权限
@@ -171,9 +177,18 @@ export const useSystemStore = defineStore('system', () => {
   // 获取所有角色
   const getRoles = async () => {
     try {
-      const data = await mockGetRoles();
-      roles.value = data;
-      return data;
+      const res = await getRoleListService({
+        page: 1,
+        pageSize: 100, // 获取足够多的角色数据
+      });
+
+      if (res.code === 200) {
+        roles.value = res.data.list;
+        return res.data.list;
+      } else {
+        console.error('获取角色失败:', res.message);
+        return Promise.reject(new Error(res.message));
+      }
     } catch (error) {
       console.error('获取角色失败:', error);
       return Promise.reject(error);
@@ -183,9 +198,18 @@ export const useSystemStore = defineStore('system', () => {
   // 获取所有权限
   const getPermissions = async () => {
     try {
-      const data = await mockGetPermissions();
-      permissions.value = data;
-      return data;
+      const res = await getPermissionListService({
+        page: 1,
+        pageSize: 100, // 获取足够多的权限数据
+      });
+
+      if (res.code === 200) {
+        permissions.value = res.data.list;
+        return res.data.list;
+      } else {
+        console.error('获取权限失败:', res.message);
+        return Promise.reject(new Error(res.message));
+      }
     } catch (error) {
       console.error('获取权限失败:', error);
       return Promise.reject(error);
@@ -195,7 +219,15 @@ export const useSystemStore = defineStore('system', () => {
   // 获取角色的权限
   const getRolePermissions = async (roleId: string) => {
     try {
-      return await mockGetRolePermissions(roleId);
+      // 假设角色数据中已经包含了permissions字段
+      const role = roles.value.find(r => r.id === roleId);
+      if (!role) return [];
+
+      if (role.permissions.includes('*')) {
+        return permissions.value;
+      }
+
+      return permissions.value.filter(permission => role.permissions.includes(permission.id));
     } catch (error) {
       console.error('获取角色权限失败:', error);
       return Promise.reject(error);

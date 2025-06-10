@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { getToken } from '@/utils/auth';
-import { useUserStore } from '@/store/modules/user';
+import { getToken } from '@/utils';
+import { useAuthStore } from '@/store/modules/auth';
 import { useSystemStore } from '@/store/modules/system';
 import i18n from '@/locales';
 // 导入路由配置，所有路由模块已在routes.ts中聚合
@@ -65,9 +65,9 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done();
     } else {
       // 获取用户信息和权限信息
-      const userStore = useUserStore();
+      const authStore = useAuthStore();
       const systemStore = useSystemStore();
-      const hasRoles = userStore.userInfo.roles && userStore.userInfo.roles.length > 0;
+      const hasRoles = authStore.userInfo.roles && authStore.userInfo.roles.length > 0;
 
       if (hasRoles) {
         // 检查用户是否有权限访问此路由
@@ -84,7 +84,7 @@ router.beforeEach(async (to, from, next) => {
       } else {
         try {
           // 获取用户信息
-          await userStore.getUserInfoAction();
+          await authStore.getUserInfoAction();
 
           // 初始化权限信息
           await systemStore.initPermissions();
@@ -93,7 +93,7 @@ router.beforeEach(async (to, from, next) => {
           next({ ...to, replace: true });
         } catch (error) {
           // 获取用户信息失败，重置Token并跳转登录页
-          userStore.resetState();
+          authStore.resetState();
           next(`/login?redirect=${to.path}`);
           NProgress.done();
         }

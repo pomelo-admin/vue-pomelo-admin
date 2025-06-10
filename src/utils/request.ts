@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ElMessage, ElMessageBox } from 'element-plus';
-import { useUserStore } from '@/store/modules/user';
+import { useAuthStore } from '@/store/modules/auth';
 import router from '@/router';
 
 // 定义不需要显示登录过期提示的路由路径数组
@@ -15,9 +15,9 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   config => {
-    const userStore = useUserStore();
-    if (userStore.token) {
-      config.headers['Authorization'] = `Bearer ${userStore.token}`;
+    const authStore = useAuthStore();
+    if (authStore.token) {
+      config.headers['Authorization'] = `Bearer ${authStore.token}`;
     }
     return config;
   },
@@ -36,19 +36,19 @@ service.interceptors.response.use(
         const currentRoute = router.currentRoute.value;
         const isNoAuthNoticePage = noAuthNoticeRoutes.includes(currentRoute.path);
         if (!isNoAuthNoticePage) {
-          const userStore = useUserStore();
+          const authStore = useAuthStore();
           ElMessageBox.confirm('登录已过期，请重新登录', '确认退出', {
             confirmButtonText: '重新登录',
             cancelButtonText: '取消',
             type: 'warning',
           }).then(() => {
-            userStore.logout().then(() => {
+            authStore.logout().then(() => {
               window.location.reload();
             });
           });
         } else {
-          const userStore = useUserStore();
-          userStore.resetState();
+          const authStore = useAuthStore();
+          authStore.resetState();
         }
       } else if (res.code === 403) {
         ElMessage({

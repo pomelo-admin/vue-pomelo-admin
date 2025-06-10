@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { removeToken, setToken, getToken } from '@/utils';
 import { loginService, getUserInfoService, logoutService } from '@/api';
 
-export const useUserStore = defineStore('user', () => {
+export const useAuthStore = defineStore('auth', () => {
   const token = ref(getToken() || '');
   const userInfo = ref({
     id: '',

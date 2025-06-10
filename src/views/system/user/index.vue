@@ -62,10 +62,20 @@ import UserTable from './components/UserTable.vue';
 import UserForm from './components/UserForm.vue';
 import RoleAssignment from './components/RoleAssignment.vue';
 import { DeleteConfirmation } from '@/components/common';
+import {
+  getUserListService,
+  createUserService,
+  updateUserService,
+  deleteUserService,
+  assignUserRolesService,
+  type User as ApiUser,
+  type UserCreateParams,
+  type UserUpdateParams,
+} from '@/api';
 
 const { t } = useI18n();
 
-// 类型定义
+// 定义与UserTable组件兼容的用户类型
 interface User {
   id: string;
   username: string;
@@ -87,6 +97,7 @@ const saveRolesLoading = ref(false);
 const page = ref(1);
 const pageSize = ref(10);
 const total = ref(0);
+const apiUserList = ref<ApiUser[]>([]);
 const userList = ref<User[]>([]);
 const dialogVisible = ref(false);
 const dialogType = ref<'add' | 'edit'>('add');
@@ -101,10 +112,26 @@ const deleteConfirmationRef = ref();
 const searchParams = reactive({
   username: '',
   realName: '',
+  email: '',
+  status: undefined as number | undefined,
+  roleId: '',
 });
 
 // 用户表单
-const userForm = reactive({
+const userForm = reactive<{
+  id: string;
+  username: string;
+  realName: string;
+  password: string;
+  email: string;
+  phone: string;
+  status: number;
+  roles: {
+    id: string;
+    name: string;
+    code: string;
+  }[];
+}>({
   id: '',
   username: '',
   realName: '',
@@ -112,7 +139,7 @@ const userForm = reactive({
   email: '',
   phone: '',
   status: 1,
-  roles: [] as { id: string; name: string; code: string }[],
+  roles: [],
 });
 
 // 初始化方法
@@ -121,54 +148,54 @@ onMounted(async () => {
   fetchUserList();
 });
 
-// 模拟从API获取用户列表
+// 将API用户转换为组件用户
+const convertApiUserToUser = (apiUser: ApiUser): User => {
+  // 将用户角色ID转换为角色对象
+  const userRoles = apiUser.roles.map(roleId => {
+    const role = systemStore.roles.find(r => r.id === roleId) || {
+      id: roleId,
+      name: roleId,
+      code: roleId,
+    };
+    return {
+      id: role.id,
+      name: role.name,
+      code: role.code,
+    };
+  });
+
+  return {
+    id: apiUser.id,
+    username: apiUser.username,
+    realName: apiUser.realName,
+    email: apiUser.email,
+    phone: apiUser.phone || '',
+    status: apiUser.status,
+    roles: userRoles,
+  };
+};
+
+// 从API获取用户列表
 const fetchUserList = async () => {
   loading.value = true;
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    // 在实际应用中，这里应该是从API获取数据
-    // 模拟一些用户数据
-    const mockUsers: User[] = [
-      {
-        id: 'user_1',
-        username: 'admin',
-        realName: '系统管理员',
-        email: 'admin@example.com',
-        phone: '13800138000',
-        status: 1,
-        roles: [{ id: 'role_1', name: '管理员', code: 'admin' }],
-      },
-      {
-        id: 'user_2',
-        username: 'user',
-        realName: '普通用户',
-        email: 'user@example.com',
-        phone: '13900139000',
-        status: 1,
-        roles: [{ id: 'role_2', name: '用户', code: 'user' }],
-      },
-    ];
-
-    // 根据搜索条件过滤
-    const filteredUsers = mockUsers.filter(user => {
-      const usernameMatch =
-        !searchParams.username ||
-        user.username.toLowerCase().includes(searchParams.username.toLowerCase());
-      const realNameMatch =
-        !searchParams.realName ||
-        user.realName.toLowerCase().includes(searchParams.realName.toLowerCase());
-      return usernameMatch && realNameMatch;
+    const res = await getUserListService({
+      page: page.value,
+      pageSize: pageSize.value,
+      username: searchParams.username || undefined,
+      realName: searchParams.realName || undefined,
+      email: searchParams.email || undefined,
+      status: searchParams.status,
+      roleId: searchParams.roleId || undefined,
     });
 
-    // 设置总数
-    total.value = filteredUsers.length;
-
-    // 分页处理
-    const start = (page.value - 1) * pageSize.value;
-    const end = start + pageSize.value;
-    userList.value = filteredUsers.slice(start, end);
+    if (res.code === 200) {
+      apiUserList.value = res.data.list;
+      userList.value = res.data.list.map(convertApiUserToUser);
+      total.value = res.data.total;
+    } else {
+      ElMessage.error(res.message || t('permission.error'));
+    }
   } catch (error) {
     console.error('获取用户列表失败:', error);
     ElMessage.error(t('permission.error'));
@@ -178,9 +205,18 @@ const fetchUserList = async () => {
 };
 
 // 搜索处理
-const handleSearch = (params: { username: string; realName: string }) => {
+const handleSearch = (params: {
+  username: string;
+  realName: string;
+  email?: string;
+  status?: number;
+  roleId?: string;
+}) => {
   searchParams.username = params.username;
   searchParams.realName = params.realName;
+  searchParams.email = params.email || '';
+  searchParams.status = params.status;
+  searchParams.roleId = params.roleId || '';
   page.value = 1;
   fetchUserList();
 };
@@ -189,6 +225,9 @@ const handleSearch = (params: { username: string; realName: string }) => {
 const handleResetSearch = () => {
   searchParams.username = '';
   searchParams.realName = '';
+  searchParams.email = '';
+  searchParams.status = undefined;
+  searchParams.roleId = '';
   page.value = 1;
   fetchUserList();
 };
@@ -226,11 +265,11 @@ const handleEdit = (row: User) => {
   userForm.id = row.id;
   userForm.username = row.username;
   userForm.realName = row.realName;
-  userForm.password = '';
+  userForm.password = ''; // 编辑时不需要填写密码
   userForm.email = row.email;
-  userForm.phone = row.phone;
+  userForm.phone = row.phone || '';
   userForm.status = row.status;
-  userForm.roles = row.roles;
+  userForm.roles = [...row.roles]; // 复制角色数组
   dialogVisible.value = true;
 };
 
@@ -244,16 +283,14 @@ const handleDelete = (row: User) => {
 // 确认删除
 const confirmDelete = async (user: User) => {
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const res = await deleteUserService(user.id);
 
-    // 从列表中移除用户
-    const index = userList.value.findIndex(u => u.id === user.id);
-    if (index !== -1) {
-      userList.value.splice(index, 1);
+    if (res.code === 200) {
+      ElMessage.success(t('permission.deleteSuccess'));
+      fetchUserList(); // 重新获取列表
+    } else {
+      ElMessage.error(res.message || t('permission.error'));
     }
-
-    ElMessage.success(t('permission.deleteSuccess'));
   } catch (error) {
     console.error('删除用户失败:', error);
     ElMessage.error(t('permission.error'));
@@ -273,19 +310,18 @@ const handleSaveRoles = async () => {
 
   saveRolesLoading.value = true;
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const res = await assignUserRolesService({
+      userId: currentUser.value.id,
+      roleIds: selectedRoles.value,
+    });
 
-    // 更新用户的角色
-    const user = userList.value.find(u => u.id === currentUser.value?.id);
-    if (user) {
-      user.roles = systemStore.roles
-        .filter(role => selectedRoles.value.includes(role.id))
-        .map(role => ({ id: role.id, name: role.name, code: role.code }));
+    if (res.code === 200) {
+      ElMessage.success(t('permission.assignSuccess'));
+      roleDialogVisible.value = false;
+      fetchUserList(); // 重新获取列表
+    } else {
+      ElMessage.error(res.message || t('permission.error'));
     }
-
-    ElMessage.success(t('permission.assignSuccess'));
-    roleDialogVisible.value = false;
   } catch (error) {
     console.error('设置角色失败:', error);
     ElMessage.error(t('permission.error'));
@@ -295,49 +331,51 @@ const handleSaveRoles = async () => {
 };
 
 // 保存用户
-const handleSave = async (formData: Partial<User>) => {
+const handleSave = async () => {
   saveLoading.value = true;
   try {
-    // 模拟API请求
-    await new Promise(resolve => setTimeout(resolve, 500));
-
     if (dialogType.value === 'add') {
-      // 检查用户名是否已存在
-      const existingUser = userList.value.find(u => u.username === formData.username);
-      if (existingUser) {
-        ElMessage.error(t('permission.usernameExists', { username: formData.username }));
-        saveLoading.value = false;
-        return;
-      }
-
-      // 新增用户
-      const newUser: User = {
-        id: 'user_' + Date.now().toString(),
-        username: formData.username || '',
-        realName: formData.realName || '',
-        email: formData.email || '',
-        phone: formData.phone || '',
-        status: formData.status ?? 1,
-        roles: [],
+      // 创建用户
+      const params: UserCreateParams = {
+        username: userForm.username,
+        password: userForm.password,
+        realName: userForm.realName,
+        email: userForm.email,
+        phone: userForm.phone,
+        status: userForm.status,
+        roles: userForm.roles.map(role => role.id),
       };
-      userList.value.push(newUser);
-      ElMessage.success(t('permission.createSuccess'));
+
+      const res = await createUserService(params);
+
+      if (res.code === 200) {
+        ElMessage.success(t('permission.createSuccess'));
+        dialogVisible.value = false;
+        fetchUserList(); // 重新获取列表
+      } else {
+        ElMessage.error(res.message || t('permission.error'));
+      }
     } else {
       // 更新用户
-      const index = userList.value.findIndex(u => u.id === formData.id);
-      if (index !== -1) {
-        userList.value[index] = {
-          ...userList.value[index],
-          realName: formData.realName || userList.value[index].realName,
-          email: formData.email || userList.value[index].email,
-          phone: formData.phone || userList.value[index].phone,
-          status: formData.status ?? userList.value[index].status,
-        };
-      }
-      ElMessage.success(t('permission.updateSuccess'));
-    }
+      const params: UserUpdateParams = {
+        id: userForm.id,
+        realName: userForm.realName,
+        email: userForm.email,
+        phone: userForm.phone,
+        status: userForm.status,
+        roles: userForm.roles.map(role => role.id),
+      };
 
-    dialogVisible.value = false;
+      const res = await updateUserService(params);
+
+      if (res.code === 200) {
+        ElMessage.success(t('permission.updateSuccess'));
+        dialogVisible.value = false;
+        fetchUserList(); // 重新获取列表
+      } else {
+        ElMessage.error(res.message || t('permission.error'));
+      }
+    }
   } catch (error) {
     console.error('保存用户失败:', error);
     ElMessage.error(t('permission.error'));

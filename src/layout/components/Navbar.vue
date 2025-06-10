@@ -52,8 +52,8 @@
       <!-- 用户头像 -->
       <el-dropdown trigger="click" class="right-menu-item avatar-container">
         <div class="flex items-center">
-          <el-avatar :size="32" :src="userStore.userInfo.avatar || defaultAvatar" />
-          <span class="ml-2 hidden sm:inline">{{ userStore.userInfo.username }}</span>
+          <el-avatar :size="32" :src="authStore.userInfo.avatar || defaultAvatar" />
+          <span class="ml-2 hidden sm:inline">{{ authStore.userInfo.username }}</span>
           <el-icon class="ml-1">
             <ArrowDown />
           </el-icon>
@@ -82,7 +82,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/store/modules/user';
+import { useAuthStore } from '@/store/modules/auth';
 import Breadcrumb from './Breadcrumb.vue';
 import { LangSwitcher } from '@/components/common';
 import defaultAvatar from '@/assets/images/default-avatar.png';
@@ -105,7 +105,7 @@ const { t } = useI18n();
 const isDark = inject('isDark', false);
 const isCollapse = inject('isCollapse', false) as any;
 const router = useRouter();
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 // 切换侧边栏折叠状态
 const toggleSidebar = () => {
@@ -127,7 +127,7 @@ const toggleFullScreen = () => {
 
 // 退出登录
 const handleLogout = async () => {
-  await userStore.logout();
+  await authStore.logout();
   router.push('/login');
 };
 </script>

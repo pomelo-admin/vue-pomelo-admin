@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import { request } from '@/utils';
 
 // API 响应类型
 export interface ApiResponse<T> {

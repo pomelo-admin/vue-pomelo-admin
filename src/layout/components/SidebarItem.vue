@@ -60,7 +60,7 @@
 import { inject } from 'vue';
 import path from 'path-browserify';
 import { useI18n } from 'vue-i18n';
-import { isExternal } from '@/utils/validate';
+import { isExternal } from '@/utils';
 import AppLink from './AppLink.vue';
 import MenuIcon from './MenuIcon.vue';
 
