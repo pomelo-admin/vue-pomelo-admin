@@ -39,7 +39,7 @@ export function loginService(data: LoginParams) {
 // 获取用户信息
 export function getUserInfoService() {
   return request({
-    url: '/user/info',
+    url: '/auth/user-info',
     method: 'get',
   }) as Promise<UserInfoResponse>;
 }

@@ -14,9 +14,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const version = getVersion();
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
-  const isBuild = command === 'build';
-
+export default defineConfig(() => {
   return {
     plugins: [
       vue(),

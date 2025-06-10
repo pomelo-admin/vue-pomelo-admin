@@ -10,10 +10,10 @@ export default [
     method: 'post',
     timeout: 500,
     response: ({ body }: RequestParams) => {
-      const { username, password } = body;
+      const { username } = body;
 
       // 简单的身份验证逻辑
-      if (username === 'admin' && password === 'admin123') {
+      if (username === 'admin') {
         return {
           code: 200,
           data: {
@@ -21,7 +21,7 @@ export default [
           },
           message: '登录成功',
         };
-      } else if (username === 'user' && password === 'user123') {
+      } else if (username === 'user') {
         return {
           code: 200,
           data: {
@@ -41,10 +41,11 @@ export default [
 
   // 获取用户信息
   {
-    url: '/user/info',
+    url: '/auth/user-info',
     method: 'get',
     timeout: 300,
     response: ({ headers }: RequestParams) => {
+      console.log(headers);
       const token = headers?.authorization?.replace('Bearer ', '');
 
       if (token === 'mock-token-admin') {
@@ -116,47 +117,6 @@ export default [
       return {
         code: 401,
         message: '令牌无效',
-        data: null,
-      };
-    },
-  },
-
-  // 修改密码
-  {
-    url: '/auth/change-password',
-    method: 'post',
-    timeout: 400,
-    response: ({ body, headers }: RequestParams) => {
-      const { oldPassword, newPassword } = body;
-      const token = headers?.authorization?.replace('Bearer ', '');
-
-      // 验证令牌
-      if (!token || (token !== 'mock-token-admin' && token !== 'mock-token-user')) {
-        return {
-          code: 401,
-          message: '未授权',
-          data: null,
-        };
-      }
-
-      // 简单的密码验证逻辑
-      if (token === 'mock-token-admin' && oldPassword === 'admin123') {
-        return {
-          code: 200,
-          data: null,
-          message: '密码修改成功',
-        };
-      } else if (token === 'mock-token-user' && oldPassword === 'user123') {
-        return {
-          code: 200,
-          data: null,
-          message: '密码修改成功',
-        };
-      }
-
-      return {
-        code: 400,
-        message: '原密码错误',
         data: null,
       };
     },
