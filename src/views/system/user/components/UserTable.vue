@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-table :data="userList" stripe style="width: 100%" v-loading="loading">
-      <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="username" :label="t('common.username')" width="120" />
       <el-table-column prop="realName" :label="t('permission.realName')" width="120" />
       <el-table-column prop="email" :label="t('permission.email')" />

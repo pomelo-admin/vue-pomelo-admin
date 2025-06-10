@@ -4,7 +4,8 @@ import { createProdMockServer } from 'vite-plugin-mock/client';
 import userMock from './modules/user';
 import roleMock from './modules/role';
 import dashboardMock from './modules/dashboard';
+import authMock from './modules/auth';
 
 export function setupProdMockServer() {
-  createProdMockServer([...userMock, ...roleMock, ...dashboardMock]);
+  createProdMockServer([...userMock, ...roleMock, ...dashboardMock, ...authMock]);
 }

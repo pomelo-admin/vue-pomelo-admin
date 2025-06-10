@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-table :data="roleList" stripe style="width: 100%" v-loading="loading">
-      <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="name" :label="t('permission.roleName')" width="150" />
       <el-table-column prop="code" :label="t('permission.roleCode')" width="150" />
       <el-table-column prop="description" :label="t('permission.roleDesc')" />

@@ -95,30 +95,4 @@ export default [
       };
     },
   },
-
-  // 刷新令牌
-  {
-    url: '/auth/refresh-token',
-    method: 'post',
-    timeout: 300,
-    response: ({ headers }: RequestParams) => {
-      const token = headers?.authorization?.replace('Bearer ', '');
-
-      if (token && (token === 'mock-token-admin' || token === 'mock-token-user')) {
-        return {
-          code: 200,
-          data: {
-            token: `${token}-refreshed`,
-          },
-          message: '令牌刷新成功',
-        };
-      }
-
-      return {
-        code: 401,
-        message: '令牌无效',
-        data: null,
-      };
-    },
-  },
 ] as MockMethod[];
