@@ -54,7 +54,9 @@ declare module 'vue' {
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     FeatureDemo: typeof import('./../components/common/FeatureDemo.vue')['default']
+    FloatingChat: typeof import('./../components/common/FloatingChat.vue')['default']
     Footer: typeof import('./../components/common/Footer.vue')['default']
     HeatMap: typeof import('./../components/features/heat-map/index.vue')['default']
     JsonEditor: typeof import('./../components/features/json-editor/index.vue')['default']
@@ -65,6 +67,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SliderCaptcha: typeof import('./../components/features/slider-captcha/index.vue')['default']
+    UserProfileDialog: typeof import('./../components/common/UserProfileDialog.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

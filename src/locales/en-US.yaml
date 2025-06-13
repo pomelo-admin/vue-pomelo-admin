@@ -47,6 +47,27 @@ common:
   examples: Examples
   publicPathExample: Use file from public directory
   initialPageExample: Set initial page number
+  userProfile: User Profile
+  menu: Menu
+  welcome: Welcome Back
+  messages: Messages
+  documentation: Documentation
+  guide: Guide
+  profile: Profile
+  settings: Settings
+  toggleMenu: Toggle Menu
+  toggleSidebar: Toggle Sidebar
+  searchHint: Search...
+  searchResults: Search Results
+  usernameRequired: Please enter username
+  passwordRequired: Please enter password
+  email: Email
+  phone: Phone
+  signIn: Sign In
+  signUp: Sign Up
+  total: 'Total {total} items'
+  operation: Operation
+  avatar: Avatar
 
 menu:
   dashboard: Dashboard
@@ -363,3 +384,16 @@ features:
     rotateAngle: Rotation Angle
     opacity: Opacity
     textColor: Text Color
+
+# Profile
+profile:
+  title: Profile
+  displayName: Display Name
+  displayNameRequired: Please enter display name
+  displayNameLength: Display name should be 2-20 characters
+  avatarTip: Click to upload avatar
+  avatarSizeLimit: Avatar size cannot exceed 2MB
+  avatarTypeLimit: Only image files are allowed
+  updateSuccess: Profile updated successfully
+  updateFailed: Failed to update profile
+  loadUserInfoFailed: Failed to load user information

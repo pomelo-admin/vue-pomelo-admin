@@ -36,16 +36,22 @@
       </div>
 
       <!-- 主题切换 -->
-      <div class="right-menu-item cursor-pointer" @click="$emit('toggleTheme')">
+      <div
+        class="right-menu-item cursor-pointer theme-switch"
+        :class="isDark ? 'dark-theme' : 'light-theme'"
+        @click="$emit('toggleTheme')"
+      >
         <el-tooltip
           effect="dark"
           :content="isDark ? t('common.lightMode') : t('common.darkMode')"
           placement="bottom"
         >
-          <el-icon :size="20">
-            <Moon v-if="!isDark" />
-            <Sunny v-else />
-          </el-icon>
+          <div class="theme-icon-container">
+            <el-icon :size="20" class="theme-icon">
+              <Moon v-if="!isDark" />
+              <Sunny v-else />
+            </el-icon>
+          </div>
         </el-tooltip>
       </div>
 
@@ -60,7 +66,7 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>
+            <el-dropdown-item @click="showUserProfile">
               <el-icon>
                 <User />
               </el-icon>
@@ -76,15 +82,18 @@
         </template>
       </el-dropdown>
     </div>
+
+    <!-- 用户信息对话框 -->
+    <user-profile-dialog v-model:visible="profileDialogVisible" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/store/modules/auth';
 import Breadcrumb from './Breadcrumb.vue';
-import { LangSwitcher } from '@/components/common';
+import { LangSwitcher, UserProfileDialog } from '@/components/common';
 import defaultAvatar from '@/assets/images/default-avatar.png';
 import {
   FullScreen,
@@ -106,6 +115,14 @@ const isDark = inject('isDark', false);
 const isCollapse = inject('isCollapse', false) as any;
 const router = useRouter();
 const authStore = useAuthStore();
+
+// 用户信息对话框控制
+const profileDialogVisible = ref(false);
+
+// 显示用户信息对话框
+const showUserProfile = () => {
+  profileDialogVisible.value = true;
+};
 
 // 切换侧边栏折叠状态
 const toggleSidebar = () => {
@@ -149,6 +166,52 @@ const handleLogout = async () => {
 
     .avatar-container {
       @apply ml-4;
+    }
+
+    .theme-switch {
+      @apply transition-all duration-300 relative overflow-hidden;
+
+      background: v-bind('isDark ? "rgba(245, 158, 11, 0.1)" : "rgba(99, 102, 241, 0.1)"');
+      border: 1px solid v-bind('isDark ? "rgba(245, 158, 11, 0.2)" : "rgba(99, 102, 241, 0.2)"');
+
+      &::before {
+        content: '';
+
+        @apply absolute inset-0 opacity-0 transition-opacity duration-300 ease-in-out;
+      }
+
+      &.dark-theme::before {
+        background: radial-gradient(circle, rgb(245 158 11 / 20%) 0%, transparent 70%);
+      }
+
+      &.light-theme::before {
+        background: radial-gradient(circle, rgb(99 102 241 / 20%) 0%, transparent 70%);
+      }
+
+      &:hover::before {
+        @apply opacity-100;
+      }
+
+      .theme-icon-container {
+        @apply flex items-center justify-center relative w-5 h-5 z-10;
+
+        .theme-icon {
+          @apply absolute transition-all duration-300 ease-in-out;
+
+          color: v-bind('isDark ? "#f59e0b" : "#6366f1"');
+          transform-origin: center;
+
+          &:hover {
+            @apply transform rotate-45;
+          }
+        }
+      }
+
+      &:hover {
+        @apply transform scale-110;
+
+        box-shadow: 0 0 8px v-bind('isDark ? "rgba(245, 158, 11, 0.4)" : "rgba(99, 102, 241, 0.4)"');
+      }
     }
   }
 }

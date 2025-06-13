@@ -72,6 +72,28 @@ common:
   examples: 示例
   publicPathExample: 使用public目录下的文件
   initialPageExample: 设置初始页码
+  avatar: 头像
+  # 聊天窗口相关
+  customerService: 客服中心
+  typeMessage: 请输入您的消息...
+  welcomeMessage: 您好！欢迎使用客服中心，请问有什么可以帮您的？
+  greetingResponse: 您好！很高兴为您服务，请问有什么可以帮助您的？
+  helpResponse: 我可以帮您解决问题，请详细描述您遇到的情况，我们会尽快为您解决。
+  goodbyeResponse: 感谢您的咨询，祝您有愉快的一天！如有其他问题，随时来咨询我们。
+  defaultResponse: 谢谢您的留言，我们已收到，稍后会给您回复。
+
+# 个人中心
+profile:
+  title: 个人中心
+  displayName: 显示名称
+  displayNameRequired: 请输入显示名称
+  displayNameLength: 显示名称长度应为2-20个字符
+  avatarTip: 点击上传头像
+  avatarSizeLimit: 头像大小不能超过2MB
+  avatarTypeLimit: 只能上传图片文件
+  updateSuccess: 个人信息更新成功
+  updateFailed: 个人信息更新失败
+  loadUserInfoFailed: 加载用户信息失败
 
 # 权限管理模块
 permission:
