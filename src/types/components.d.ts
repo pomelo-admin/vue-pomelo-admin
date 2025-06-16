@@ -58,6 +58,7 @@ declare module 'vue' {
     FeatureDemo: typeof import('./../components/common/FeatureDemo.vue')['default']
     FloatingChat: typeof import('./../components/common/FloatingChat.vue')['default']
     Footer: typeof import('./../components/common/Footer.vue')['default']
+    FullScreenButton: typeof import('./../components/common/FullScreenButton.vue')['default']
     HeatMap: typeof import('./../components/features/heat-map/index.vue')['default']
     JsonEditor: typeof import('./../components/features/json-editor/index.vue')['default']
     JsonVisualizer: typeof import('./../components/features/json-visualizer/index.vue')['default']
@@ -67,6 +68,8 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SliderCaptcha: typeof import('./../components/features/slider-captcha/index.vue')['default']
+    ThemeSwitcher: typeof import('./../components/common/ThemeSwitcher.vue')['default']
+    UserAvatar: typeof import('./../components/common/UserAvatar.vue')['default']
     UserProfileDialog: typeof import('./../components/common/UserProfileDialog.vue')['default']
   }
   export interface ComponentCustomProperties {

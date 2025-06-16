@@ -20,12 +20,5 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'no-unused-vars': 'warn',
   },
-  ignorePatterns: [
-    'node_modules',
-    'dist',
-    'public',
-    '*.d.ts',
-    'components.d.ts',
-    'auto-imports.d.ts',
-  ],
+  ignorePatterns: ['node_modules', 'dist', 'public', '*.d.ts'],
 };

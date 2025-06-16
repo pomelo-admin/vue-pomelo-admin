@@ -1,19 +1,18 @@
 <template>
-  <el-dropdown @command="handleLangChange">
-    <span class="lang-dropdown-link">
-      {{ currentLang === 'zh-CN' ? '中文' : 'English' }}
-      <el-icon class="el-icon--right">
-        <arrow-down />
+  <el-dropdown trigger="click" @command="handleLangChange">
+    <div class="lang-container">
+      <el-icon :size="20" class="lang-icon">
+        <Location />
       </el-icon>
-    </span>
+    </div>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="zh-CN" :disabled="currentLang === 'zh-CN'"
-          >中文</el-dropdown-item
-        >
-        <el-dropdown-item command="en-US" :disabled="currentLang === 'en-US'"
-          >English</el-dropdown-item
-        >
+        <el-dropdown-item command="zh-CN" :class="{ active: currentLang === 'zh-CN' }">
+          <span class="flag">🇨🇳</span> 中文
+        </el-dropdown-item>
+        <el-dropdown-item command="en-US" :class="{ active: currentLang === 'en-US' }">
+          <span class="flag">🇺🇸</span> English
+        </el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -23,7 +22,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
-import { ArrowDown } from '@element-plus/icons-vue';
+import { Location } from '@element-plus/icons-vue';
 
 const { locale, t } = useI18n();
 const route = useRoute();
@@ -32,6 +31,13 @@ const currentLang = ref(locale.value);
 onMounted(() => {
   // 初始化时获取当前语言
   currentLang.value = locale.value;
+  // 从本地存储中获取语言设置
+  const savedLang = localStorage.getItem('language');
+  if (savedLang) {
+    locale.value = savedLang;
+    currentLang.value = savedLang;
+  }
+  updatePageTitle();
 });
 
 // 更新页面标题
@@ -48,8 +54,10 @@ const handleLangChange = (lang: string) => {
   // 保存语言设置到本地存储
   localStorage.setItem('language', lang);
 
+  // 更新页面标题
+  updatePageTitle();
+
   // 切换语言后刷新页面来应用Element Plus的语言设置
-  // 这样可以避免TypeScript类型问题
   setTimeout(() => {
     window.location.reload();
   }, 100);
@@ -62,11 +70,55 @@ watch(() => route.path, updatePageTitle);
 watch(() => locale.value, updatePageTitle);
 </script>
 
-<style scoped>
-.lang-dropdown-link {
-  display: flex;
-  align-items: center;
-  color: inherit;
-  cursor: pointer;
+<style lang="scss" scoped>
+.lang-container {
+  @apply transition-all duration-300 relative overflow-hidden flex items-center justify-center rounded-full p-2;
+
+  background: rgb(99 102 241 / 10%);
+  border: 1px solid rgb(99 102 241 / 20%);
+
+  &::before {
+    content: '';
+
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300 ease-in-out;
+
+    background: radial-gradient(circle, rgb(99 102 241 / 20%) 0%, transparent 70%);
+  }
+
+  &:hover::before {
+    @apply opacity-100;
+  }
+
+  &:hover {
+    @apply transform scale-110;
+
+    box-shadow: 0 0 8px rgb(99 102 241 / 40%);
+  }
+
+  .lang-icon {
+    @apply relative z-10 transition-all duration-300 ease-in-out;
+
+    color: #6366f1;
+
+    &:hover {
+      @apply transform scale-110;
+    }
+  }
+}
+
+.el-dropdown-menu {
+  .el-dropdown-item {
+    @apply flex items-center;
+
+    &.active {
+      @apply font-bold;
+
+      color: #6366f1;
+    }
+
+    .flag {
+      @apply mr-2;
+    }
+  }
 }
 </style>
