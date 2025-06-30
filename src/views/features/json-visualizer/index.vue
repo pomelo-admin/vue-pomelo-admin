@@ -6,10 +6,10 @@
   >
     <div class="json-split-view">
       <div class="editor-panel">
-        <JsonEditor v-model="jsonContent" />
+        <PomeloJsonEditor v-model="jsonContent" />
       </div>
       <div class="visualizer-panel">
-        <JsonVisualizer :model-value="jsonContent" />
+        <PomeloJsonVisualizer :model-value="jsonContent" />
       </div>
     </div>
   </FeatureDemo>
@@ -19,7 +19,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FeatureDemo } from '@/components/common';
-import { JsonEditor, JsonVisualizer } from '@/components/features';
+import { PomeloJsonEditor, PomeloJsonVisualizer } from '@/components/features';
 
 const { t } = useI18n();
 const jsonContent = ref(`{

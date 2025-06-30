@@ -4,7 +4,7 @@
     :description="t('features.jsonEditor.description')"
     path="src/components/features/json-editor"
   >
-    <JsonEditor v-model="jsonContent" />
+    <PomeloJsonEditor v-model="jsonContent" />
   </FeatureDemo>
 </template>
 
@@ -12,7 +12,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FeatureDemo } from '@/components/common';
-import { JsonEditor } from '@/components/features';
+import { PomeloJsonEditor } from '@/components/features';
 
 const { t } = useI18n();
 const jsonContent = ref(`{

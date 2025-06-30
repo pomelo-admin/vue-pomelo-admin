@@ -4,14 +4,19 @@
     :description="t('features.heatMap.description')"
     path="src/components/features/heat-map/index.vue"
   >
-    <heat-map :province-data-array="provinceData" :max-value="120" :min-value="0" unit="单位" />
+    <PomeloHeatMap
+      :province-data-array="provinceData"
+      :max-value="120"
+      :min-value="0"
+      unit="单位"
+    />
   </FeatureDemo>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { FeatureDemo } from '@/components/common';
-import { HeatMap } from '@/components/features';
+import { PomeloHeatMap } from '@/components/features';
 
 const { t } = useI18n();
 

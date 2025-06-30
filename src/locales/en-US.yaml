@@ -94,162 +94,30 @@ menu:
   lowcode: Low Code
   formGenerator: Form Generator
   pdfViewer: PDF Viewer
+  debouncedSearchSelect: Debounced Search Select
+  throttledSearchSelect: Throttled Search Select
+  richTextEditor: Rich Text Editor
+  codeEditor: Code Editor
   commonFeatures: Common Features
   watermark: Watermark
 
-# Permission Management Module
-permission:
-  # Common
-  create: Create
-  edit: Edit
-  delete: Delete
-  save: Save
-  cancel: Cancel
-  search: Search
-  reset: Reset
-  confirm: Confirm
-  warning: Warning
-  success: Success
-  error: Error
-  total: 'Total {total} items'
-  operation: Operation
-
-  # Permission Management
-  permissionManagement: Permission Management
-  permissionName: Permission Name
-  permissionCode: Permission Code
-  permissionDesc: Description
-  addPermission: Add Permission
-  editPermission: Edit Permission
-  deletePermission: Delete Permission
-  createSuccess: Permission created successfully
-  updateSuccess: Permission updated successfully
-  deleteSuccess: Permission deleted successfully
-  codeFormatTip: 'Format: module:action, e.g. user:create'
-  codeExists: 'Permission code {code} already exists'
-  usedByRole: This permission is used by roles and cannot be deleted
-
-  # Role Management
-  roleManagement: Role Management
-  roleName: Role Name
-  roleCode: Role Code
-  roleDesc: Description
-  addRole: Add Role
-  editRole: Edit Role
-  deleteRole: Delete Role
-  assignPermission: Assign Permissions
-  role: Role
-  createRoleSuccess: Role created successfully
-  updateRoleSuccess: Role updated successfully
-  deleteRoleSuccess: Role deleted successfully
-  deleteRoleConfirm: 'Are you sure you want to delete role "{name}"?'
-  cantDeleteAdmin: Cannot delete admin role
-  assignPermissionSuccess: Permissions assigned successfully
-
-  # User Management
-  userManagement: User Management
-  realName: Real Name
-  email: Email
-  phone: Phone
-  status: Status
-  enabled: Enabled
-  disabled: Disabled
-  addUser: Add User
-  editUser: Edit User
-  deleteUser: Delete User
-  assignRole: Assign Roles
-  user: User
-  createUserSuccess: User created successfully
-  updateUserSuccess: User updated successfully
-  deleteUserSuccess: User deleted successfully
-  deleteUserConfirm: 'Are you sure you want to delete user "{username}"?'
-  assignRoleSuccess: Roles assigned successfully
-
-error:
-  pageTitle: Error Pages
-  pageDescription: Common error pages display and preview
-  notFound: Page Not Found
-  notFoundDesc: Sorry, the page you visited does not exist or has been removed
-  forbidden: Access Denied
-  forbiddenDesc: Sorry, you do not have permission to access this page
-  serverError: Server Error
-  serverErrorDesc: Sorry, the server encountered an error, please try again later
-  backHome: Back to Home
-  backPrevious: Back to Previous
-  preview: Preview
-
-login:
-  title: User Login
-  welcome: Pomelo Admin
-  description: Professional Admin Template
-  success: Login successful
-  error: Login failed, please try again
-
-forgotPassword:
-  title: Reset Password
-  welcome: Pomelo Admin
-  description: We'll help you reset your password
-  emailPlaceholder: Enter your registered email
-  emailRequired: Please enter your email
-  emailInvalid: Please enter a valid email
-  submit: Send Reset Link
-  emailSentTitle: Email Sent
-  emailSentDesc: Password reset link has been sent to your email. Please check and follow the instructions to reset your password
-  emailSentSuccess: Password reset email has been sent
-  resendEmail: Resend Email
-  resendSuccess: Email has been resent
-  backToLogin: Remember your password?
-  error: Send failed, please try again
-
-register:
-  title: Create Account
-  welcome: Pomelo Admin
-  description: Join our admin platform
-  emailPlaceholder: Enter your email
-  confirmPassword: Confirm Password
-  agreeTerms: I agree to the Terms & Conditions
-  termsLink: Terms of Service
-  haveAccount: Already have an account?
-  success: Registration successful
-  error: Registration failed, please try again
-  usernameRequired: Username is required
-  usernameLength: Username must be 3-20 characters
-  emailRequired: Email is required
-  emailInvalid: Please enter a valid email
-  passwordRequired: Password is required
-  passwordLength: Password must be at least 6 characters
-  confirmPasswordRequired: Please confirm your password
-  passwordMismatch: Passwords do not match
-  agreeTermsRequired: Please agree to the terms
-  usernameTaken: Username is already taken
-
-dashboard:
-  totalUsers: Total Users
-  totalOrders: Total Orders
-  totalIncome: Total Income
-  totalViews: Total Views
-  compared: vs last week
-  salesTrend: Sales Trend
-  salesTrendTitle: Sales Trend - {type}
-  salesCategory: Sales Category
-  salesCategoryEmpty: Sales Category Chart
-  salesTrendEmpty: Sales Trend Chart
-  salesAmount: 'Sales: ¥{value}'
-  salesCategoryTooltip: '{name}: {value} ({percentage}%)'
-  recentActivity: Recent Activity
-  more: More
-  viewAll: View All
-  week: Week
-  month: Month
-  year: Year
-  time: Time
-  user: User
-  activity: Activity
-  target: Target
-  status: Status
-
+# Features Module
 features:
   componentPath: 'Component Path: {path}'
+  richTextEditor:
+    title: Rich Text Editor
+    description: A powerful rich text editor component with toolbar customization and various modes.
+    basicUsage: Basic Usage
+    customToolbar: Custom Toolbar
+    simpleMode: Simple Mode
+    readonlyMode: Read-only Mode
+    apiMethods: API Methods
+    placeholder: Please enter content...
+    previewResult: Preview Result
+    setContent: Set Content
+    getContent: Get Content
+    clearContent: Clear Content
+    heightWarning: 'Editor height is less than {minHeight}px. This may cause modal and hoverbar position errors.'
   sliderCaptcha:
     title: Slider Captcha
     description: Verify user identity by sliding the puzzle piece into place.
@@ -364,6 +232,39 @@ features:
     loading: Loading PDF...
     pdfNotReady: PDF not ready, please try again later
     printFailed: Print failed, please try again later
+  debouncedSearchSelect:
+    title: Debounced Search Select
+    description: A debounced remote search select component based on Element Plus, supporting single selection, multiple selection and custom option templates
+    basicUsage: Basic Usage
+    basicDescription: Search matching users by entering keywords
+    currentValue: Current Value
+    selectedUser: Selected User
+    multipleMode: Multiple Selection Mode
+    multipleDescription: Support selecting multiple options
+    selectedUsers: Selected User List
+    customTemplate: Custom Option Template
+    customTemplateDescription: Customize option display with slots
+    loadDefaultOptions: Load Default Options
+    defaultOptionsDescription: Automatically load default options when clicking the select (no search keyword needed)
+    api: API Reference
+  throttledSearchSelect:
+    title: Throttled Search Select
+    description: A throttled remote search select component based on Element Plus, supporting single selection, multiple selection and custom option templates
+    basicUsage: Basic Usage
+    basicDescription: Search matching users by entering keywords
+    currentValue: Current Value
+    selectedUser: Selected User
+    multipleMode: Multiple Selection Mode
+    multipleDescription: Support selecting multiple options
+    selectedUsers: Selected User List
+    customThrottle: Custom Throttle Time
+    customThrottleDescription: Set a longer throttle time (800ms), suitable for high-frequency input scenarios
+    comparison: Debounce vs Throttle Comparison
+    comparisonDescription: Compare the different effects of debounce and throttle. Throttle will continuously trigger requests during input, while debounce only triggers after stopping input
+    throttledVersion: Throttled Version
+    debouncedVersion: Debounced Version
+    apiCallLog: API Call Log
+    noLogs: No logs yet, please enter content in the input box
   watermark:
     title: Watermark
     description: Add watermark to any content to protect sensitive information
@@ -384,6 +285,14 @@ features:
     rotateAngle: Rotation Angle
     opacity: Opacity
     textColor: Text Color
+  codeEditor:
+    title: Code Editor
+    description: A CodeMirror-based code editor component with syntax highlighting, multiple languages and themes support.
+    basicUsage: Basic Usage
+    differentLanguages: Different Languages
+    differentThemes: Different Themes
+    readonlyMode: Read-only Mode
+    placeholder: Please enter code...
 
 # Profile
 profile:

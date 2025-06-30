@@ -17,7 +17,7 @@
         </el-button>
       </div>
 
-      <SliderCaptcha
+      <PomeloSliderCaptcha
         v-model:show="showModal"
         type="modal"
         @success="onSuccess"
@@ -45,7 +45,7 @@
       </div>
 
       <div v-if="showInline" class="inline-captcha-container">
-        <SliderCaptcha
+        <PomeloSliderCaptcha
           :show="true"
           type="inside"
           @success="onSuccess"
@@ -78,7 +78,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ElMessage } from 'element-plus';
 import { FeatureDemo } from '@/components/common';
-import { SliderCaptcha } from '@/components/features';
+import { PomeloSliderCaptcha } from '@/components/features';
 
 const { t } = useI18n();
 

@@ -14,16 +14,16 @@ const filteredCommonRoutes = commonRoutes.filter(
   route => !['/:pathMatch(.*)*', '/404', '/403', '/500'].includes(route.path)
 );
 
-// 路由配置：先加载常规路由，然后加载错误页面模块路由，再加载独立的错误页面路由，最后加载通配符路由
+// 路由配置：先加载常规路由，然后加载功能模块路由，最后加载错误页面模块和系统管理模块路由
 const routes: RouteRecordRaw[] = [
   ...filteredCommonRoutes,
   dashboardRoutes,
-  errorRoutes,
-  ...errorPageRoutes,
-  systemRoutes,
   featuresRoutes,
   commonFeaturesRoutes,
   lowcodeRoutes,
+  ...errorPageRoutes,
+  errorRoutes,
+  systemRoutes,
 ];
 
 // 将通配符路由添加到最后

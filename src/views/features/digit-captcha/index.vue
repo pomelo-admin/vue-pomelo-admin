@@ -18,7 +18,7 @@
             :label="t('features.digitCaptcha.captchaLabel')"
             :error="numericCaptchaError"
           >
-            <DigitCaptcha
+            <PomeloDigitCaptcha
               ref="numericCaptchaRef"
               v-model="form.captcha"
               :length="4"
@@ -51,7 +51,7 @@
             :label="t('features.digitCaptcha.captchaLabel')"
             :error="alphaNumericCaptchaError"
           >
-            <DigitCaptcha
+            <PomeloDigitCaptcha
               ref="alphaNumericCaptchaRef"
               v-model="formAlpha.captcha"
               :length="6"
@@ -97,7 +97,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FeatureDemo } from '@/components/common';
-import { DigitCaptcha } from '@/components/features';
+import { PomeloDigitCaptcha } from '@/components/features';
 
 const { t } = useI18n();
 

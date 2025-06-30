@@ -6,7 +6,7 @@
     "
     path="src/components/features/pdf-viewer"
   >
-    <PdfViewer v-if="src" :src="src" />
+    <PomeloPdfViewer v-if="src" :src="src" />
     <el-empty v-else :description="t('features.pdfViewer.noSource', '未提供PDF源')" />
   </FeatureDemo>
 </template>
@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { FeatureDemo } from '@/components/common';
-import { PdfViewer } from '@/components/features';
+import { PomeloPdfViewer } from '@/components/features';
 
 const { t } = useI18n();
 

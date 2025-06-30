@@ -368,6 +368,39 @@ features:
     loading: 正在加载PDF...
     pdfNotReady: PDF未加载完成，请稍后再试
     printFailed: 打印失败，请稍后再试
+  debouncedSearchSelect:
+    title: 防抖远程搜索选择框
+    description: 一个基于 Element Plus 的防抖远程搜索选择框组件，支持单选、多选和自定义选项模板
+    basicUsage: 基本用法
+    basicDescription: 通过输入关键词来搜索匹配的用户
+    currentValue: 当前选中值
+    selectedUser: 选中用户
+    multipleMode: 多选模式
+    multipleDescription: 支持选择多个选项
+    selectedUsers: 选中用户列表
+    customTemplate: 自定义选项模板
+    customTemplateDescription: 使用插槽自定义选项的显示方式
+    loadDefaultOptions: 加载默认选项
+    defaultOptionsDescription: 点击选择框自动加载默认选项（不需要输入搜索词）
+    api: API 参考
+  throttledSearchSelect:
+    title: 节流远程搜索选择框
+    description: 一个基于 Element Plus 的节流远程搜索选择框组件，支持单选、多选和自定义选项模板
+    basicUsage: 基本用法
+    basicDescription: 通过输入关键词来搜索匹配的用户
+    currentValue: 当前选中值
+    selectedUser: 选中用户
+    multipleMode: 多选模式
+    multipleDescription: 支持选择多个选项
+    selectedUsers: 选中用户列表
+    customThrottle: 自定义节流时间
+    customThrottleDescription: 设置更长的节流时间（800毫秒），适用于高频输入场景
+    comparison: 防抖与节流对比
+    comparisonDescription: 对比防抖和节流的不同效果，节流会在输入过程中持续触发请求，而防抖只在停止输入后触发
+    throttledVersion: 节流版本
+    debouncedVersion: 防抖版本
+    apiCallLog: API 调用日志
+    noLogs: 暂无日志，请在输入框中输入内容
   watermark:
     title: 水印
     description: 为任何内容添加水印，保护敏感信息
@@ -388,24 +421,46 @@ features:
     rotateAngle: 旋转角度
     opacity: 透明度
     textColor: 文本颜色
+  richTextEditor:
+    title: 富文本编辑器
+    description: 功能强大的富文本编辑器组件，支持工具栏自定义和多种模式。
+    basicUsage: 基础用法
+    customToolbar: 自定义工具栏
+    simpleMode: 简洁模式
+    readonlyMode: 只读模式
+    apiMethods: API方法
+    placeholder: 请输入内容...
+    previewResult: 预览结果
+    setContent: 设置内容
+    getContent: 获取内容
+    clearContent: 清空内容
+    heightWarning: '编辑器高度小于{minHeight}px，这可能导致弹窗和悬浮工具栏定位异常。'
+  codeEditor:
+    title: 代码编辑器
+    description: 基于 CodeMirror 的代码编辑器组件，支持多种编程语言和主题，提供代码高亮、格式化和复制功能。
+    basicUsage: 基础用法
+    differentLanguages: 不同语言
+    differentThemes: 不同主题
+    readonlyMode: 只读模式
+    placeholder: 请输入代码...
 
 menu:
-  dashboard: 控制台
-  system: 系统管理
+  dashboard: 仪表盘
+  system: 系统
   systemManagement: 系统管理
-  permission: 权限管理
+  permission: 权限
   userManagement: 用户管理
   roleManagement: 角色管理
   permissionManagement: 权限管理
-  notFound: 页面未找到
-  error: 错误页面
+  notFound: 未找到
+  error: 错误
   errorPage: 错误页面
   forbidden: 禁止访问
   serverError: 服务器错误
   login: 登录
   forgotPassword: 忘记密码
   register: 注册
-  features: 功能组件
+  features: 功能示例
   sliderCaptcha: 滑块验证码
   digitCaptcha: 数字验证码
   jsonEditor: JSON编辑器
@@ -413,6 +468,10 @@ menu:
   heatMap: 热力图
   lowcode: 低代码
   formGenerator: 表单生成器
-  pdfViewer: PDF预览
-  commonFeatures: 常用功能
+  pdfViewer: PDF查看器
+  debouncedSearchSelect: 防抖搜索选择器
+  throttledSearchSelect: 节流搜索选择器
+  richTextEditor: 富文本编辑器
+  codeEditor: 代码编辑器
+  commonFeatures: 通用功能
   watermark: 水印

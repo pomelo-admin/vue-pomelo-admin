@@ -66,6 +66,42 @@ const featuresRoutes: RouteRecordRaw = {
         icon: 'Document',
       },
     },
+    {
+      path: 'debounced-search-select',
+      name: 'DebouncedSearchSelect',
+      component: () => import('@/views/features/debounced-search-select/index.vue'),
+      meta: {
+        title: 'debouncedSearchSelect',
+        icon: 'Search',
+      },
+    },
+    {
+      path: 'throttled-search-select',
+      name: 'ThrottledSearchSelect',
+      component: () => import('@/views/features/throttled-search-select/index.vue'),
+      meta: {
+        title: 'throttledSearchSelect',
+        icon: 'Timer',
+      },
+    },
+    {
+      path: 'rich-text-editor',
+      name: 'RichTextEditor',
+      component: () => import('@/views/features/rich-text-editor/index.vue'),
+      meta: {
+        title: 'richTextEditor',
+        icon: 'EditPen',
+      },
+    },
+    {
+      path: 'code-editor',
+      name: 'CodeEditor',
+      component: () => import('@/views/features/code-editor/index.vue'),
+      meta: {
+        title: 'codeEditor',
+        icon: 'Code',
+      },
+    },
   ],
 };
 

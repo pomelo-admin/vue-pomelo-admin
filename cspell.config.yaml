@@ -6,6 +6,8 @@ words:
   - lowcode
   - antv
   - echarts
+  - wangEditor
+  - hoverbar
 ignorePaths:
   - node_modules
   - dist
