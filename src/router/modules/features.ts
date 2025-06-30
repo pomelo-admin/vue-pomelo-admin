@@ -99,7 +99,7 @@ const featuresRoutes: RouteRecordRaw = {
       component: () => import('@/views/features/code-editor/index.vue'),
       meta: {
         title: 'codeEditor',
-        icon: 'Code',
+        icon: 'Document',
       },
     },
   ],
