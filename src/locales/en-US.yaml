@@ -49,7 +49,7 @@ common:
   initialPageExample: Set initial page number
   userProfile: User Profile
   menu: Menu
-  welcome: Welcome Back
+  welcome: Welcome
   messages: Messages
   documentation: Documentation
   guide: Guide
@@ -68,6 +68,8 @@ common:
   total: 'Total {total} items'
   operation: Operation
   avatar: Avatar
+  warning: Warning
+  info: Information
 
 menu:
   dashboard: Dashboard
@@ -88,6 +90,7 @@ menu:
   features: Features
   sliderCaptcha: Slider Captcha
   digitCaptcha: Digit Captcha
+  whiteBoard: Whiteboard
   jsonEditor: JSON Editor
   jsonVisualizer: JSON Visualizer
   heatMap: Heat Map
@@ -100,10 +103,52 @@ menu:
   codeEditor: Code Editor
   commonFeatures: Common Features
   watermark: Watermark
+  outsidePage: External Page
 
 # Features Module
 features:
   componentPath: 'Component Path: {path}'
+  outsidePage:
+    title: External Page
+    loadSuccess: Page loaded successfully
+    loadFailed: Failed to load page
+    description: Embed external websites within the application
+  whiteBoard:
+    title: Whiteboard
+    description: A versatile drawing board with various drawing tools and options.
+    draw: Draw
+    eraser: Eraser
+    clear: Clear
+    drawingStyle: Drawing Style
+    freehand: Freehand
+    shape: Shape
+    drawingType: Drawing Type
+    basic: Basic
+    colorful: Colorful
+    multiShape: Multi Shape
+    material: Material
+    solid: Solid
+    image: Image
+    multiColor: Multi Color
+    textOption: Text Option
+    text: Text
+    multiLine: Multi Line
+    network: Network
+    connectionType: Connection Type
+    multiPoint: Multi Point
+    wavyCurve: Wavy Curve
+    ripple: Ripple
+    penWidth: Pen Width
+    penColor: Pen Color
+    penType: Pen Type
+    shadow: Shadow
+    saveImage: Save Image
+    saveSuccess: Image saved successfully
+    saveFailed: Failed to save image
+    embeddedPaintBoard: Advanced Paint Board
+    simpleDraw: Simple Drawing
+    frameLoaded: Paint board loaded successfully
+    frameError: Failed to load paint board
   richTextEditor:
     title: Rich Text Editor
     description: A powerful rich text editor component with toolbar customization and various modes.

@@ -8,6 +8,7 @@ import FloatingChat from './FloatingChat.vue';
 import FullScreenButton from './FullScreenButton.vue';
 import ThemeSwitcher from './ThemeSwitcher.vue';
 import UserAvatar from './UserAvatar.vue';
+import Frame from './Frame.vue';
 
 export {
   FeatureDemo,
@@ -19,6 +20,7 @@ export {
   FullScreenButton,
   ThemeSwitcher,
   UserAvatar,
+  Frame,
 };
 
 // Default export for convenience when importing all components
@@ -29,4 +31,8 @@ export default {
   Footer,
   UserProfileDialog,
   FloatingChat,
+  FullScreenButton,
+  ThemeSwitcher,
+  UserAvatar,
+  Frame,
 };

@@ -1,6 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-// 常用功能相关路由
 const commonFeaturesRoutes: RouteRecordRaw = {
   path: '/common-features',
   name: 'CommonFeatures',
@@ -21,7 +20,24 @@ const commonFeaturesRoutes: RouteRecordRaw = {
         icon: 'Stamp',
       },
     },
-    // 可以在这里添加更多常用功能路由
+    {
+      path: 'white-board',
+      name: 'WhiteBoard',
+      component: () => import('@/views/common-features/white-board/index.vue'),
+      meta: {
+        title: 'whiteBoard',
+        icon: 'Edit',
+      },
+    },
+    {
+      path: 'outside-page',
+      name: 'OutsidePage',
+      component: () => import('@/views/common-features/outside-page/index.vue'),
+      meta: {
+        title: 'outsidePage',
+        icon: 'Link',
+      },
+    },
   ],
 };
 

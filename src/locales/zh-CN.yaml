@@ -4,7 +4,7 @@ common:
   userProfile: 个人资料
   menu: 菜单
   dashboard: 仪表盘
-  welcome: 欢迎回来
+  welcome: 欢迎
   messages: 消息
   documentation: 文档
   guide: 导航
@@ -248,6 +248,47 @@ dashboard:
 
 features:
   componentPath: 组件路径：{path}
+  outsidePage:
+    title: 外部页面
+    loadSuccess: 页面加载成功
+    loadFailed: 页面加载失败
+    description: 在应用内嵌入外部网站
+  whiteBoard:
+    title: 画板
+    description: 一个多功能的绘图工具，支持多种绘图工具和选项。
+    draw: 绘画
+    eraser: 橡皮擦
+    clear: 清空
+    drawingStyle: 绘画风格
+    freehand: 自由绘画
+    shape: 形状绘画
+    drawingType: 绘画类型
+    basic: 基础
+    colorful: 彩虹
+    multiShape: 多形状
+    material: 素材
+    solid: 纯色
+    image: 图案
+    multiColor: 多色
+    textOption: 文字选项
+    text: 文字
+    multiLine: 多行连接
+    network: 网状
+    connectionType: 连接类型
+    multiPoint: 多点连接
+    wavyCurve: 波浪曲线
+    ripple: 荆棘
+    penWidth: 画笔宽度
+    penColor: 画笔颜色
+    penType: 画笔类型
+    shadow: 阴影
+    saveImage: 保存图片
+    saveSuccess: 图片保存成功
+    saveFailed: 图片保存失败
+    embeddedPaintBoard: 高级画板
+    simpleDraw: 简易绘画
+    frameLoaded: 画板加载成功
+    frameError: 画板加载失败
   sliderCaptcha:
     title: 滑块验证码
     description: 这是一个滑块验证码组件，可以用于表单验证、登录保护等场景。滑动滑块完成图形拼图，即可完成验证。
@@ -463,6 +504,7 @@ menu:
   features: 功能示例
   sliderCaptcha: 滑块验证码
   digitCaptcha: 数字验证码
+  whiteBoard: 画板
   jsonEditor: JSON编辑器
   jsonVisualizer: JSON可视化
   heatMap: 热力图
@@ -475,3 +517,4 @@ menu:
   codeEditor: 代码编辑器
   commonFeatures: 通用功能
   watermark: 水印
+  outsidePage: 外部页面
