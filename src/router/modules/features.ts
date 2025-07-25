@@ -58,15 +58,6 @@ const featuresRoutes: RouteRecordRaw = {
       },
     },
     {
-      path: 'pdf-viewer',
-      name: 'PdfViewer',
-      component: () => import('@/views/features/pdf-viewer/index.vue'),
-      meta: {
-        title: 'pdfViewer',
-        icon: 'Document',
-      },
-    },
-    {
       path: 'debounced-search-select',
       name: 'DebouncedSearchSelect',
       component: () => import('@/views/features/debounced-search-select/index.vue'),

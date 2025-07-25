@@ -248,6 +248,57 @@ dashboard:
 
 features:
   componentPath: 组件路径：{path}
+  pdfOperations:
+    title: PDF常用操作
+    description: PDF文件的常用操作，包括转换、查看和合并。
+    converter:
+      title: PDF转换器
+      description: 将图片转换为PDF以及PDF转换为图片。
+      imageToPdf: 图片转PDF
+      pdfToImage: PDF转图片
+      dragDropHint: 拖拽文件到此处，或点击选择
+      convertButton: 转换
+      downloadButton: 下载
+      clearButton: 清空
+      conversionSuccess: 转换成功
+      conversionFailed: 转换失败
+      noFilesSelected: 未选择文件
+      imageFormat: 图片格式
+      pdfQuality: PDF质量
+      pageRange: 页面范围
+      allPages: 所有页面
+      pageRangeHint: 例如：1,3,5-7
+    viewer:
+      title: PDF查看器
+      description: 查看PDF文件，支持分页、缩放和搜索功能。
+      loadPdfButton: 加载PDF
+      zoomIn: 放大
+      zoomOut: 缩小
+      fitToPage: 适合页面
+      fitToWidth: 适合宽度
+      rotate: 旋转
+      download: 下载
+      print: 打印
+      search: 搜索
+      nextPage: 下一页
+      prevPage: 上一页
+      pageOf: '第 {current} 页，共 {total} 页'
+      loadingPdf: 正在加载PDF...
+      pdfNotFound: 未找到PDF文件
+    merger:
+      title: PDF合并器
+      description: 将多个PDF文件合并为一个文档。
+      addFiles: 添加文件
+      removeFile: 移除
+      moveUp: 上移
+      moveDown: 下移
+      mergeButton: 合并PDF
+      downloadButton: 下载
+      clearButton: 清空全部
+      mergeSuccess: PDF合并成功
+      mergeFailed: PDF合并失败
+      noFilesSelected: 未选择PDF文件
+      reorderHint: 拖拽以重新排序
   outsidePage:
     title: 外部页面
     loadSuccess: 页面加载成功
@@ -511,6 +562,9 @@ menu:
   lowcode: 低代码
   formGenerator: 表单生成器
   pdfViewer: PDF查看器
+  pdfOperations: PDF常用操作
+  pdfConverter: PDF转换器
+  pdfMerger: PDF合并器
   debouncedSearchSelect: 防抖搜索选择器
   throttledSearchSelect: 节流搜索选择器
   richTextEditor: 富文本编辑器
