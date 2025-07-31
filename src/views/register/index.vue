@@ -1,31 +1,20 @@
 <template>
   <div class="register-container">
     <div class="register-content">
-      <div class="register-panel">
-        <!-- 注册面板左侧 -->
-        <div class="register-left">
-          <div class="register-image"></div>
-          <div class="register-text">
-            <img
-              src="@/assets/images/pomelo-logo.svg"
-              alt="Logo"
-              class="w-32 h-32 mb-6 mx-auto animate-pulse-slow"
-            />
-            <h2 class="text-3xl font-bold text-white mb-3">{{ t('register.welcome') }}</h2>
-            <p class="text-white text-lg mt-2 opacity-90 max-w-xs mx-auto">
-              {{ t('register.description') }}
-            </p>
-          </div>
+      <div class="register-card">
+        <!-- Logo 和标题区域 -->
+        <div class="register-header">
+          <img src="@/assets/images/pomelo-logo.svg" alt="Logo" class="w-16 h-16 mb-4 mx-auto" />
+          <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+            {{ t('register.welcome') }}
+          </h1>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mb-8">
+            {{ t('register.description') }}
+          </p>
         </div>
 
-        <!-- 注册面板右侧 -->
+        <!-- 注册表单 -->
         <div class="register-form">
-          <div class="flex flex-col items-center mb-8">
-            <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-primary">
-              {{ t('register.title') }}
-            </h2>
-          </div>
-
           <el-form ref="registerFormRef" :model="registerForm" :rules="registerRules" size="large">
             <el-form-item prop="username" class="custom-form-item">
               <el-input
@@ -85,11 +74,11 @@
           </el-form>
 
           <div class="mt-6 text-center">
-            <p class="text-gray-600">
+            <p class="text-gray-600 dark:text-gray-400">
               {{ t('register.haveAccount') }}
-              <el-button link class="custom-link login-link" @click="goToLogin">{{
-                t('common.signIn')
-              }}</el-button>
+              <el-button link class="custom-link login-link" @click="goToLogin"
+                >{{ t('common.signIn') }}
+              </el-button>
             </p>
           </div>
         </div>
@@ -197,24 +186,30 @@ const goToLogin = () => {
 
 <style lang="scss" scoped>
 .register-container {
-  @apply h-screen w-full flex flex-col bg-gradient-to-br from-indigo-100 to-pink-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden;
+  @apply h-screen w-full flex flex-col bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden;
 
   &::before {
     content: '';
-
-    @apply absolute inset-0 bg-gradient-pattern opacity-70;
+    @apply absolute inset-0 opacity-30;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
   }
 
   .register-content {
-    @apply flex-1 flex items-center justify-center relative z-10;
+    @apply flex-1 flex items-center justify-center relative z-10 px-4;
   }
 
-  .register-panel {
-    @apply flex w-[900px] h-[680px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden;
+  .register-card {
+    @apply w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 relative;
 
     box-shadow:
-      0 10px 30px rgb(99 102 241 / 20%),
-      0 1px 8px rgb(99 102 241 / 10%);
+      0 20px 25px -5px rgb(0 0 0 / 10%),
+      0 10px 10px -5px rgb(0 0 0 / 4%),
+      0 0 0 1px rgb(255 255 255 / 5%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transform: translateY(0);
     transition:
       transform 0.3s ease-in-out,
@@ -223,33 +218,17 @@ const goToLogin = () => {
 
     &:hover {
       box-shadow:
-        0 20px 40px rgb(99 102 241 / 25%),
-        0 5px 20px rgb(99 102 241 / 15%);
-      transform: translateY(-5px);
+        0 25px 50px -12px rgb(0 0 0 / 25%),
+        0 0 0 1px rgb(255 255 255 / 10%);
+      transform: translateY(-2px);
     }
 
-    .register-left {
-      @apply w-1/2 relative flex flex-col items-center justify-center bg-gradient-primary overflow-hidden;
-
-      position: relative;
-
-      &::before {
-        content: '';
-
-        @apply absolute inset-0 bg-gradient-pattern opacity-20;
-      }
-
-      .register-image {
-        @apply absolute inset-0 opacity-20;
-      }
-
-      .register-text {
-        @apply z-10 text-white text-center p-12;
-      }
+    .register-header {
+      @apply text-center mb-8;
     }
 
     .register-form {
-      @apply w-1/2 p-12 flex flex-col justify-center;
+      @apply w-full;
     }
   }
 
@@ -345,16 +324,36 @@ const goToLogin = () => {
 }
 
 @media (width <= 768px) {
-  .register-panel {
-    @apply w-[90%] max-w-md h-auto flex-col;
-
-    .register-left {
-      @apply w-full h-64;
+  .register-container {
+    .register-content {
+      @apply px-4;
     }
 
-    .register-form {
-      @apply w-full;
+    .register-card {
+      @apply w-full max-w-sm p-6;
+
+      .register-header {
+        @apply mb-6;
+
+        img {
+          @apply w-12 h-12;
+        }
+
+        h1 {
+          @apply text-xl;
+        }
+
+        p {
+          @apply text-xs;
+        }
+      }
     }
+  }
+}
+
+@media (width <= 480px) {
+  .register-card {
+    @apply p-4 mx-2;
   }
 }
 </style>
