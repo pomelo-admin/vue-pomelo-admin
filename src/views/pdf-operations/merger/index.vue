@@ -186,40 +186,40 @@ const downloadMergedPdf = () => {
 
 .card-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .description {
-  color: var(--el-text-color-secondary);
   margin-bottom: 20px;
+  color: var(--el-text-color-secondary);
 }
 
 .upload-area {
-  border: 2px dashed #a0cfff;
-  border-radius: 8px;
   padding: 40px;
+  margin: 20px 0;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s;
-  margin: 20px 0;
   background-color: #f0f7ff;
+  border: 2px dashed #a0cfff;
+  border-radius: 8px;
+  transition: all 0.3s;
 
   &:hover {
-    border-color: var(--el-color-primary);
     background-color: #e6f1fc;
+    border-color: var(--el-color-primary);
   }
 
   .upload-icon {
-    color: var(--el-color-primary);
     margin-bottom: 10px;
     font-size: 48px;
+    color: var(--el-color-primary);
   }
 
   p {
-    color: var(--el-text-color-secondary);
     margin: 10px 0;
     font-size: 16px;
+    color: var(--el-text-color-secondary);
   }
 
   .selected-files {
@@ -229,23 +229,23 @@ const downloadMergedPdf = () => {
 }
 
 .pdf-list {
-  margin: 20px 0;
   max-height: 400px;
+  margin: 20px 0;
   overflow-y: auto;
 
   .pdf-item {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-radius: 4px;
     margin-bottom: 10px;
     background-color: var(--el-fill-color-light);
     border: 1px solid var(--el-border-color-light);
+    border-radius: 4px;
 
     .drag-handle {
-      cursor: move;
       padding: 10px;
       color: var(--el-text-color-secondary);
+      cursor: move;
 
       &:hover {
         color: var(--el-color-primary);
@@ -253,30 +253,30 @@ const downloadMergedPdf = () => {
     }
 
     .pdf-icon {
-      width: 40px;
-      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--el-color-danger);
+      width: 40px;
+      height: 40px;
       margin-right: 15px;
+      color: var(--el-color-danger);
     }
 
     .pdf-info {
       flex: 1;
 
       .pdf-name {
-        font-weight: bold;
+        max-width: 300px;
         margin-bottom: 5px;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 300px;
+        font-weight: bold;
+        white-space: nowrap;
       }
 
       .pdf-size {
-        color: var(--el-text-color-secondary);
         font-size: 12px;
+        color: var(--el-text-color-secondary);
       }
     }
   }
@@ -289,7 +289,7 @@ const downloadMergedPdf = () => {
 }
 
 .ghost {
-  opacity: 0.5;
   background: var(--el-color-primary-light-9);
+  opacity: 0.5;
 }
 </style>

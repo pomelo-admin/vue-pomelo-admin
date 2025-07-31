@@ -392,30 +392,30 @@ const readFileAsDataURL = (file: File): Promise<string> => {
 
 <style scoped lang="scss">
 .upload-area {
-  border: 2px dashed #a0cfff;
-  border-radius: 8px;
   padding: 40px;
+  margin: 20px 0;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s;
-  margin: 20px 0;
   background-color: #f0f7ff;
+  border: 2px dashed #a0cfff;
+  border-radius: 8px;
+  transition: all 0.3s;
 
   &:hover {
-    border-color: var(--el-color-primary);
     background-color: #e6f1fc;
+    border-color: var(--el-color-primary);
   }
 
   .upload-icon {
-    color: var(--el-color-primary);
     margin-bottom: 10px;
     font-size: 48px;
+    color: var(--el-color-primary);
   }
 
   p {
-    color: var(--el-text-color-secondary);
     margin: 10px 0;
     font-size: 16px;
+    color: var(--el-text-color-secondary);
   }
 
   .selected-files {
@@ -425,49 +425,49 @@ const readFileAsDataURL = (file: File): Promise<string> => {
 }
 
 .file-list {
-  margin: 20px 0;
   max-height: 300px;
+  margin: 20px 0;
   overflow-y: auto;
 
   .file-item {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-radius: 4px;
     margin-bottom: 10px;
     background-color: var(--el-fill-color-light);
+    border-radius: 4px;
 
     .file-preview {
       width: 60px;
       height: 60px;
+      margin-right: 15px;
       object-fit: cover;
       border-radius: 4px;
-      margin-right: 15px;
     }
 
     .file-info {
       flex: 1;
 
       .file-name {
-        font-weight: bold;
+        max-width: 300px;
         margin-bottom: 5px;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 300px;
+        font-weight: bold;
+        white-space: nowrap;
       }
 
       .file-size {
-        color: var(--el-text-color-secondary);
         font-size: 12px;
+        color: var(--el-text-color-secondary);
       }
     }
   }
 }
 
 .options-panel {
-  margin: 20px 0;
   padding: 20px;
+  margin: 20px 0;
   background-color: var(--el-fill-color-light);
   border-radius: 4px;
 }
@@ -485,9 +485,9 @@ const readFileAsDataURL = (file: File): Promise<string> => {
   margin-top: 20px;
 
   .image-output-item {
+    overflow: hidden;
     border: 1px solid var(--el-border-color);
     border-radius: 4px;
-    overflow: hidden;
 
     .image-preview {
       width: 100%;
@@ -508,7 +508,7 @@ const readFileAsDataURL = (file: File): Promise<string> => {
 }
 
 .description {
-  color: var(--el-text-color-secondary);
   margin-bottom: 20px;
+  color: var(--el-text-color-secondary);
 }
 </style>

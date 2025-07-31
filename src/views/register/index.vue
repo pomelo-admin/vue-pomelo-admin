@@ -190,11 +190,13 @@ const goToLogin = () => {
 
   &::before {
     content: '';
+
     @apply absolute inset-0 opacity-30;
+
     background:
-      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+      radial-gradient(circle at 20% 80%, rgb(120 119 198 / 30%) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgb(255 119 198 / 30%) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgb(120 219 255 / 20%) 0%, transparent 50%);
   }
 
   .register-content {
@@ -204,12 +206,12 @@ const goToLogin = () => {
   .register-card {
     @apply w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 relative;
 
+    border: 1px solid rgb(255 255 255 / 10%);
     box-shadow:
       0 20px 25px -5px rgb(0 0 0 / 10%),
       0 10px 10px -5px rgb(0 0 0 / 4%),
       0 0 0 1px rgb(255 255 255 / 5%);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     transform: translateY(0);
     transition:
       transform 0.3s ease-in-out,
