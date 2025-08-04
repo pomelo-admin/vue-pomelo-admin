@@ -43,7 +43,7 @@ service.interceptors.response.use(
             type: 'warning',
           }).then(() => {
             authStore.logout().then(() => {
-              window.location.reload();
+              router.push('/login');
             });
           });
         } else {
