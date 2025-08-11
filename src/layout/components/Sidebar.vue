@@ -86,15 +86,9 @@ const activeMenu = computed(() => {
       border-right: none;
     }
 
-    /* 强制覆盖菜单项与标题的文字颜色，立即响应主题切换 */
-    :deep(.el-menu-item),
-    :deep(.el-sub-menu__title) {
-      color: v-bind('isDark ? "#e5e7eb" : "#334155"') !important;
-    }
+    /* 使用 Element Plus 提供的 CSS 变量控制颜色，避免覆盖 is-active 高亮 */
 
-    :deep(.el-menu--popup .el-menu-item) {
-      color: v-bind('isDark ? "#e5e7eb" : "#334155"') !important;
-    }
+    /* 常规文字色由 --el-menu-text-color 控制，激活色由 --el-menu-active-color 控制 */
 
     :deep(.el-menu-item .el-icon),
     :deep(.el-sub-menu__title .el-icon) {
