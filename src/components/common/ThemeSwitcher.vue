@@ -16,16 +16,19 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue';
+import { computed } from 'vue';
 import { Moon, Sunny } from '@element-plus/icons-vue';
 import { useI18n } from 'vue-i18n';
+import { useThemeStore } from '@/store/modules/theme';
 
 const { t } = useI18n();
-const isDark = inject('isDark', false);
+const theme = useThemeStore();
+const isDark = computed(() => theme.isDark);
 
 const emit = defineEmits(['toggle-theme']);
 
 const toggleTheme = () => {
+  theme.toggle();
   emit('toggle-theme');
 };
 </script>

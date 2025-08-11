@@ -4,6 +4,8 @@ import router from './router';
 import store from './store';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
+// Enable Element Plus dark theme CSS variables
+import 'element-plus/theme-chalk/dark/css-vars.css';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import './styles/index.scss';
 import i18n from './locales';
@@ -20,6 +22,11 @@ if (import.meta.env.PROD) {
 }
 
 const app = createApp(App);
+
+// 先挂载 Pinia，初始化主题（同步导入，减少首屏竞态/闪烁）
+app.use(store);
+import { useThemeStore } from '@/store/modules/theme';
+useThemeStore().init();
 
 // 获取当前语言
 const currentLanguage = localStorage.getItem('language') || 'zh-CN';

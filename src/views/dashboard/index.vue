@@ -209,6 +209,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch, nextTick, onBeforeUnmount } from 'vue';
+import { useThemeStore } from '@/store/modules/theme';
 import { User, ShoppingCart, Wallet, View, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
 import { useI18n } from 'vue-i18n';
 import * as echarts from 'echarts';
@@ -226,6 +227,9 @@ import {
 import { ElMessage } from 'element-plus';
 
 const { t } = useI18n();
+// 从 Pinia 主题 Store 读取暗色状态
+const theme = useThemeStore();
+const isDark = theme.isDark as any;
 
 // 图表引用
 const salesChartRef = ref<HTMLElement | null>(null);
@@ -304,6 +308,7 @@ const initSalesChart = () => {
   }
 
   // 创建新图表实例
+  // 根据主题设置图表主题（自定义浅色/深色）
   salesChart = echarts.init(salesChartRef.value);
 
   // 准备数据
@@ -333,10 +338,14 @@ const initSalesChart = () => {
       textStyle: {
         fontSize: 16,
         fontWeight: 'normal',
+        color: isDark?.value ? '#e5e7eb' : '#333',
       },
     },
     tooltip: {
       trigger: 'axis',
+      backgroundColor: isDark?.value ? 'rgba(30,41,59,0.9)' : 'rgba(255,255,255,0.9)',
+      borderColor: isDark?.value ? '#475569' : '#eee',
+      textStyle: { color: isDark?.value ? '#e5e7eb' : '#333' },
       formatter: (params: any) => {
         const data = params[0];
         return `${data.name}<br/>${data.marker}${t('dashboard.salesAmount', { value: data.value.toFixed(2) })}`;
@@ -355,20 +364,23 @@ const initSalesChart = () => {
       data: dates,
       axisLine: {
         lineStyle: {
-          color: '#ccc',
+          color: isDark?.value ? '#666' : '#ccc',
         },
+      },
+      axisLabel: {
+        color: isDark?.value ? '#cbd5e1' : '#666',
       },
     },
     yAxis: {
       type: 'value',
       axisLabel: {
         formatter: (value: number) => `¥${value}`,
-        color: '#666',
+        color: isDark?.value ? '#cbd5e1' : '#666',
       },
       splitLine: {
         lineStyle: {
           type: 'dashed',
-          color: '#eee',
+          color: isDark?.value ? '#334155' : '#eee',
         },
       },
     },
@@ -456,11 +468,11 @@ const initCategoryChart = () => {
           percentage: params.percent.toFixed(1),
         });
       },
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
-      borderColor: '#eee',
+      backgroundColor: isDark?.value ? 'rgba(30,41,59,0.9)' : 'rgba(255, 255, 255, 0.9)',
+      borderColor: isDark?.value ? '#475569' : '#eee',
       borderWidth: 1,
       textStyle: {
-        color: '#333',
+        color: isDark?.value ? '#e5e7eb' : '#333',
       },
     },
     legend: {
@@ -472,7 +484,7 @@ const initCategoryChart = () => {
       itemGap: 10,
       textStyle: {
         fontSize: 12,
-        color: '#666',
+        color: isDark?.value ? '#cbd5e1' : '#666',
       },
     },
     series: [
@@ -484,7 +496,7 @@ const initCategoryChart = () => {
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 10,
-          borderColor: '#fff',
+          borderColor: isDark?.value ? '#0f172a' : '#fff',
           borderWidth: 2,
         },
         label: {
@@ -594,6 +606,18 @@ const loadMoreActivities = () => {
 watch(chartTimeRange, () => {
   fetchSalesData();
 });
+
+// 监听主题切换，重绘图表以适配暗色/浅色
+watch(
+  () => isDark?.value,
+  () => {
+    fetchSalesData();
+    nextTick(() => {
+      salesChart?.resize();
+      categoryChart?.resize();
+    });
+  }
+);
 
 // 页面加载时获取数据
 onMounted(() => {

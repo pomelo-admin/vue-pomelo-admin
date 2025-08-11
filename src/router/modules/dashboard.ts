@@ -4,14 +4,13 @@ const dashboardRoutes: RouteRecordRaw = {
   path: '/dashboard',
   name: 'Dashboard',
   component: () => import('@/layout/index.vue'),
-  redirect: '/dashboard/index',
-  meta: { title: 'dashboard', icon: 'DataBoard', alwaysShow: true },
+  meta: { title: 'dashboard', icon: 'DataBoard' },
   children: [
     {
-      path: 'index',
+      path: '',
       name: 'DashboardIndex',
       component: () => import('@/views/dashboard/index.vue'),
-      meta: { title: 'dashboard', icon: 'DataBoard' },
+      meta: { title: 'dashboard', icon: 'DataBoard', activeMenu: '/dashboard', breadcrumb: false },
     },
   ],
 };

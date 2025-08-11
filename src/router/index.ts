@@ -29,7 +29,6 @@ const whiteList = [
   '/error/403',
   '/error/500',
   '/dashboard',
-  '/dashboard/index',
 ];
 
 // 全局前置守卫
@@ -46,14 +45,9 @@ router.beforeEach(async (to, from, next) => {
 
   // 检查是否是错误页面模块路由或控制台页面
   const isErrorModulePage = to.path.startsWith('/error/');
-  const isDashboardPage = to.path === '/dashboard' || to.path === '/dashboard/index';
+  const isDashboardPage = to.path === '/dashboard';
 
   if (isErrorModulePage || isDashboardPage) {
-    // 特殊处理控制台首页
-    if (to.path === '/dashboard') {
-      next('/dashboard/index');
-      return;
-    }
     next();
     return;
   }

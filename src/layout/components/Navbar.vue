@@ -33,7 +33,7 @@
 
       <!-- 主题切换 -->
       <div class="right-menu-item">
-        <theme-switcher @toggle-theme="$emit('toggleTheme')" />
+        <theme-switcher />
       </div>
 
       <!-- 用户头像 -->
@@ -88,6 +88,17 @@ const toggleSidebar = () => {
 
   .menu-collapse-btn {
     @apply cursor-pointer p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mr-2;
+
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+
+    :deep(.el-icon) {
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+      vertical-align: middle;
+    }
   }
 
   .right-menu {

@@ -4,7 +4,7 @@
     <div class="sidebar-container" :class="{ 'is-collapsed': isCollapse }">
       <div class="logo-container">
         <img src="@/assets/images/pomelo-logo.svg" alt="Logo" class="w-10 h-10 mr-2" />
-        <h1 v-if="!isCollapse">Pomelo Admin</h1>
+        <h1 v-if="!isCollapse" class="text-gray-800 dark:text-gray-100">Pomelo Admin</h1>
       </div>
       <el-scrollbar class="sidebar-scrollbar">
         <sidebar />
@@ -14,7 +14,7 @@
     <!-- 主容器 -->
     <div class="main-container">
       <!-- 头部 -->
-      <navbar @toggle-theme="toggleTheme" />
+      <navbar />
 
       <!-- 内容区 -->
       <app-main />
@@ -29,37 +29,15 @@ import Sidebar from './components/Sidebar.vue';
 import AppMain from './components/AppMain.vue';
 
 const isCollapse = ref(false);
-const isDark = ref(false); // 默认为浅色模式
-
 // 提供给子组件
 provide('isCollapse', isCollapse);
-provide('isDark', isDark);
 
 // 初始化时读取本地存储中的设置
 onMounted(() => {
   // 读取菜单折叠状态
   const sidebarStatus = localStorage.getItem('sidebarStatus');
   isCollapse.value = sidebarStatus === '1';
-
-  // 读取暗色模式状态
-  const darkMode = localStorage.getItem('darkMode') === 'true';
-  if (darkMode) {
-    isDark.value = true;
-    document.documentElement.classList.add('dark');
-  }
 });
-
-const toggleTheme = () => {
-  isDark.value = !isDark.value;
-  // 添加或移除dark类以切换主题
-  if (isDark.value) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-  // 保存主题设置到本地存储
-  localStorage.setItem('darkMode', isDark.value.toString());
-};
 </script>
 
 <style lang="scss" scoped>
@@ -70,7 +48,9 @@ const toggleTheme = () => {
     @apply h-full flex flex-col transition-all duration-300 ease-in-out z-10;
 
     width: 220px;
-    background-color: v-bind('isDark ? "#304156" : "#f0f2f5"');
+
+    /* 更稳妥地使用 Tailwind 暗色/浅色背景，避免 v-bind 时序问题 */
+    @apply bg-gray-100 dark:bg-slate-800;
 
     &.is-collapsed {
       width: 64px;
@@ -88,13 +68,10 @@ const toggleTheme = () => {
 
     .logo-container {
       @apply h-16 flex items-center justify-center p-4;
-
-      background-color: v-bind('isDark ? "#304156" : "#f0f2f5"');
+      @apply bg-gray-100 dark:bg-slate-800;
 
       h1 {
-        @apply text-lg font-bold truncate;
-
-        color: v-bind('isDark ? "#fff" : "#333"');
+        @apply text-lg font-bold truncate text-gray-800 dark:text-gray-100;
       }
     }
 
@@ -104,7 +81,8 @@ const toggleTheme = () => {
 
       padding: 0;
       margin: 0;
-      background-color: v-bind('isDark ? "#304156" : "#f0f2f5"');
+
+      @apply bg-gray-100 dark:bg-slate-800;
 
       :deep(.el-scrollbar__view) {
         height: 100%;

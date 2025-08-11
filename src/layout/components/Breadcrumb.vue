@@ -37,7 +37,9 @@ const getMenuTitle = (title?: string) => {
 
 const getBreadcrumbs = () => {
   // 过滤掉没有 meta.title 的路由
-  const matched = route.matched.filter(item => item.meta && item.meta.title);
+  const matched = route.matched.filter(
+    item => item.meta && item.meta.title && item.meta.breadcrumb !== false
+  );
   breadcrumbs.value = matched;
 };
 
@@ -57,7 +59,33 @@ watch(
 
 <style lang="scss" scoped>
 .app-breadcrumb {
-  @apply inline-block;
+  @apply inline-flex items-center;
+
+  line-height: 1;
+  vertical-align: middle;
+
+  /* 对齐 Element Plus 面包屑内部结构 */
+  :deep(.el-breadcrumb) {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  :deep(.el-breadcrumb__item) {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  :deep(.el-breadcrumb__inner),
+  :deep(.el-breadcrumb__separator) {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+
+  /* 隐藏最后一个分隔符 */
+  :deep(.el-breadcrumb__item:last-child .el-breadcrumb__separator) {
+    display: none !important;
+  }
 
   .no-redirect {
     @apply text-gray-400 cursor-text;

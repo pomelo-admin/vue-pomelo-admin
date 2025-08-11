@@ -8,6 +8,7 @@ words:
   - echarts
   - wangEditor
   - hoverbar
+  - pinia
 ignorePaths:
   - node_modules
   - dist

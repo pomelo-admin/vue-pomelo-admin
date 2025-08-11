@@ -108,8 +108,8 @@ const resolvePath = (routePath: string) => {
 
   // 特殊处理错误页面和控制台页面的子路由
   if (props.basePath === '/error' || props.basePath === '/dashboard') {
-    // 直接构建完整路径，不使用path.resolve
-    const fullPath = `${props.basePath}/${routePath}`;
+    // 直接构建完整路径，不使用 path.resolve；当子路由为空时避免多一个斜杠
+    const fullPath = routePath ? `${props.basePath}/${routePath}` : props.basePath;
     return fullPath;
   }
 
