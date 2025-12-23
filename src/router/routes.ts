@@ -8,6 +8,7 @@ import lowcodeRoutes from './modules/lowcode';
 import commonFeaturesRoutes from './modules/common-features';
 import pdfOperationsRoutes from './modules/pdf-operations';
 import aboutRoutes from './modules/about';
+import mediaRoutes from './modules/media';
 
 // 将独立的错误页面路由和通配符路由从 commonRoutes 中分离出来
 const notFoundRoute = commonRoutes.find(route => route.path === '/:pathMatch(.*)*');
@@ -23,8 +24,9 @@ const routes: RouteRecordRaw[] = [
   featuresRoutes,
   commonFeaturesRoutes,
   lowcodeRoutes,
-  pdfOperationsRoutes,
   ...errorPageRoutes,
+  pdfOperationsRoutes,
+  mediaRoutes,
   errorRoutes,
   systemRoutes,
   aboutRoutes,

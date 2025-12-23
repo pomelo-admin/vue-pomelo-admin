@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AudioPlayer: typeof import('./../components/media/audio-player/index.vue')['default']
     CaptchaDisplay: typeof import('./../components/features/digit-captcha/components/CaptchaDisplay.vue')['default']
     CodeEditor: typeof import('./../components/features/code-editor/index.vue')['default']
     DebouncedSearchSelect: typeof import('./../components/features/debounced-search-select/index.vue')['default']
