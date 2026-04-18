@@ -10,14 +10,14 @@
     path="src/components/features/rich-text-editor"
   >
     <!-- 基础用法 -->
-    <el-card class="demo-section" shadow="hover">
+    <el-card class="mb-5" shadow="hover">
       <template #header>
-        <div class="section-header">
+        <div class="flex items-center justify-between">
           <span>{{ t('features.richTextEditor.basicUsage') }}</span>
         </div>
       </template>
-      <div class="demo-container">
-        <div class="demo-component">
+      <div class="flex flex-col gap-5">
+        <div class="w-full">
           <PomeloRichTextEditor
             v-model="content"
             height="300px"
@@ -28,14 +28,14 @@
     </el-card>
 
     <!-- 自定义工具栏 -->
-    <el-card class="demo-section" shadow="hover">
+    <el-card class="mb-5" shadow="hover">
       <template #header>
-        <div class="section-header">
+        <div class="flex items-center justify-between">
           <span>{{ t('features.richTextEditor.customToolbar') }}</span>
         </div>
       </template>
-      <div class="demo-container">
-        <div class="demo-component">
+      <div class="flex flex-col gap-5">
+        <div class="w-full">
           <PomeloRichTextEditor
             v-model="customContent"
             height="250px"
@@ -47,14 +47,14 @@
     </el-card>
 
     <!-- 简洁模式 -->
-    <el-card class="demo-section" shadow="hover">
+    <el-card class="mb-5" shadow="hover">
       <template #header>
-        <div class="section-header">
+        <div class="flex items-center justify-between">
           <span>{{ t('features.richTextEditor.simpleMode') }}</span>
         </div>
       </template>
-      <div class="demo-container">
-        <div class="demo-component">
+      <div class="flex flex-col gap-5">
+        <div class="w-full">
           <PomeloRichTextEditor
             v-model="simpleContent"
             height="200px"
@@ -66,14 +66,14 @@
     </el-card>
 
     <!-- 只读模式 -->
-    <el-card class="demo-section" shadow="hover">
+    <el-card class="mb-5" shadow="hover">
       <template #header>
-        <div class="section-header">
+        <div class="flex items-center justify-between">
           <span>{{ t('features.richTextEditor.readonlyMode') }}</span>
         </div>
       </template>
-      <div class="demo-container">
-        <div class="demo-component">
+      <div class="flex flex-col gap-5">
+        <div class="w-full">
           <PomeloRichTextEditor
             v-model="readonlyContent"
             height="200px"
@@ -119,25 +119,3 @@ const simpleContent = ref('');
 // 只读模式示例
 const readonlyContent = ref('<p>这是一个<strong>只读</strong>的富文本编辑器示例。</p>');
 </script>
-
-<style lang="scss" scoped>
-.demo-section {
-  margin-bottom: 20px;
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .demo-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    .demo-component {
-      width: 100%;
-    }
-  }
-}
-</style>

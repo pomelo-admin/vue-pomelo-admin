@@ -1,5 +1,10 @@
 <template>
-  <div class="theme-button" :class="isDark ? 'dark-theme' : 'light-theme'" @click="toggleTheme">
+  <div
+    ref="themeButtonRef"
+    class="theme-button"
+    :class="isDark ? 'dark-theme' : 'light-theme'"
+    @click="toggleTheme"
+  >
     <el-tooltip
       effect="dark"
       :content="isDark ? t('common.lightMode') : t('common.darkMode')"
@@ -16,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { Moon, Sunny } from '@element-plus/icons-vue';
 import { useI18n } from 'vue-i18n';
 import { useThemeStore } from '@/store/modules/theme';
@@ -24,12 +29,56 @@ import { useThemeStore } from '@/store/modules/theme';
 const { t } = useI18n();
 const theme = useThemeStore();
 const isDark = computed(() => theme.isDark);
+const themeButtonRef = ref<HTMLElement | null>(null);
 
 const emit = defineEmits(['toggle-theme']);
 
-const toggleTheme = () => {
-  theme.toggle();
-  emit('toggle-theme');
+const toggleTheme = async (event: MouseEvent) => {
+  // 检查浏览器是否支持 View Transitions API
+  if (!document.startViewTransition) {
+    theme.toggle();
+    emit('toggle-theme');
+    return;
+  }
+
+  // 获取按钮位置（右上角）
+  const button = themeButtonRef.value;
+  if (!button) {
+    theme.toggle();
+    emit('toggle-theme');
+    return;
+  }
+
+  const rect = button.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+
+  // 计算从按钮位置到页面最远角的距离
+  const endRadius = Math.hypot(
+    Math.max(x, window.innerWidth - x),
+    Math.max(y, window.innerHeight - y)
+  );
+
+  // 使用 View Transitions API
+  const transition = document.startViewTransition(async () => {
+    theme.toggle();
+    emit('toggle-theme');
+  });
+
+  // 等待过渡准备就绪
+  await transition.ready;
+
+  // 创建圆形扩张动画
+  document.documentElement.animate(
+    {
+      clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`],
+    },
+    {
+      duration: 600,
+      easing: 'ease-in-out',
+      pseudoElement: '::view-transition-new(root)',
+    }
+  );
 };
 </script>
 

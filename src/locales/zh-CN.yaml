@@ -44,7 +44,7 @@ common:
   forgotPassword: 忘记密码？
   register: 立即注册
   noAccount: 还没有账号？
-  copyright: © 2025 Pomelo Admin. 版权所有
+  copyright: © 2026 Pomelo Admin. 版权所有
   deleteConfirm: '确定要删除 "{name}" 吗？'
   update:
     title: 新版本可用

@@ -195,18 +195,19 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style scoped>
-.json-visualizer-container {
-  height: 100%;
-}
-
+<style scoped lang="scss">
+.json-visualizer-container,
 .json-visualizer-card {
   height: 100%;
 }
 
-.card-header {
+.card-header,
+.empty-state {
   display: flex;
   align-items: center;
+}
+
+.card-header {
   justify-content: space-between;
 }
 
@@ -216,8 +217,6 @@ onBeforeUnmount(() => {
 }
 
 .empty-state {
-  display: flex;
-  align-items: center;
   justify-content: center;
   height: 100%;
   font-style: italic;

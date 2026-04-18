@@ -64,7 +64,7 @@ const jsonContent = ref(`{
 }`);
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .json-split-view {
   display: flex;
   gap: 20px;
@@ -74,7 +74,7 @@ const jsonContent = ref(`{
 .editor-panel,
 .visualizer-panel {
   flex: 1;
-  min-width: 0; /* 防止flex项目溢出 */
+  min-width: 0;
 }
 
 @media (width <= 768px) {

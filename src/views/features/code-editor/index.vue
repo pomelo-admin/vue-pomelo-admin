@@ -10,14 +10,14 @@
     path="src/components/features/code-editor"
   >
     <!-- 基础用法 -->
-    <el-card class="demo-section" shadow="hover">
+    <el-card class="mb-5" shadow="hover">
       <template #header>
-        <div class="section-header">
+        <div class="flex items-center justify-between">
           <span>{{ t('features.codeEditor.basicUsage', '基础用法') }}</span>
         </div>
       </template>
-      <div class="demo-container">
-        <div class="demo-component">
+      <div class="flex flex-col gap-5">
+        <div class="w-full">
           <PomeloCodeEditor
             v-model:value="jsCode"
             language="javascript"
@@ -29,14 +29,14 @@
     </el-card>
 
     <!-- 只读模式 -->
-    <el-card class="demo-section" shadow="hover">
+    <el-card class="mb-5" shadow="hover">
       <template #header>
-        <div class="section-header">
+        <div class="flex items-center justify-between">
           <span>{{ t('features.codeEditor.readonlyMode', '只读模式') }}</span>
         </div>
       </template>
-      <div class="demo-container">
-        <div class="demo-component">
+      <div class="flex flex-col gap-5">
+        <div class="w-full">
           <PomeloCodeEditor
             v-model:value="readonlyCode"
             language="javascript"
@@ -92,25 +92,3 @@ app.use(router)
    .mount('#app');
 `);
 </script>
-
-<style lang="scss" scoped>
-.demo-section {
-  margin-bottom: 20px;
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .demo-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    .demo-component {
-      width: 100%;
-    }
-  }
-}
-</style>

@@ -159,9 +159,9 @@ const onEnded = () => {
   progress.value = 0;
 };
 
-const onSeek = (value: number) => {
+const onSeek = (value: number | number[]) => {
   const audio = audioRef.value;
-  if (!audio || !duration.value) return;
+  if (!audio || !duration.value || Array.isArray(value)) return;
   const targetTime = (value / 100) * duration.value;
   audio.currentTime = targetTime;
   currentTime.value = targetTime;
@@ -225,17 +225,17 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  border-radius: 8px;
   background: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 6%);
 
   audio {
     display: none;
   }
 
   .audio-main {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 8px;
   }
@@ -260,32 +260,32 @@ onBeforeUnmount(() => {
 
   .audio-controls {
     display: flex;
-    align-items: center;
     gap: 12px;
+    align-items: center;
 
     .audio-progress {
-      flex: 1;
       display: flex;
-      align-items: center;
+      flex: 1;
       gap: 8px;
+      align-items: center;
 
       .time-text {
         width: 44px;
-        text-align: center;
         font-size: 12px;
         color: #909399;
+        text-align: center;
       }
     }
 
     .audio-volume {
       display: flex;
-      align-items: center;
       gap: 4px;
+      align-items: center;
       width: 120px;
 
       .volume-icon {
-        cursor: pointer;
         color: #606266;
+        cursor: pointer;
 
         &:hover {
           color: #409eff;
@@ -294,217 +294,6 @@ onBeforeUnmount(() => {
 
       .volume-slider {
         flex: 1;
-      }
-    }
-  }
-}
-</style>
-
-<template>
-  <div class="audio-player">
-    <audio ref="audioRef" :src="src" @timeupdate="onTimeUpdate" @loadedmetadata="onLoadedMeta" />
-
-    <div class="audio-main">
-      <div class="audio-info">
-        <div class="audio-title">{{ title }}</div>
-        <div class="audio-subtitle" v-if="artist || album">
-          <span v-if="artist">{{ artist }}</span>
-          <span v-if="artist && album"> · </span>
-          <span v-if="album">{{ album }}</span>
-        </div>
-      </div>
-
-      <div class="audio-controls">
-        <el-button circle size="large" @click="togglePlay">
-          <el-icon v-if="!playing"><video-play /></el-icon>
-          <el-icon v-else><video-pause /></el-icon>
-        </el-button>
-
-        <div class="progress-wrapper">
-          <span class="time-text">{{ formatTime(currentTime) }}</span>
-          <el-slider
-            v-model="progress"
-            :min="0"
-            :max="100"
-            :show-tooltip="false"
-            @change="onSeek"
-          />
-          <span class="time-text">{{ formatTime(duration) }}</span>
-        </div>
-      </div>
-
-      <div class="audio-extra">
-        <div class="volume-wrapper">
-          <el-icon class="volume-icon"><volume-up /></el-icon>
-          <el-slider
-            v-model="volume"
-            :min="0"
-            :max="100"
-            :show-tooltip="false"
-            @input="onVolumeChange"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
-import { VideoPlay, VideoPause, VolumeUp } from '@element-plus/icons-vue';
-
-const props = defineProps<{
-  src: string;
-  title?: string;
-  artist?: string;
-  album?: string;
-  autoplay?: boolean;
-}>();
-
-const audioRef = ref<HTMLAudioElement | null>(null);
-const playing = ref(false);
-const duration = ref(0);
-const currentTime = ref(0);
-const progress = ref(0);
-const volume = ref(80);
-
-const togglePlay = () => {
-  const audio = audioRef.value;
-  if (!audio) return;
-  if (playing.value) {
-    audio.pause();
-  } else {
-    audio.play();
-  }
-};
-
-const onTimeUpdate = () => {
-  const audio = audioRef.value;
-  if (!audio) return;
-  currentTime.value = audio.currentTime;
-  duration.value = audio.duration || 0;
-  progress.value = duration.value ? (audio.currentTime / duration.value) * 100 : 0;
-};
-
-const onLoadedMeta = () => {
-  const audio = audioRef.value;
-  if (!audio) return;
-  duration.value = audio.duration || 0;
-  if (props.autoplay) {
-    audio.play();
-  }
-};
-
-const onSeek = (val: number) => {
-  const audio = audioRef.value;
-  if (!audio || !duration.value) return;
-  const target = (val / 100) * duration.value;
-  audio.currentTime = target;
-};
-
-const onVolumeChange = (val: number) => {
-  const audio = audioRef.value;
-  if (!audio) return;
-  audio.volume = val / 100;
-};
-
-const formatTime = (time: number) => {
-  if (!time || isNaN(time)) return '00:00';
-  const m = Math.floor(time / 60)
-    .toString()
-    .padStart(2, '0');
-  const s = Math.floor(time % 60)
-    .toString()
-    .padStart(2, '0');
-  return `${m}:${s}`;
-};
-
-watch(playing, val => {
-  const audio = audioRef.value;
-  if (!audio) return;
-  if (val && audio.paused) {
-    audio.play();
-  } else if (!val && !audio.paused) {
-    audio.pause();
-  }
-});
-
-onMounted(() => {
-  const audio = audioRef.value;
-  if (!audio) return;
-  audio.volume = volume.value / 100;
-  audio.addEventListener('play', () => (playing.value = true));
-  audio.addEventListener('pause', () => (playing.value = false));
-});
-
-onBeforeUnmount(() => {
-  const audio = audioRef.value;
-  if (!audio) return;
-  audio.pause();
-});
-</script>
-
-<style scoped lang="scss">
-.audio-player {
-  width: 100%;
-  padding: 16px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #1f2933, #111827);
-  color: #f9fafb;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4);
-
-  .audio-main {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .audio-info {
-    .audio-title {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .audio-subtitle {
-      margin-top: 4px;
-      font-size: 13px;
-      color: #9ca3af;
-    }
-  }
-
-  .audio-controls {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    .progress-wrapper {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      .time-text {
-        font-size: 12px;
-        color: #d1d5db;
-        width: 42px;
-        text-align: center;
-      }
-    }
-  }
-
-  .audio-extra {
-    display: flex;
-    justify-content: flex-end;
-
-    .volume-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 200px;
-
-      .volume-icon {
-        font-size: 18px;
-        color: #e5e7eb;
       }
     }
   }

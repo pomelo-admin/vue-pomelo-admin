@@ -327,7 +327,7 @@ const copyCode = () => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .form-generator-container {
   padding: 5px;
 }
@@ -336,15 +336,26 @@ const copyCode = () => {
   margin-bottom: 20px;
 }
 
-.card-header {
+.card-header,
+.option-item,
+.empty-tip,
+.no-selection,
+.component-item {
   display: flex;
   align-items: center;
+}
+
+.card-header {
   justify-content: space-between;
+}
+
+.header-actions,
+.option-item {
+  gap: 10px;
 }
 
 .header-actions {
   display: flex;
-  gap: 10px;
 }
 
 .form-designer {
@@ -376,9 +387,7 @@ const copyCode = () => {
 }
 
 .component-item {
-  display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   height: 70px;
   padding: 10px;
@@ -388,17 +397,17 @@ const copyCode = () => {
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   transition: all 0.3s;
-}
 
-.component-item:hover {
-  border-color: #409eff;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
-}
+  &:hover {
+    border-color: #409eff;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  }
 
-.component-item .el-icon {
-  margin-bottom: 5px;
-  font-size: 24px;
-  color: #409eff;
+  .el-icon {
+    margin-bottom: 5px;
+    font-size: 24px;
+    color: #409eff;
+  }
 }
 
 .form-canvas {
@@ -410,13 +419,15 @@ const copyCode = () => {
   border-radius: 4px;
 }
 
-.empty-tip {
-  display: flex;
-  align-items: center;
+.empty-tip,
+.no-selection {
   justify-content: center;
   height: 100%;
-  font-size: 14px;
   color: #909399;
+}
+
+.empty-tip {
+  font-size: 14px;
 }
 
 .form-item-wrapper {
@@ -426,15 +437,19 @@ const copyCode = () => {
   border: 1px dashed transparent;
   border-radius: 4px;
   transition: all 0.3s;
-}
 
-.form-item-wrapper:hover {
-  border-color: #409eff;
-}
+  &:hover {
+    border-color: #409eff;
 
-.form-item-wrapper.active {
-  background-color: rgb(64 158 255 / 5%);
-  border-color: #409eff;
+    .item-actions {
+      display: block;
+    }
+  }
+
+  &.active {
+    background-color: rgb(64 158 255 / 5%);
+    border-color: #409eff;
+  }
 }
 
 .item-actions {
@@ -444,27 +459,12 @@ const copyCode = () => {
   display: none;
 }
 
-.form-item-wrapper:hover .item-actions {
-  display: block;
-}
-
 .properties-form {
   height: 100%;
   overflow-y: auto;
 }
 
-.no-selection {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: #909399;
-}
-
 .option-item {
-  display: flex;
-  gap: 10px;
-  align-items: center;
   margin-bottom: 10px;
 }
 

@@ -12,7 +12,7 @@
     :no-data-text="noDataText"
     :no-match-text="noMatchText"
     :reserve-keyword="reserveKeyword"
-    class="debounced-search-select"
+    class="w-full"
     v-bind="$attrs"
     @change="handleChange"
     @visible-change="handleVisibleChange"
@@ -190,9 +190,3 @@ defineExpose({
   },
 });
 </script>
-
-<style scoped>
-.debounced-search-select {
-  width: 100%;
-}
-</style>

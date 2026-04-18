@@ -1,5 +1,5 @@
 <template>
-  <div ref="editorContainer" class="monaco-editor-container"></div>
+  <div ref="editorContainer" class="h-full w-full"></div>
 </template>
 
 <script setup lang="ts">
@@ -103,10 +103,3 @@ onBeforeUnmount(() => {
   }
 });
 </script>
-
-<style lang="scss" scoped>
-.monaco-editor-container {
-  width: 100%;
-  height: 100%;
-}
-</style>

@@ -1,11 +1,11 @@
 <!-- 数字验证码组件 -->
 <template>
-  <div class="digit-captcha">
+  <div class="flex flex-col gap-2">
     <el-input
       v-model="inputValue"
       :placeholder="placeholder"
       :maxlength="length"
-      class="digit-captcha__input"
+      class="w-full"
       @input="handleInput"
       @keydown.delete="handleDelete"
       @focus="isFocused = true"
@@ -166,15 +166,3 @@ defineExpose({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-.digit-captcha {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  &__input {
-    width: 100%;
-  }
-}
-</style>

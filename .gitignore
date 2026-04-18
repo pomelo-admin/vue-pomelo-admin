@@ -32,3 +32,6 @@ coverage
 
 # VSCodeCounter
 .VSCodeCounter
+
+# Documentation (local only)
+docs/

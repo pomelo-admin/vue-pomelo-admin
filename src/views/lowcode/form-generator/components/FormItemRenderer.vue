@@ -152,7 +152,7 @@ const updateValue = (prop: string, value: any) => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .item-actions {
   position: absolute;
   top: 10px;

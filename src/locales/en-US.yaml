@@ -16,7 +16,7 @@ common:
   appTitle: Pomelo Admin
   collapse: Collapse Menu
   expand: Expand Menu
-  copyright: © 2025 Pomelo Admin. All Rights Reserved.
+  copyright: © 2026 Pomelo Admin. All Rights Reserved.
   deleteConfirm: 'Are you sure you want to delete "{name}"?'
   componentInfo: Component Information
   componentPath: 'Component Path: {path}'

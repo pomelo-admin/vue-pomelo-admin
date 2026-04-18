@@ -12,7 +12,7 @@
     :no-data-text="noDataText"
     :no-match-text="noMatchText"
     :reserve-keyword="reserveKeyword"
-    class="throttled-search-select"
+    class="w-full"
     v-bind="$attrs"
     @change="handleChange"
     @visible-change="handleVisibleChange"
@@ -194,9 +194,3 @@ defineExpose({
   },
 });
 </script>
-
-<style scoped>
-.throttled-search-select {
-  width: 100%;
-}
-</style>
