@@ -84,8 +84,12 @@ onMounted(() => {
 
       @apply bg-gray-100 dark:bg-slate-800;
 
+      :deep(.el-scrollbar__wrap) {
+        overflow-x: hidden;
+      }
+
       :deep(.el-scrollbar__view) {
-        height: 100%;
+        min-height: 100%;
       }
     }
   }
